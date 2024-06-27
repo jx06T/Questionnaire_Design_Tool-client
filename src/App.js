@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes, useLocation  } from 'react-router-dom'
 import './App.css';
+
+import Home from './pages/Home';
+import Demo from './pages/Demo';
+import UserList from './components/UserList';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <IsHeader/>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/users" element={<UserList />} />
+        <Route path="/demo" element={<Demo />} />
+      </Routes>
+      <IsFooter />
+    </Router>
   );
+}
+
+const excludePaths = [
+  '/users',
+  '/demo'
+];
+function IsHeader(){
+  const {pathname} = useLocation()
+  return excludePaths.includes(pathname)?null:<Header />;
+}
+function IsFooter(){
+  const {pathname} = useLocation()
+  return excludePaths.includes(pathname)?null:<Footer />;
 }
 
 export default App;
