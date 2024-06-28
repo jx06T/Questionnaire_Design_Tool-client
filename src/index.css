@@ -17,6 +17,9 @@ code {
 .myjx-button{
   @apply rounded-md bg-slate-200 hover:bg-slate-300 p-1;
 }
+.myjx-button2{
+  @apply rounded-md bg-slate-300 hover:bg-slate-400 p-1;
+}
 
 .myjx-a{
   @apply rounded-md hover:bg-slate-600 ;

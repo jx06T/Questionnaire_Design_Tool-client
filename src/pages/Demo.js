@@ -1,7 +1,7 @@
 import React from 'react';
-import SAQ from '../components/SAQ';
-import DAQ from '../components/DAQ';
-import {useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
+import QB from '../components/QuestionBank'
+import MB from '../components/MethodBank'
 
 
 function Home() {
@@ -9,10 +9,22 @@ function Home() {
 
     return (
         <div className='Demo flex bg-slate-50 flex-col  items-center justify-center'>
-            <SAQ>
-            </SAQ >
-            <DAQ>
-            </DAQ >
+            <MB.Block>
+                <QB.SAQ>
+                </QB.SAQ >
+                <QB.DAQ>
+                </QB.DAQ >
+            </MB.Block>
+            <MB.Block>
+                <MB.Illustrate>
+                </MB.Illustrate>
+                <QB.SCQ>
+                </QB.SCQ >
+                <QB.MCQ>
+                </QB.MCQ >
+                <MB.Submit>
+                </MB.Submit>
+            </MB.Block>
         </div >
     );
 }
