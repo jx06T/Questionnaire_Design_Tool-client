@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useId } from 'react';
 import EveryPiece from '../EveryPiece';
 
 function MCQ() {
   const [selectedOptions, setSelectedOptions] = useState([]);
-
+  const uniqueId = useId();
   const options = [
     { id: 'A', text: '選項 A' },
     { id: 'B', text: '選項 B' },
@@ -31,7 +32,7 @@ function MCQ() {
             <label className="flex items-center">
               <input
                 type="checkbox"
-                name="mcq-option"
+                name={`mcq-option-${option.id}-${uniqueId}`}
                 value={option.id}
                 checked={selectedOptions.includes(option.id)}
                 onChange={() => handleOptionChange(option.id)}

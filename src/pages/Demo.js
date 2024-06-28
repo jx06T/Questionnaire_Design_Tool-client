@@ -20,6 +20,8 @@ function Home() {
                 </MB.Illustrate>
                 <QB.SCQ>
                 </QB.SCQ >
+                <QB.SCQ>
+                </QB.SCQ >
                 <QB.MCQ>
                 </QB.MCQ >
                 <MB.Submit>
