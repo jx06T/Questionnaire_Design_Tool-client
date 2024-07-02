@@ -31,5 +31,70 @@ code {
 
 .myjx-textarea{
   resize: none; 
-  @apply w-[100%] border-b border-gray-300 bg-transparent focus:border-gray-400 outline-none ;
+  @apply w-[100%] border-b border-gray-300 bg-transparent focus:border-gray-400 outline-none ;}
+
+.myjx-LS {
+  margin-left: 2.5%;
+  width: 95%;
+  appearance: none; 
+  height: 1rem; 
+  background: linear-gradient(to right, #94a3b8 0%, #cbd5e1 50%,#94a3b8 100%); 
+  border-radius: 0.3rem; 
+  outline: none; 
+  cursor: pointer; 
+  margin-bottom: 0;
+  margin-top: 0.4rem;
+}
+
+.myjx-LS::-webkit-slider-thumb {
+  margin-top:-0.3rem;
+  -webkit-appearance: none; /* 清除默认样式（适用于 Chrome 和 Safari）*/
+  appearance: none; /* 清除默认样式（通用）*/
+  width: 0.5rem; /* 设置thumb的宽度 */
+  height: 1.4rem; /* 设置thumb的高度 */
+  background: #464c4d; /* 设置thumb的背景色 */
+  border-radius: 0.2rem;
+  cursor: pointer; /* 设置鼠标悬停时的指针样式 */
+}
+
+.myjx-LS::-moz-range-thumb {
+  margin-top:-0.3rem;
+  width: 0.5rem; /* 设置thumb的宽度 */
+  height: 1.4rem; /* 设置thumb的高度 */
+  background: #464c4d; /* 设置thumb的背景色 */
+  border-radius: 0.2rem;
+  cursor: pointer; /* 设置鼠标悬停时的指针样式 */
+}
+
+.myjx-datalist {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: center;
+  width: 110%;
+  margin-left: -5%;
+  position: relative;
+  margin-top: 2rem;
+}
+
+.myjx-datalist option {
+  flex: 1;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.range-wrap {
+  position: relative;
+}
+
+.range-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2.7%;
+  width: 100%;
+  height: 1rem;
+  background: repeating-linear-gradient(to right, #e2e8f0, #e2e8f0 3px, transparent 4px, transparent 23.5%);
 }

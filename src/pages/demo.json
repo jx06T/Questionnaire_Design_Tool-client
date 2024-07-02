@@ -1,0 +1,54 @@
+{
+    "setting": {
+      "theme": "默認主題",
+      "language": "中文",
+      "submitButtonText": "提交問卷",
+      "title":"個人興趣調查問卷!"
+    },
+    "questionnaire": [
+      {
+        "type": "SAQ",
+        "params": {
+          "question": "您的姓名是？",
+          "description": "請輸入您的全名",
+          "required": true,
+          "placeholder": "例如：張三"
+        }
+      },
+      {
+        "type": "DAQ",
+        "params": {
+          "question": "請描述您的工作經驗",
+          "description": "簡要說明您過去的工作經歷",
+          "required": false,
+          "rows": 4
+        }
+      },
+      {
+        "type": "BLOCK",
+        "params": {
+          "title": "個人興趣調查",
+          "description": "以下問題旨在了解您的個人興趣",
+          "required": false,
+          "subQuestions": [
+            {
+              "type": "SCQ",
+              "params": {
+                "question": "您最喜歡的運動是？",
+                "options": ["足球", "籃球", "游泳", "跑步"],
+                "required": true
+              }
+            },
+            {
+              "type": "MCQ",
+              "params": {
+                "question": "您平常的興趣愛好有哪些？",
+                "options": ["閱讀", "音樂", "電影", "旅遊", "烹飪"],
+                "required": false
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }

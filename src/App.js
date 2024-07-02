@@ -3,6 +3,7 @@ import './App.css';
 
 import Home from './pages/Home';
 import Demo from './pages/Demo';
+import Test from './pages/Test';
 import UserList from './components/UserList';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/demo" element={<Demo />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
       <IsFooter />
     </Router>
@@ -23,7 +25,7 @@ function App() {
 
 const excludePaths = [
   '/users',
-  '/demo'
+  // '/demo'
 ];
 function IsHeader(){
   const {pathname} = useLocation()
