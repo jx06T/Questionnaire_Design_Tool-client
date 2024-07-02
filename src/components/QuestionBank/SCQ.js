@@ -2,10 +2,10 @@ import React from 'react';
 import { useState, useId } from 'react';
 import EveryPiece from '../EveryPiece';
 
-function MCQ() {
+function MCQ(props) {
   const [selectedOption, setSelectedOption] = useState(null);
   const uniqueId = useId();
-  const options = [
+  const options = props.options||[
     { id: 'A', text: '選項 A' },
     { id: 'B', text: '選項 B' },
     { id: 'C', text: '選項 C' },
@@ -18,8 +18,8 @@ function MCQ() {
 
   return (
     <EveryPiece>
-      <h2 className='text-2xl mb-[0.2rem]'>這是一道單選題!</h2>
-      <h2 className='text-sm mb-6'>請選擇一個正確答案</h2>
+      <h2 className='text-2xl mb-[0.2rem]'>{props.question||"這是一道單選題!"}</h2>
+      <h2 className='text-sm mb-6'>{props.description||"請選擇一個正確答案"}</h2>
       <div>
         {options.map((option) => (
           <div key={option.id} className="mb-2">

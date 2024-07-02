@@ -1,54 +1,181 @@
 {
-    "setting": {
-      "theme": "默認主題",
-      "language": "中文",
-      "submitButtonText": "提交問卷",
-      "title":"個人興趣調查問卷!"
-    },
-    "questionnaire": [
-      {
-        "type": "SAQ",
-        "params": {
-          "question": "您的姓名是？",
-          "description": "請輸入您的全名",
-          "required": true,
-          "placeholder": "例如：張三"
-        }
-      },
-      {
-        "type": "DAQ",
-        "params": {
-          "question": "請描述您的工作經驗",
-          "description": "簡要說明您過去的工作經歷",
-          "required": false,
-          "rows": 4
-        }
-      },
-      {
-        "type": "BLOCK",
-        "params": {
-          "title": "個人興趣調查",
-          "description": "以下問題旨在了解您的個人興趣",
-          "required": false,
-          "subQuestions": [
-            {
-              "type": "SCQ",
-              "params": {
-                "question": "您最喜歡的運動是？",
-                "options": ["足球", "籃球", "游泳", "跑步"],
-                "required": true
-              }
-            },
-            {
-              "type": "MCQ",
-              "params": {
-                "question": "您平常的興趣愛好有哪些？",
-                "options": ["閱讀", "音樂", "電影", "旅遊", "烹飪"],
-                "required": false
-              }
-            }
-          ]
-        }
+  "setting": {
+    "theme": "默認主題",
+    "language": "中文",
+    "title": "個人興趣調查問卷!",
+    "subtitle": "看看你是不是白癡，資料僅供學術使用"
+  },
+  "questionnaire": [
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "您的姓名是？",
+        "description": "請輸入您的全名",
+        "required": true,
+        "placeholder": "例如：張三"
       }
-    ]
-  }
+    },
+    {
+      "type": "DAQ",
+      "params": {
+        "question": "請描述您的工作經驗",
+        "description": "簡要說明您過去的工作經歷",
+        "placeholder": "例如：我從來沒有找到工作\n像個白癡一樣",
+        "required": false,
+        "rows": 4
+      }
+    },
+    {
+      "type": "BLOCK",
+      "params": {
+        "title": "個人興趣調查區塊",
+        "description": "以下問題旨在了解您的個人興趣",
+        "required": false
+      },
+      "subQuestions": [
+        {
+          "type": "SCQ",
+          "params": {
+            "question": "您最喜歡的運動是？",
+            "options": [
+              {
+                "id": "A",
+                "text": "足球"
+              },
+              {
+                "id": "B",
+                "text": "籃球"
+              },
+              {
+                "id": "C",
+                "text": "游泳"
+              },
+              {
+                "id": "D",
+                "text": "跑步"
+              }
+            ],
+            "required": true
+          }
+        },
+        {
+          "type": "MCQ",
+          "params": {
+            "question": "您平常的興趣愛好有哪些？",
+            "options": [
+              {
+                "id": "A",
+                "text": "閱讀"
+              },
+              {
+                "id": "B",
+                "text": "音樂"
+              },
+              {
+                "id": "C",
+                "text": "電影"
+              },
+              {
+                "id": "D",
+                "text": "旅遊"
+              },
+              {
+                "id": "E",
+                "text": "烹飪"
+              }
+            ],
+            "required": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "您對我們的服務滿意度如何？",
+        "description": "請根據您的體驗進行評分",
+        "required": true,
+        "options": [
+          {
+            "value": "-100",
+            "text": "非常不滿意"
+          },
+          {
+            "value": "-50",
+            "text": "不滿意"
+          },
+          {
+            "value": "0",
+            "text": "一般"
+          },
+          {
+            "value": "50",
+            "text": "滿意"
+          },
+          {
+            "value": "100",
+            "text": "非常滿意"
+          }
+        ],
+        "minLabel": "非常不滿意",
+        "maxLabel": "非常滿意"
+      }
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "您對我們的服務滿意度如何？",
+        "description": "請根據您的體驗進行評分",
+        "required": true,
+        "options": [
+          {
+            "value": "-75",
+            "text": "非常不滿意"
+          },
+          {
+            "value": "-25",
+            "text": "不滿意"
+          },
+          {
+            "value": "25",
+            "text": "滿意"
+          },
+          {
+            "value": "75",
+            "text": "非常滿意"
+          }
+        ],
+        "minLabel": "非常不滿意",
+        "maxLabel": "非常滿意",
+        "max":80,
+        "min":-80
+      }
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "您對我們的服務滿意度如何？",
+        "description": "請根據您的體驗進行評分",
+        "required": true,
+        "options": [
+          {
+            "value": "-75",
+            "text": "非常不滿意"
+          },
+          {
+            "value": "0",
+            "text": "滿意"
+          },
+          {
+            "value": "75",
+            "text": "非常滿意"
+          }
+        ],
+        "minLabel": "非常不滿意",
+        "maxLabel": "非常滿意",
+        "max":80,
+        "min":-80
+      }
+    }
+  ]
+}

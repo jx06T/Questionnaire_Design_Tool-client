@@ -27,10 +27,9 @@ function Demo() {
                 return <QB.LSQ {...question.params} />;
             case 'BLOCK':
                 return (
-                    <MB.Block>
-                        <MB.Title>{question.params.title}</MB.Title>
-                        <MB.Illustrate>{question.params.description}</MB.Illustrate>
-                        {question.params.subQuestions.map((subQ, index) => (
+                    <MB.Block {...question.params}>
+                        {/* <MB.Illustrate>{question.params.description}</MB.Illustrate> */}
+                        {question.subQuestions.map((subQ, index) => (
                             <React.Fragment key={index}>
                                 {renderQuestion(subQ)}
                             </React.Fragment>
@@ -46,6 +45,7 @@ function Demo() {
 
     return (
         <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
+            <MB.Title {...questionnaireData.setting}></MB.Title>
             {questionnaireData.questionnaire.map((question, index) => (
                 <React.Fragment key={index}>
                     {renderQuestion(question)}

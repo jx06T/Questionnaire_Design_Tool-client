@@ -13,7 +13,7 @@ function EveryPiece(props) {
   });
 
   return (
-    <div className={bgColorClass + " w-[20rem] sm:w-[30rem] md:w-[40rem] m-10 rounded-md p-8"}>
+    <div className={bgColorClass + " w-[20rem] sm:w-[30rem] md:w-[40rem] my-6 mx-0 rounded-md p-8"}>
       {props.children}
     </div>
   );

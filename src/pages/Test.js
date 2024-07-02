@@ -8,8 +8,9 @@ function Test() {
     // const navigate = useNavigate();
 
     return (
-        <div className='Demo flex bg-slate-50 flex-col  items-center justify-center'>
-            <MB.Block noI>
+        <div className='Demo flex bg-slate-50 flex-col  items-center justify-center mx-0'>
+            {/* <MB.Block noI> */}
+            <div>
                 <MB.Title>
                 </MB.Title>
                 <QB.SAQ>
@@ -18,7 +19,8 @@ function Test() {
                 </QB.DAQ >
                 <QB.LSQ>
                 </QB.LSQ >
-            </MB.Block>
+            </div>
+            {/* </MB.Block> */}
             <MB.Block>
                 <MB.Illustrate>
                 </MB.Illustrate>
