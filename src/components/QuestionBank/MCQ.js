@@ -24,7 +24,7 @@ function MCQ(props) {
 
   return (
     <EveryPiece>
-      <h2 className='text-2xl mb-[0.2rem]'>{props.question||"這是一道多選題!"}</h2>
+      <h2 className={`text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}>{props.question||"這是一道多選題!"}</h2>
       <h2 className='text-sm mb-6'>{props.description||"請選擇一個或多個正確答案"}</h2>
       <div>
         {options.map((option) => (

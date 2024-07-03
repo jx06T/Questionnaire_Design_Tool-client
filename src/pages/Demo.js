@@ -25,6 +25,8 @@ function Demo() {
                 return <QB.MCQ {...question.params} />;
             case 'LSQ':
                 return <QB.LSQ {...question.params} />;
+            case 'UDQ':
+                return <QB.UDQ {...question.params} />;
             case 'BLOCK':
                 return (
                     <MB.Block {...question.params}>

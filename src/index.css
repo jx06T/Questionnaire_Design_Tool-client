@@ -26,7 +26,7 @@ code {
 }
 
 .myjx-input{
-  @apply w-[100%] border-b border-gray-300 bg-transparent focus:border-gray-400 outline-none ;
+  @apply w-[100%] border-b border-gray-300 bg-transparent focus:border-gray-400 outline-none rounded-none;
 }
 
 .myjx-textarea{
@@ -94,4 +94,9 @@ code {
   padding: 0;
   margin: 0;
   position: relative;
+}
+
+.J-required::after{
+  content: '*';
+  color: rgb(184, 0, 0);
 }

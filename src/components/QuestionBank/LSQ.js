@@ -3,7 +3,7 @@ import EveryPiece from '../EveryPiece';
 
 function LSQ(props) {
   const InputRef = useRef(null);
-  props = { ...props, min: props.min || "-105", max: props.max || "105" };
+  props = { ...props, min: props.min || "-105", max: props.max || "105",capture: props.capture || 5};
 
   const options = props.options || [
     { "value": "-100", "text": "非常不同意" },
@@ -12,11 +12,12 @@ function LSQ(props) {
     { "value": "50", "text": "同意" },
     { "value": "100", "text": "非常同意" }
   ]
+  
   const correction = (e) => {
     const I = InputRef.current
     options.forEach(option => {
       const difference = Math.abs(parseInt(option.value) - parseInt(I.value));
-      if (difference < 4) {
+      if (difference < props.capture) {
         I.value = option.value
       }
     });
@@ -36,7 +37,7 @@ function LSQ(props) {
 
   return (
     <EveryPiece>
-      <h2 className='text-2xl mb-[0.2rem]'>{props.question || "這是一個李克特量表!"}</h2>
+      <h2 className={`text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}>{props.question || "這是一個李克特量表!"}</h2>
       <h2 className='text-sm mb-6'>{props.description || "額外的說明!"}</h2>
 
       <div id="LS-Option" className='myjx-datalist'>
@@ -47,7 +48,7 @@ function LSQ(props) {
         ))}
 
       </div>
-      <input ref={InputRef} onChange={correction} className='myjx-LS range-wrap w-[104%] -ml-[2%] md:w-[96%] md:ml-[2%] lg:w-[96%] lg:ml-[2%]' type="range" name="range" min={props.min || "-105"} max={props.max || "105"} defaultValue="50" />
+      <input ref={InputRef} onChange={correction} className='myjx-LS range-wrap w-[104%] -ml-[2%] md:w-[96%] md:ml-[2%] lg:w-[96%] lg:ml-[2%]' type="range" name="range" min={props.min || "-105"} max={props.max || "105"} defaultValue="0" />
     </EveryPiece>
   );
 }

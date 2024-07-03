@@ -148,7 +148,8 @@
         "minLabel": "非常不滿意",
         "maxLabel": "非常滿意",
         "max":80,
-        "min":-80
+        "min":-80,
+        "capture":25
       }
     },
     {
@@ -156,7 +157,7 @@
       "params": {
         "question": "您對我們的服務滿意度如何？",
         "description": "請根據您的體驗進行評分",
-        "required": true,
+        "required": false,
         "options": [
           {
             "value": "-75",
@@ -174,7 +175,17 @@
         "minLabel": "非常不滿意",
         "maxLabel": "非常滿意",
         "max":80,
-        "min":-80
+        "min":-80,
+        "capture":37.5
+      }
+    },
+    {
+      "type": "UDQ",
+      "params": {
+        "question": "上傳照片",
+        "description": "我知道你很醜",
+        "required": false,
+        "rows": 4
       }
     }
   ]
