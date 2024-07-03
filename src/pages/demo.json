@@ -26,7 +26,7 @@
       }
     },
     {
-      "type": "BLOCK",
+      "type": "block",
       "params": {
         "title": "個人興趣調查區塊",
         "description": "以下問題旨在了解您的個人興趣",
@@ -184,8 +184,15 @@
       "params": {
         "question": "上傳照片",
         "description": "我知道你很醜",
-        "required": false,
-        "rows": 4
+        "required": false
+      }
+    },
+    {
+      "type": "submit",
+      "params": {
+        "title": "提交問卷給我們吧",
+        "description": "快!",
+        "message": "提交"
       }
     }
   ]

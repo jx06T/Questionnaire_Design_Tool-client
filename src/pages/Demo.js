@@ -27,7 +27,7 @@ function Demo() {
                 return <QB.LSQ {...question.params} />;
             case 'UDQ':
                 return <QB.UDQ {...question.params} />;
-            case 'BLOCK':
+            case 'block':
                 return (
                     <MB.Block {...question.params}>
                         {/* <MB.Illustrate>{question.params.description}</MB.Illustrate> */}
@@ -37,6 +37,10 @@ function Demo() {
                             </React.Fragment>
                         ))}
                     </MB.Block>
+                );
+            case 'submit':
+                return (
+                    <MB.Submit {...question.params}></MB.Submit>
                 );
             default:
                 return null;
@@ -53,7 +57,6 @@ function Demo() {
                     {renderQuestion(question)}
                 </React.Fragment>
             ))}
-            <MB.Submit>{questionnaireData.setting.submitButtonText}</MB.Submit>
         </div>
     );
 }
