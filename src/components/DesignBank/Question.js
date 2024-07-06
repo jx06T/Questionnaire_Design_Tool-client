@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import EveryPiece from '../EveryPiece';
 import DDM from '../DDM';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MDBlock from '../MDBlock';
 
 function Question(props) {
     const options = [
@@ -17,72 +16,30 @@ function Question(props) {
         { value: 'Title', label: 'Title' },
     ];
 
-    const [markdownText, setMarkdownText] = useState('');
-    const [previewing, setPreviewing] = useState(false);
-    const textareaRef = useRef(null);
-    const markdownTextRef = useRef('');
-
-    useEffect(() => {
-        markdownTextRef.current = markdownText;
-    }, [markdownText]);
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (markdownTextRef.current !== "" && textareaRef.current && !textareaRef.current.contains(event.target)) {
-                setPreviewing(true)
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    const handleInputChange = (e) => {
-        setMarkdownText(e.target.value);
-    };
-
-    const handlePreviewAreaClick = (e) => {
-        setPreviewing(false)
-    };
-
     const SelectionType = (value) => {
         console.log(value)
     }
     const UProw = (event) => {
         event.target.rows = Math.max(event.target.value.split("\n").length, 3)
     }
-    const countNewlines = (text) => {
-        return (text.match(/\n/g) || []).length + 1;
-    }
 
     return (
         <EveryPiece >
             <div className='flex justify-between'>
-                <div className='flex flex-col'>
+                <div className='flex flex-col w-[82%]'>
                     <input placeholder="在這輸入題目!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}></input>
-                    {(previewing && markdownText != "") ?
-                        <div
-                            className="markdown-preview text-sm mb-6 min-h-16"
-                            onClick={handlePreviewAreaClick}
-                        >
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText.replace(/(?<!\n)\n(?!\n)/g, '  \n')}</ReactMarkdown>
-                        </div> :
-                        <div className='mb-6 min-h-16'>
-                            <textarea
-                                ref={textareaRef}
-                                placeholder="在這輸入其他說明! (支持 Markdown)"
-                                className='myjx-textarea text-sm  border-none'
-                                value={markdownText}
-                                onInput={UProw}
-                                onChange={handleInputChange}
-                                rows={countNewlines(markdownText)}
-                            ></textarea>
-                        </div>
-                    }
+                    <MDBlock />
                 </div>
                 <DDM options={options} callback={SelectionType} />
             </div>
+            <hr className='w-[100%] mx-auto bg-slate-50 h-[1.8px] mb-4 mt-1' />
+
+            <textarea
+                placeholder="在這輸入預設答案等等設定"
+                className='myjx-textarea text-base  border-none'
+                onInput={UProw}
+                rows={3}
+            ></textarea>
         </EveryPiece>
     );
 }

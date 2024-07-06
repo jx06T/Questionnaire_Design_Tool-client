@@ -10,7 +10,7 @@
       "type": "SAQ",
       "params": {
         "question": "您的姓名是？",
-        "description": "請輸入您的全名",
+        "description": "請**小心**地輸入\n不然走著瞧~妳死定了~",
         "required": true,
         "placeholder": "例如：王大明"
       }

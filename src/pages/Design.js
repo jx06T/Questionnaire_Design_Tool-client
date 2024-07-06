@@ -19,7 +19,7 @@ function Design() {
             {elements.map(element => (
                 element.type === 'question'
                     ? <DB.Question key={element.id} />
-                    : <MB.Submit key={element.id} />
+                    : <DB.BlockEdit key={element.id} />
             ))}
             <DB.AddBlock onAddQuestion={handleAddQuestion} onAddBlock={handleAddBlock} title="設計問卷?"></DB.AddBlock>
         </div>
