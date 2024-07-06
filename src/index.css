@@ -29,6 +29,10 @@ code {
   @apply w-[100%] border-b border-gray-300 bg-transparent focus:border-gray-400 outline-none rounded-none;
 }
 
+.myjx-input2{
+  @apply border-gray-300 bg-transparent focus:border-gray-400 outline-none rounded-none;
+}
+
 .myjx-textarea{
   resize: none; 
   @apply w-[100%] border-b border-gray-300 bg-transparent focus:border-gray-400 outline-none ;}
@@ -99,4 +103,21 @@ code {
 .J-required::after{
   content: '*';
   color: rgb(184, 0, 0);
+}
+
+.markdown-preview ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+.markdown-preview ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.debug *{
+  border: solid 1px ;
+}
+
+.debug div{
+  border: red 1px dashed;
 }

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import EveryPiece from '../EveryPiece';
+import QuestionTitle from './QuestionTitle';
 
 function LSQ(props) {
   const InputRef = useRef(null);
@@ -37,8 +38,7 @@ function LSQ(props) {
 
   return (
     <EveryPiece>
-      <h2 className={`text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}>{props.question || "這是一個李克特量表!"}</h2>
-      <h2 className='text-sm mb-6'>{props.description || "額外的說明!"}</h2>
+      <QuestionTitle question={props.question} description={props.description||"點選或拖動到最符合妳感受的刻度"} required={props.required}></QuestionTitle>
 
       <div id="LS-Option" className='myjx-datalist'>
         {options.map(option => (

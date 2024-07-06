@@ -1,0 +1,130 @@
+{
+  "setting": {
+    "theme": "默認主題",
+    "language": "中文",
+    "title": "兩岸議題問卷調查",
+    "subtitle": "您的意見對我們非常重要，資料僅供學術使用"
+  },
+  "questionnaire": [
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "您的姓名是？",
+        "description": "請輸入您的全名",
+        "required": true,
+        "placeholder": "例如：王大明"
+      }
+    },
+    {
+      "type": "DAQ",
+      "params": {
+        "question": "請描述您對台灣與大陸關係的看法",
+        "description": "請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述請盡量詳述",
+        "required": true,
+        "placeholder": "例如：我認為兩岸應加強經濟合作，但政治問題需要謹慎處理。",
+        "rows": 6
+      }
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "您是否支持兩岸和平統一？",
+        "options": [
+          {
+            "id": "yes",
+            "text": "支持"
+          },
+          {
+            "id": "no",
+            "text": "不支持"
+          },
+          {
+            "id": "unsure",
+            "text": "不確定"
+          }
+        ],
+        "required": true
+      }
+    },
+    {
+      "type": "MCQ",
+      "params": {
+        "question": "您認為兩岸問題的解決應該包含以下哪些方面？",
+        "options": [
+          {
+            "id": "economy",
+            "text": "經濟合作"
+          },
+          {
+            "id": "politics",
+            "text": "政治對話"
+          },
+          {
+            "id": "culture",
+            "text": "文化交流"
+          },
+          {
+            "id": "security",
+            "text": "安全合作"
+          }
+        ],
+        "required": false
+      }
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "您對目前兩岸關係的憂慮程度如何？",
+        "options": [
+          {
+            "value": "-100",
+            "text": "非常擔憂"
+          },
+          {
+            "value": "-50",
+            "text": "擔憂"
+          },
+          {
+            "value": "0",
+            "text": "一般"
+          },
+          {
+            "value": "50",
+            "text": "不太擔憂"
+          },
+          {
+            "value": "100",
+            "text": "完全不擔憂"
+          }
+        ],
+        "required": true,
+        "minLabel": "非常擔憂",
+        "maxLabel": "完全不擔憂"
+      }
+    },
+    {
+      "type": "Description",
+      "params": {
+        "title": "請問您對於兩岸議題有何想法？",
+        "description": "請分享您的看法或圖片",
+        "required": false
+      }
+    },
+    {
+      "type": "UDQ",
+      "params": {
+        "question": "請上傳您認為重要的兩岸議題相關文件或資料",
+        "description": "支持的文件類型包括PDF、圖片等",
+        "required": false
+      }
+    },
+    {
+      "type": "submit",
+      "params": {
+        "title": "提交問卷",
+        "description": "感謝您的參與！請提交您的回答。",
+        "message": "提交"
+      }
+    }
+  ]
+}

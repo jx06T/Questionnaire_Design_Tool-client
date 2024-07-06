@@ -22,7 +22,7 @@ function Home() {
             <Content img={home_img}>
                 開始設計你的第一份問卷!
                 <br />
-                <button className='mt-3 myjx-button w-[7rem]'>GO!</button>
+                <button className='mt-3 myjx-button w-[7rem]' onClick={() => { navigate('/design') }}>GO!</button>
             </Content >
         </div >
     );

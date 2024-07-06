@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation  } from 'react-rout
 import './App.css';
 
 import Home from './pages/Home';
+import Design from './pages/Design';
 import Demo from './pages/Demo';
 import Test from './pages/Test';
 import UserList from './components/UserList';
@@ -17,6 +18,7 @@ function App() {
         <Route path="/users" element={<UserList />} />
         <Route path="/demo" element={<Demo />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/design" element={<Design />} />
       </Routes>
       <IsFooter />
     </Router>

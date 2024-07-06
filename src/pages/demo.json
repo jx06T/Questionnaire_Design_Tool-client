@@ -122,6 +122,13 @@
       }
     },
     {
+      "type": "Description",
+      "params": {
+        "title": "上下兩個問題你喜歡哪個??",
+        "description": "這題不用回答??"
+      }
+    },
+    {
       "type": "LSQ",
       "params": {
         "question": "您對我們的服務滿意度如何？",
@@ -147,9 +154,9 @@
         ],
         "minLabel": "非常不滿意",
         "maxLabel": "非常滿意",
-        "max":80,
-        "min":-80,
-        "capture":25
+        "max": 80,
+        "min": -80,
+        "capture": 25
       }
     },
     {
@@ -174,9 +181,9 @@
         ],
         "minLabel": "非常不滿意",
         "maxLabel": "非常滿意",
-        "max":80,
-        "min":-80,
-        "capture":37.5
+        "max": 80,
+        "min": -80,
+        "capture": 37.5
       }
     },
     {

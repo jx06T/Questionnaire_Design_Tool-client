@@ -6,9 +6,8 @@ function Demo() {
     const [questionnaireData, setQuestionnaireData] = useState(null);
 
     useEffect(() => {
-        // 在實際應用中，你可能會從API或文件中獲取這個JSON
-        // 這裡我們假設直接導入
-        import('./demo.json')
+        // import('./demo.json')
+        import('./ccc.json')
             .then(data => setQuestionnaireData(data))
             .catch(error => console.error('Error loading questionnaire:', error));
     }, []);
@@ -41,6 +40,10 @@ function Demo() {
             case 'submit':
                 return (
                     <MB.Submit {...question.params}></MB.Submit>
+                );
+            case 'Description':
+                return (
+                    <MB.Description {...question.params}></MB.Description>
                 );
             default:
                 return null;

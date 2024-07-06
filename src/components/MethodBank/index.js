@@ -1,12 +1,12 @@
 import Block from './Block';
 import Submit from './Submit';
-import Illustrate from './Illustrate';
+import Description from './Description';
 import Title from './Title';
 
 const MB = {
   Block,
   Submit,
-  Illustrate,
+  Description,
   Title
 };
 

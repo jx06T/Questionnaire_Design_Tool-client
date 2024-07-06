@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import EveryPiece from '../EveryPiece';
 import { FluentRename20Filled, IcBaselineDelete, IcRoundDoneOutline, CiUndo } from '../Icons';
+import QuestionTitle from './QuestionTitle';
 
 function UDQ(props) {
   const [files, setFiles] = useState([]);
@@ -101,8 +102,7 @@ function UDQ(props) {
 
   return (
     <EveryPiece>
-      <h2 className={`text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}>{props.question || "請上傳檔案"}</h2>
-      <h2 className='text-sm mb-6'>{props.description || "您可以上傳多個檔案並管理它們"}</h2>
+      <QuestionTitle question={props.question} description={props.description || "您可以上傳多個檔案並將其重新命名"} required={props.required}></QuestionTitle>
 
       <div
         ref={dropZoneRef}
