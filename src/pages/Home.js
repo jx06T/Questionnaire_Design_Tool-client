@@ -17,12 +17,12 @@ function Home() {
             <Content img={home_img} direction='L'>
                 查看線上的問卷範本
                 <br />
-                <button className='mt-3 myjx-button w-[7rem]' onClick={() => { navigate('/demo') }}>GO!</button>
+                <button className='mt-3 myjx-button w-[7rem]'><a className='w-full h-full block' href='/demo'>GO!</a></button>
             </Content >
             <Content img={home_img}>
                 開始設計你的第一份問卷!
                 <br />
-                <button className='mt-3 myjx-button w-[7rem]' onClick={() => { navigate('/design') }}>GO!</button>
+                <button className='mt-3 myjx-button w-[7rem]'><a className='w-full h-full block' href='/design'>GO!</a></button>
             </Content >
         </div >
     );

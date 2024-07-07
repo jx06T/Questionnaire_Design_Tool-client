@@ -1,12 +1,26 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-function MDBlock() {
+// function MDBlock({ SendMDContent }) {
+const MDBlock = forwardRef(({ SendMDContent }, ref) => {
     const [markdownText, setMarkdownText] = useState('');
     const [previewing, setPreviewing] = useState(false);
     const textareaRef = useRef(null);
+    const hiddenDivRef = useRef(null);
     const markdownTextRef = useRef('');
+
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            setPreviewing(false);
+            if (textareaRef.current) {
+                setTimeout(() => {
+                    textareaRef.current.focus();
+                }, 100);
+                textareaRef.current.focus();
+            }
+        }
+    }));
 
     useEffect(() => {
         markdownTextRef.current = markdownText;
@@ -16,6 +30,7 @@ function MDBlock() {
         function handleClickOutside(event) {
             if (markdownTextRef.current !== "" && textareaRef.current && !textareaRef.current.contains(event.target)) {
                 setPreviewing(true)
+                SendMDContent(markdownTextRef.current)
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -23,6 +38,13 @@ function MDBlock() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const handleBlur = () => {
+        if (markdownTextRef.current !== "") {
+            setPreviewing(true)
+            SendMDContent(markdownTextRef.current)
+        }
+    }
 
     const handleInputChange = (e) => {
         setMarkdownText(e.target.value);
@@ -32,41 +54,34 @@ function MDBlock() {
         setPreviewing(false)
     };
 
-    const UProw = (event) => {
-        event.target.rows = Math.max(event.target.value.split("\n").length, 3)
-    }
-
-    const countNewlines = (text) => {
-        console.log((text.match(/\n/g) || []).length + 1)
-        if (textareaRef.current) {
-            textareaRef.current.rows = (text.match(/\n/g) || []).length + 1
-        }
-        return (text.match(/\n/g) || []).length + 1;
+    const UProw = () => {
+        textareaRef.current.style.height = 'auto';
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
 
     return (
         <>
-            {(previewing && markdownText != "") ?
-                <div
-                    className="markdown-preview text-sm min-h-7"
-                    onClick={handlePreviewAreaClick}
-                >
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText.replace(/(?<!\n)\n(?!\n)/g, '  \n')}</ReactMarkdown>
-                </div> :
-                <div className='min-h-7'>
-                    <textarea
-                        ref={textareaRef}
-                        placeholder="在這輸入其他說明! (支持 Markdown)"
-                        className='myjx-textarea text-sm  border-none'
-                        value={markdownText}
-                        onInput={UProw}
-                        onChange={handleInputChange}
-                        rows={countNewlines(markdownText)}
-                    ></textarea>
-                </div>
-            }
+            <div
+                className={`${(!previewing || markdownText == "") ? "hidden" : ""} markdown-preview text-sm min-h-7 break-all`}
+                onClick={handlePreviewAreaClick}
+                ref={hiddenDivRef}
+            >
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText.replace(/\n/g, '　  \n')}</ReactMarkdown>
+            </div>
+            <div className={`${(previewing && markdownText != "") ? "hidden" : ""} text-sm min-h-7 `}>
+                <textarea
+                    ref={textareaRef}
+                    placeholder="在這輸入其他說明! (支持 Markdown)"
+                    className="myjx-textarea border-none"
+                    value={markdownText}
+                    onInput={UProw}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                ></textarea>
+            </div>
+
         </>
     );
-}
+});
 
 export default MDBlock;

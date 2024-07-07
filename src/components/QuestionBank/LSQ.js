@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import EveryPiece from '../EveryPiece';
-import QuestionTitle from './QuestionTitle';
+import QuestionTitle from '../QuestionTitle';
 
 function LSQ(props) {
   const InputRef = useRef(null);

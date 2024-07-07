@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import EveryPiece from '../EveryPiece';
 import { FluentRename20Filled, IcBaselineDelete, IcRoundDoneOutline, CiUndo } from '../Icons';
-import QuestionTitle from './QuestionTitle';
+import QuestionTitle from '../QuestionTitle';
 
 function UDQ(props) {
   const [files, setFiles] = useState([]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useId } from 'react';
 import EveryPiece from '../EveryPiece';
-import QuestionTitle from './QuestionTitle';
+import QuestionTitle from '../QuestionTitle';
 
 function MCQ(props) {
   const [selectedOption, setSelectedOption] = useState(null);

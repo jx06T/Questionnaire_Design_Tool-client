@@ -1,6 +1,6 @@
 import React from 'react';
 import EveryPiece from '../EveryPiece';
-import QuestionTitle from './QuestionTitle';
+import QuestionTitle from '../QuestionTitle';
 
 
 function DAQ(props) {
