@@ -4,7 +4,7 @@ import QuestionTitle from '../QuestionTitle';
 
 function LSQ(props) {
   const InputRef = useRef(null);
-  props = { ...props, min: props.min || "-105", max: props.max || "105",capture: props.capture || 5};
+  props = { ...props, min: props.min || "-105", max: props.max || "105", capture: props.capture || 5 };
 
   const options = props.options || [
     { "value": "-100", "text": "非常不同意" },
@@ -13,7 +13,7 @@ function LSQ(props) {
     { "value": "50", "text": "同意" },
     { "value": "100", "text": "非常同意" }
   ]
-  
+
   const correction = (e) => {
     const I = InputRef.current
     options.forEach(option => {
@@ -38,7 +38,7 @@ function LSQ(props) {
 
   return (
     <EveryPiece>
-      <QuestionTitle question={props.question} description={props.description||"點選或拖動到最符合妳感受的刻度"} required={props.required}></QuestionTitle>
+      <QuestionTitle question={props.question} description={props.description || "點選或拖動到最符合妳感受的刻度"} required={props.required}></QuestionTitle>
 
       <div id="LS-Option" className='myjx-datalist'>
         {options.map(option => (

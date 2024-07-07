@@ -89,7 +89,7 @@ function UDQ(props) {
   };
 
   const Blurrrrr = (index) => {
-    if (editingIndex == index) {
+    if (editingIndex === index) {
       setEditingIndex(null)
     }
   }

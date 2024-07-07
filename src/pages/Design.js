@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DB from '../components/DesignBank'
-import MB from '../components/MethodBank'
-import QB from '../components/QuestionBank';
+// import MB from '../components/MethodBank'
+// import QB from '../components/QuestionBank';
 
 function Design() {
     const [elements, setElements] = useState([]);
