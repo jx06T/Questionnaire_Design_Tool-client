@@ -3,6 +3,7 @@ import EveryPiece from '../EveryPiece';
 import DDM from '../DDM';
 import MDBlock from '../MDBlock';
 import TextEditor from '../TextEditor';
+import Buttons from './Buttons';
 
 class interpreter {
     constructor() {
@@ -11,9 +12,10 @@ class interpreter {
         this.SAQ = (c, p) => { return this.SDAQ(c, p, " ") }
         this.DAQ = (c, p) => { return this.SDAQ(c, p, "\n") }
         this.UDQ = (c, p) => { return p }
-        this.Description = (c, p) => { return p }
-        this.Submit = (c, p) => {
+        this.description = (c, p) => { return p }
+        this.submit = (c, p) => {
             p.message = c
+            return p
         }
     }
 
@@ -109,7 +111,7 @@ class interpreter {
 }
 
 
-function Question({ onUpdate, ...props }) {
+function Question({ buttonsFUN, onUpdate, ...props }) {
     const Myinterpreter = new interpreter()
     const options = [
         { value: 'SAQ', label: 'SAQ' },
@@ -118,8 +120,8 @@ function Question({ onUpdate, ...props }) {
         { value: 'MCQ', label: 'MCQ' },
         { value: 'LSQ', label: 'LSQ' },
         { value: 'UDQ', label: 'UDQ' },
-        { value: 'Description', label: 'Dsc' },
-        { value: 'Submit', label: 'Sub' },
+        { value: 'description', label: 'Dsc' },
+        { value: 'submit', label: 'Sub' },
         // { value: 'Title', label: 'Title' },
     ];
 
@@ -133,11 +135,9 @@ function Question({ onUpdate, ...props }) {
         }
     });
 
-    // const [placeholder, setPlaceholder] = useState("type")
     const SelectionType = (value) => {
         setQuestionData({ ...questionData, type: value })
         onUpdate(questionData)
-        // setPlaceholder(value)
     }
 
     const inputRef = useRef(null);
@@ -193,8 +193,9 @@ function Question({ onUpdate, ...props }) {
 
             </div>
             <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
-
             <TextEditor SendContent={handleTextEditorChange} rows={3} placeholder={"在這輸入預設答案等等設定"} className='myjx-textarea text-base  border-none' />
+            <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
+            <Buttons {...buttonsFUN} />
         </EveryPiece>
     );
 }

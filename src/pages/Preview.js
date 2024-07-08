@@ -43,7 +43,7 @@ function Demo(props) {
                 return (
                     <MB.Submit {...question.params}></MB.Submit>
                 );
-            case 'Description':
+            case 'description':
                 return (
                     <MB.Description {...question.params}></MB.Description>
                 );

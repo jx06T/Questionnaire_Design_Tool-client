@@ -101,7 +101,7 @@
       }
     },
     {
-      "type": "Description",
+      "type": "description",
       "params": {
         "title": "請問您對於兩岸議題有何想法？",
         "description": "請分享您的看法或圖片",
@@ -119,7 +119,7 @@
     {
       "type": "submit",
       "params": {
-        "title": "提交問卷",
+        "question": "提交問卷",
         "description": "感謝您的參與！請提交您的回答。",
         "message": "提交"
       }

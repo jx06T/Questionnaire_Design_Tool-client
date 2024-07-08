@@ -30,7 +30,7 @@ function App() {
 
 const excludePaths = [
   '/users',
-  // '/demo'
+  '/design'
 ];
 function IsHeader() {
   const { pathname } = useLocation()
@@ -38,7 +38,8 @@ function IsHeader() {
 }
 function IsFooter() {
   const { pathname } = useLocation()
-  return excludePaths.includes(pathname) ? null : <Footer />;
+  // return excludePaths.includes(pathname) ? null : <Footer />;
+  return <Footer />
 }
 
 export default App;
