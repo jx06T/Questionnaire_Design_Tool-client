@@ -12,7 +12,7 @@
         "question": "您的姓名是？",
         "description": "請**小心**地輸入\n不然走著瞧~妳死定了~",
         "required": true,
-        "placeholder": "例如：王大明"
+        "placeholder": "例如：王\n大明"
       }
     },
     {
@@ -97,9 +97,7 @@
             "text": "完全不擔憂"
           }
         ],
-        "required": true,
-        "minLabel": "非常擔憂",
-        "maxLabel": "完全不擔憂"
+        "required": true
       }
     },
     {

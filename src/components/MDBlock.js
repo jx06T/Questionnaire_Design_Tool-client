@@ -31,7 +31,7 @@ const MDBlock = forwardRef(({ SendMDContent }, ref) => {
         function handleClickOutside(event) {
             if (markdownTextRef.current !== "" && textareaRef.current && !textareaRef.current.contains(event.target)) {
                 setPreviewing(true)
-                SendMDContent(markdownTextRef.current)
+                SendMDContent2(markdownTextRef.current)
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -43,17 +43,18 @@ const MDBlock = forwardRef(({ SendMDContent }, ref) => {
     const handleBlur = () => {
         if (markdownTextRef.current !== "") {
             setPreviewing(true)
-            SendMDContent(markdownTextRef.current)
+            SendMDContent2(markdownTextRef.current)
         }
     }
-
-    const handleInputChange = (e) => {
-        setMarkdownText(e.target.value);
-    };
 
     const handlePreviewAreaClick = (e) => {
         setPreviewing(false)
     };
+
+    const SendMDContent2 = (content) => {
+        SendMDContent(content)
+        setMarkdownText(content)
+    }
 
     return (
         <>
@@ -67,10 +68,10 @@ const MDBlock = forwardRef(({ SendMDContent }, ref) => {
             <div className={`${(previewing && markdownText !== "") ? "hidden" : ""} text-sm min-h-7 `}>
                 <TextEditor
                     ref={textareaRef}
+                    SendContent={SendMDContent2}
                     placeholder="在這輸入其他說明! (支持 Markdown)"
                     className="myjx-textarea border-none"
-                    value={markdownText}
-                    onChange={handleInputChange}
+                    // value={markdownText}
                     onBlur={handleBlur}
                 ></TextEditor>
             </div>

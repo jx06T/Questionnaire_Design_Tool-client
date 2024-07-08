@@ -3,15 +3,17 @@ import QB from '../components/QuestionBank'
 import MB from '../components/MethodBank'
 
 function Demo(props) {
-    const [questionnaireData, setQuestionnaireData] = useState(null);
-
-    useEffect(() => {
-        // import('./demo.json')
-        import('./ccc.json')
-            .then(data => setQuestionnaireData(data))
-            .catch(error => console.error('Error loading questionnaire:', error));
-    }, []);
-
+    const questionnaireData0 = localStorage.getItem('questionnaireData')
+    const questionnaireData = questionnaireData0 ? JSON.parse(questionnaireData0) : {
+        setting: {
+            theme: "默認主題",
+            language: "中文",
+            title: "",
+            subtitle: ""
+        },
+        questionnaire: []
+    }
+    console.log(questionnaireData)
     const renderQuestion = (question) => {
         switch (question.type) {
             case 'SAQ':

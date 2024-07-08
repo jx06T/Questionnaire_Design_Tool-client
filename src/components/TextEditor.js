@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 
 
-const TextEditor = forwardRef(({ ...otherProps }, externalRef) => {
+const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
     const internalRef = useRef(null);
 
     useImperativeHandle(externalRef, () => internalRef.current);
@@ -56,7 +56,6 @@ const TextEditor = forwardRef(({ ...otherProps }, externalRef) => {
             if (altKey && shiftKey && (key === 'ArrowUp' || key === 'ArrowDown')) {
                 e.preventDefault();
                 const copyContent = lines.slice(startLineIndex, endLineIndex + 1)
-                console.log(copyContent)
                 lines.splice(key === 'ArrowUp' ? endLineIndex : startLineIndex, 0, ...copyContent)
                 let b = key === 'ArrowUp' ? 0 : copyContent.join("\n").length + 1
                 textarea.value = lines.join('\n');
@@ -83,7 +82,7 @@ const TextEditor = forwardRef(({ ...otherProps }, externalRef) => {
     const UProw = () => {
         internalRef.current.style.height = 'auto';
         internalRef.current.style.height = `${internalRef.current.scrollHeight}px`;
-        otherProps.onChange({ target: { value: internalRef.current.value } })
+        SendContent(internalRef.current.value)
     };
 
     return (

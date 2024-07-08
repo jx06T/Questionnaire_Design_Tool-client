@@ -124,7 +124,7 @@
     {
       "type": "Description",
       "params": {
-        "title": "上下兩個問題你喜歡哪個??",
+        "question": "上下兩個問題你喜歡哪個??",
         "description": "這題不用回答??"
       }
     },
@@ -197,7 +197,7 @@
     {
       "type": "submit",
       "params": {
-        "title": "提交問卷給我們吧",
+        "question": "提交問卷給我們吧",
         "description": "快!",
         "message": "提交"
       }

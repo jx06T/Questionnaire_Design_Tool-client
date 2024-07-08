@@ -5,7 +5,7 @@ import QuestionTitle from '../QuestionTitle';
 function Submit(props) {
   return (
     <EveryPiece>
-      <QuestionTitle question={props.title} description={props.description || ""} required={false}></QuestionTitle>
+      <QuestionTitle question={props.title||props.question} description={props.description || ""} required={false}></QuestionTitle>
       <button className='myjx-button2 w-20 h-10'>{props.message||"提交"}</button>
     </EveryPiece>
   );

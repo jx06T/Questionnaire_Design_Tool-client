@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 function DDM({ options, callback }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState("type ▼");
+    const [selectedItem, setSelectedItem] = useState("SAQ ▼");
     const [dropdownPosition, setDropdownPosition] = useState('bottom');
     const buttonRef = useRef(null);
     const dropdownRef = useRef(null);
