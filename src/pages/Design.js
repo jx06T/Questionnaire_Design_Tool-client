@@ -1,17 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
 
 
+const Aquestion = {
+    type: "SAQ",
+    params: {
+        question: undefined,
+        description: undefined,
+        required: false,
+        placeholder: undefined,
+        originalData: undefined,
+    }
+}
+
+const Ablock = {
+    type: "block",
+    params: {
+        title: "個人興趣調查區塊",
+        description: "以下問題旨在了解您的個人興趣",
+    },
+}
+
+function scrollToCenter(element, y) {
+    const elementRect = element.getBoundingClientRect();
+    const absoluteElementTop = elementRect.top + window.pageYOffset;
+    const middle = absoluteElementTop - (window.innerHeight / 2) - y + 250 + 310;
+    window.scrollTo({
+        top: middle,
+        behavior: 'smooth'
+    });
+}
+
 function Design() {
-    const [elements, setElements] = useState([]);
+    const questionDivRef = useRef(null)
+
+    const questionnaireData0 = localStorage.getItem('questionnaireData')
+    const questionnaireData1 = questionnaireData0 ? JSON.parse(questionnaireData0) : {
+        setting: {
+            theme: "默認主題",
+            language: "中文",
+            title: "",
+            subtitle: ""
+        },
+        questionnaire: []
+    }
+
+    const [questionnaireData, setQuestionnaireData] = useState(questionnaireData1)
 
     const handleAddQuestion = () => {
-        setElements(prevElements => [...prevElements, { type: 'question', id: Date.now() }]);
+        const id = Date.now()
+        setQuestionnaireData(prevData => {
+            const newQuestionnaire = [...prevData.questionnaire, { ...Aquestion, id: id }];
+            return { ...prevData, questionnaire: newQuestionnaire };
+        });
     };
 
     const handleAddBlock = () => {
-        setElements(prevElements => [...prevElements, { type: 'block', id: Date.now() }]);
+        const id = Date.now()
+        setQuestionnaireData(prevData => {
+            const newQuestionnaire = [...prevData.questionnaire, { ...Ablock, idT: id }];
+            return { ...prevData, questionnaire: newQuestionnaire };
+        });
     };
 
     useEffect(() => {
@@ -20,6 +70,12 @@ function Design() {
                 event.preventDefault();
                 handleAddQuestion()
             }
+            if (event.ctrlKey && event.key === 's') {
+                event.preventDefault();
+                // localStorage.setItem('questionnaireData', JSON.stringify(questionnaireData));
+                console.log(545345)
+            }
+            console.log(event)
         };
 
         document.addEventListener('keydown', handleKeyDown);
@@ -28,36 +84,13 @@ function Design() {
         };
     }, []);
 
-    const [questionnaireData, setQuestionnaireData] = useState({
-        setting: {
-            theme: "默認主題",
-            language: "中文",
-            title: "",
-            subtitle: ""
-        },
-        questionnaire: []
-    })
+    // ---------------------------------------------------------------------------------
 
-    useEffect(() => {
-        localStorage.setItem('questionnaireData', JSON.stringify(questionnaireData));
-    }, [questionnaireData]);
+    // useEffect(() => {
+    //     console.log("-----------------------", questionnaireData)
+    // }, [questionnaireData]);
 
-    const updateQuestionnaireData = (index, data) => {
-        setQuestionnaireData(prevData => {
-            const newQuestionnaire = [...prevData.questionnaire];
-            newQuestionnaire[index] = data;
-            return { ...prevData, questionnaire: newQuestionnaire };
-        });
-    };
-
-    const updateTitleData = (title, subtitle) => {
-        setQuestionnaireData(prevData => ({
-            ...prevData,
-            setting: { ...prevData.setting, title, subtitle }
-        }));
-    }
-
-    const handleDownload = () => {
+    const handleFileDownload = () => {
         const dataStr = JSON.stringify(questionnaireData, null, 2);
         const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
@@ -69,62 +102,6 @@ function Design() {
         linkElement.click();
     };
 
-    const handleDelete = (index) => {
-        setQuestionnaireData(prevData => {
-            const newQuestionnaire = [...prevData.questionnaire];
-            newQuestionnaire.splice(index, 1);
-            return { ...prevData, questionnaire: newQuestionnaire };
-        });
-
-        setElements(prevElements => {
-            const newElements = [...prevElements];
-            newElements.splice(index, 1);
-            return newElements;
-        });
-    }
-
-    const handleUp = (index) => {
-        if (index > 0) {
-            setQuestionnaireData(prevData => {
-                const newQuestionnaire = [...prevData.questionnaire];
-                [newQuestionnaire[index - 1], newQuestionnaire[index]] = [newQuestionnaire[index], newQuestionnaire[index - 1]];
-                return { ...prevData, questionnaire: newQuestionnaire };
-            });
-
-            setElements(prevElements => {
-                const newElements = [...prevElements];
-                [newElements[index - 1], newElements[index]] = [newElements[index], newElements[index - 1]];
-                return newElements;
-            });
-        }
-    };
-
-    const handleDown = (index) => {
-        setQuestionnaireData(prevData => {
-            const newQuestionnaire = [...prevData.questionnaire];
-            if (index < newQuestionnaire.length - 1) {
-                [newQuestionnaire[index], newQuestionnaire[index + 1]] = [newQuestionnaire[index + 1], newQuestionnaire[index]];
-            }
-            return { ...prevData, questionnaire: newQuestionnaire };
-        });
-
-        setElements(prevElements => {
-            const newElements = [...prevElements];
-            if (index < newElements.length - 1) {
-                [newElements[index], newElements[index + 1]] = [newElements[index + 1], newElements[index]];
-            }
-            return newElements;
-        });
-    };
-
-    const handlerequired = (index, r) => {
-        setQuestionnaireData(prevData => {
-            const newQuestionnaire = [...prevData.questionnaire];
-            newQuestionnaire[index].params.required = r
-            return { ...prevData, questionnaire: newQuestionnaire };
-        });
-    };
-
     const handleFileImport = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -133,7 +110,7 @@ function Design() {
                 try {
                     const jsonData = JSON.parse(e.target.result);
                     setQuestionnaireData(jsonData);
-                    
+
                     console.log('File imported successfully');
                 } catch (error) {
                     console.error('Error parsing JSON file:', error);
@@ -146,20 +123,82 @@ function Design() {
         }
     };
 
+    // ---------------------------------------------------------------------------------
+
+    const updateTitleData = (title, subtitle) => {
+        setQuestionnaireData(prevData => ({
+            ...prevData,
+            setting: { ...prevData.setting, title, subtitle }
+        }));
+    }
+
+    // ---------------------------------------------------------------------------------
+
+    const updateQuestionnaireData = (index, data) => {
+        setQuestionnaireData(prevData => {
+            const newQuestionnaire = [...prevData.questionnaire];
+            newQuestionnaire[index].type = data.type;
+            newQuestionnaire[index].params = data.params;
+            return { ...prevData, questionnaire: newQuestionnaire };
+        });
+    };
+
+    const buttonsFUN = {
+        handleDelete: (index) => {
+            setQuestionnaireData(prevData => {
+                const newQuestionnaire = [...prevData.questionnaire];
+                newQuestionnaire.splice(index, 1);
+                return { ...prevData, questionnaire: newQuestionnaire };
+            });
+        },
+        handleUp: (index) => {
+            if (index > 0) {
+                setQuestionnaireData(prevData => {
+                    const newQuestionnaire = [...prevData.questionnaire];
+                    [newQuestionnaire[index - 1], newQuestionnaire[index]] = [newQuestionnaire[index], newQuestionnaire[index - 1]];
+                    return { ...prevData, questionnaire: newQuestionnaire };
+                });
+                // questionDivRef.getElementsByClassName('a-question')[index-1].focus();
+                // questionDivRef.current.getElementsByClassName('a-question')[index - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        },
+        handleDown: (index, event) => {
+            setQuestionnaireData(prevData => {
+                const newQuestionnaire = [...prevData.questionnaire];
+                if (index < newQuestionnaire.length - 1) {
+                    [newQuestionnaire[index], newQuestionnaire[index + 1]] = [newQuestionnaire[index + 1], newQuestionnaire[index]];
+
+                }
+                return { ...prevData, questionnaire: newQuestionnaire };
+            });
+            setTimeout(() => {
+                console.log(questionDivRef.current.getElementsByClassName('a-question')[index + 1])
+                scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index + 1], event.clientY)
+            }, 1);
+        },
+        handlerequired: (index, r) => {
+            setQuestionnaireData(prevData => {
+                const newQuestionnaire = [...prevData.questionnaire];
+                newQuestionnaire[index].params.required = r
+                return { ...prevData, questionnaire: newQuestionnaire };
+            });
+        }
+    }
     return (
         <>
-            <HeaderTool download={handleDownload} handleFileImport={handleFileImport} />
-            <div className='Design flex bg-slate-50 flex-col items-center justify-center'>
-                <DB.TitleEdit onUpdate={updateTitleData} />
-                {elements.map((element, index) => (
-                    element.type === 'question'
-                        ? <DB.Question key={element.id} buttonsFUN={{ handlerequired: handlerequired, handleUp: handleUp, handleDown: handleDown, handleDelete: handleDelete, id: index }} onUpdate={(data) => updateQuestionnaireData(index, data)} />
+            <HeaderTool handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
+            <div ref={questionDivRef} className='Design flex bg-slate-50 flex-col items-center justify-center'>
+                <DB.TitleEdit defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
+
+                {questionnaireData.questionnaire.map((element, index) => (
+                    element.type !== 'block'
+                        ? <DB.Question type={element.type} key={element.id} buttonsFUN={{ ...buttonsFUN, id: index, defaultValue: element.params.required }} onUpdateB={(data) => updateQuestionnaireData(index, data)} {...element.params} />
                         : <DB.BlockEdit key={element.id} onUpdate={(data) => updateQuestionnaireData(index, data)} />
                 ))}
-                <DB.AddBlock onAddQuestion={handleAddQuestion} onAddBlock={handleAddBlock} title="設計問卷?"></DB.AddBlock>
+
+                <DB.AddBlock onAddQuestion={handleAddQuestion} onAddBlock={handleAddBlock}></DB.AddBlock>
             </div>
             <br />
-            {/* <Demo questionnaireDataL={questionnaireData} /> */}
         </>
     );
 }

@@ -3,12 +3,12 @@ import React, { useRef, useEffect, forwardRef, useImperativeHandle } from "react
 
 const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
     const internalRef = useRef(null);
-
     useImperativeHandle(externalRef, () => internalRef.current);
 
     useEffect(() => {
         const textarea = internalRef.current;
         if (!textarea) return;
+        UProw()
 
         const handleKeyDown = (e) => {
             const { key, ctrlKey, altKey, shiftKey } = e;
@@ -17,7 +17,6 @@ const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
             const lines = value.split('\n');
             const startLineIndex = value.slice(0, selectionStart).split("\n").length - 1
             const endLineIndex = value.slice(0, selectionEnd).split("\n").length - 1
-            // console.log(startLineIndex, endLineIndex)
 
             // Ctrl+C / Ctrl+X (複製/剪切整行)
             if (ctrlKey && (key === 'c' || key === 'x') && selectionStart === selectionEnd) {
@@ -83,6 +82,8 @@ const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
         internalRef.current.style.height = 'auto';
         internalRef.current.style.height = `${internalRef.current.scrollHeight}px`;
         SendContent(internalRef.current.value)
+
+        console.log(92, internalRef.current.value)
     };
 
     return (

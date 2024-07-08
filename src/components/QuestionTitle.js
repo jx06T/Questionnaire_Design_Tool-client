@@ -7,7 +7,7 @@ function QuestionTitle({question,description = "詳細說明",required = false})
         <>
             <h2 className={`text-2xl mb-[0.2rem] ${required ? "J-required" : ""}`}>{question || "題目"}</h2>
             <div className='markdown-preview'>
-            <ReactMarkdown className="text-sm mb-6" remarkPlugins={[remarkGfm]}>{description.replace(/(?<!\n)\n(?!\n)/g, '  \n')}</ReactMarkdown>
+            <ReactMarkdown className="text-base mb-6" remarkPlugins={[remarkGfm]}>{description.replace(/(?<!\n)\n(?!\n)/g, '  \n')}</ReactMarkdown>
             </div>
         </>
     );

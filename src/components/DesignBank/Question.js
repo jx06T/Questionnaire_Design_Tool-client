@@ -110,9 +110,17 @@ class interpreter {
     }
 }
 
-
-function Question({ buttonsFUN, onUpdate, ...props }) {
+function Question({ buttonsFUN, onUpdateB, ...props }) {
     const Myinterpreter = new interpreter()
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current.focus()
+    }, []);
+
+    const onUpdate = (d) => {
+        onUpdateB(d)
+    }
+    
     const options = [
         { value: 'SAQ', label: 'SAQ' },
         { value: 'DAQ', label: 'DAQ' },
@@ -122,8 +130,11 @@ function Question({ buttonsFUN, onUpdate, ...props }) {
         { value: 'UDQ', label: 'UDQ' },
         { value: 'description', label: 'Dsc' },
         { value: 'submit', label: 'Sub' },
-        // { value: 'Title', label: 'Title' },
     ];
+    const getLabelByValue = (value) => {
+        const option = options.find(option => option.value === value);
+        return option ? option.label : null;
+    }
 
     const [questionData, setQuestionData] = useState({
         type: 'SAQ',
@@ -132,44 +143,50 @@ function Question({ buttonsFUN, onUpdate, ...props }) {
             description: '',
             required: false,
             placeholder: '',
+            originalData: ''
         }
     });
 
     const SelectionType = (value) => {
-        setQuestionData({ ...questionData, type: value })
-        onUpdate(questionData)
+        setQuestionData(prevData => {
+            const updatedData = { ...prevData, type: value }
+            onUpdate(updatedData)
+            return (updatedData)
+        })
     }
 
-    const inputRef = useRef(null);
-    useEffect(() => {
-        inputRef.current.focus()
-    }, []);
-
     const handleMDChange = (newContent) => {
-        const updatedData = {
-            ...questionData,
-            params: { ...questionData.params, description: newContent }
-        }
-        setQuestionData(updatedData);
-        onUpdate(updatedData)
+        setQuestionData(prevData => {
+            const updatedData = {
+                ...prevData,
+                params: { ...prevData.params, description: newContent }
+            }
+            onUpdate(updatedData)
+            return updatedData;
+        })
     };
 
     const handleTextEditorChange = (newContent) => {
-        const updatedData = {
-            ...questionData,
-            params: Myinterpreter[questionData.type](newContent, questionData.params)
-        }
-        setQuestionData(updatedData);
-        onUpdate(updatedData)
+        setQuestionData(prevData => {
+            const updatedData = {
+                ...prevData,
+                params: { ...Myinterpreter[prevData.type](newContent, prevData.params), originalData: newContent }
+            }
+            onUpdate(updatedData)
+            return updatedData;
+        });
+
     };
 
     const handleInputChange = () => {
-        const updatedData = {
-            ...questionData,
-            params: { ...questionData.params, question: inputRef.current.value }
-        };
-        setQuestionData(updatedData);
-        onUpdate(updatedData);
+        setQuestionData(prevData => {
+            const updatedData = {
+                ...prevData,
+                params: { ...prevData.params, question: inputRef.current.value }
+            };
+            onUpdate(updatedData);
+            return updatedData;
+        })
     }
 
     const MDBlockRef = useRef(null);
@@ -184,16 +201,16 @@ function Question({ buttonsFUN, onUpdate, ...props }) {
 
     return (
         <EveryPiece >
-            <div className='flex flex-col'>
+            <div className='a-question flex flex-col'>
                 <div className='flex justify-between'>
-                    <input onChange={handleInputChange} ref={inputRef} onKeyDown={handleInputKeyDown} placeholder="在這輸入題目!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] w-[83%] ${props.required ? "J-required" : ""}`}></input>
-                    <DDM options={options} callback={SelectionType} />
+                    <input defaultValue={props.question} onChange={handleInputChange} ref={inputRef} onKeyDown={handleInputKeyDown} placeholder="在這輸入題目!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] w-[83%] ${props.required ? "J-required" : ""}`}></input>
+                    <DDM options={options} callback={SelectionType} defaultValue={getLabelByValue(props.type)} />
                 </div>
-                <MDBlock ref={MDBlockRef} SendMDContent={handleMDChange} />
+                <MDBlock defaultValue={props.description} ref={MDBlockRef} SendMDContent={handleMDChange} />
 
             </div>
             <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
-            <TextEditor SendContent={handleTextEditorChange} rows={3} placeholder={"在這輸入預設答案等等設定"} className='myjx-textarea text-base  border-none' />
+            <TextEditor defaultValue={props.originalData} SendContent={handleTextEditorChange} rows={3} placeholder={"在這輸入預設答案等等設定"} className='myjx-textarea text-base  border-none' />
             <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
             <Buttons {...buttonsFUN} />
         </EveryPiece>

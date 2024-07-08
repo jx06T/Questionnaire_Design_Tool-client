@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { IcRoundStar, IcBaselineDelete, ArrowDownwardRounded, ArrowUpwardRounded } from '../Icons';
 
-function Buttons({ handlerequired, handleDelete, handleUp, handleDown, id }) {
-    const [required, setRequired] = useState(null)
+function Buttons({ defaultValue, handlerequired, handleDelete, handleUp, handleDown, id }) {
+    const [required, setRequired] = useState(defaultValue)
     const handlerequiredI = () => {
-        handlerequired(id,!required)
+        handlerequired(id, !required)
         setRequired(!required)
     }
     return (
@@ -18,7 +18,7 @@ function Buttons({ handlerequired, handleDelete, handleUp, handleDown, id }) {
                 className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-red-800 hover:text-red-900"
             ><IcBaselineDelete /></button>
             <button
-                onClick={() => handleDown(id)}
+                onClick={(e) => handleDown(id, e)}
                 className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-blue-600 hover:text-blue-900"
             ><ArrowDownwardRounded /></button>
             <button

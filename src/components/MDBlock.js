@@ -3,15 +3,14 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import TextEditor from './TextEditor';
 
-// function MDBlock({ SendMDContent }) {
-const MDBlock = forwardRef(({ SendMDContent }, ref) => {
-    const [markdownText, setMarkdownText] = useState('');
+const MDBlock = forwardRef(({ SendMDContent, defaultValue }, externalRef) => {
+    const [markdownText, setMarkdownText] = useState(defaultValue || "");
     const [previewing, setPreviewing] = useState(false);
     const textareaRef = useRef(null);
     const hiddenDivRef = useRef(null);
     const markdownTextRef = useRef('');
 
-    useImperativeHandle(ref, () => ({
+    useImperativeHandle(externalRef, () => ({
         focus: () => {
             setPreviewing(false);
             if (textareaRef.current) {
@@ -28,17 +27,19 @@ const MDBlock = forwardRef(({ SendMDContent }, ref) => {
     }, [markdownText]);
 
     useEffect(() => {
+        if (markdownTextRef.current !== "") {
+            setPreviewing(true)
+        }
         function handleClickOutside(event) {
             if (markdownTextRef.current !== "" && textareaRef.current && !textareaRef.current.contains(event.target)) {
                 setPreviewing(true)
-                SendMDContent2(markdownTextRef.current)
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [SendMDContent]);
+    }, []);
 
     const handleBlur = () => {
         if (markdownTextRef.current !== "") {
@@ -59,19 +60,19 @@ const MDBlock = forwardRef(({ SendMDContent }, ref) => {
     return (
         <>
             <div
-                className={`${(!previewing || markdownText === "") ? "hidden" : ""} markdown-preview text-sm min-h-7 break-all`}
+                className={`${(!previewing || markdownText === "") ? "hidden" : ""} markdown-preview text-base min-h-7 break-all`}
                 onClick={handlePreviewAreaClick}
                 ref={hiddenDivRef}
             >
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText.replace(/\n/g, '　  \n')}</ReactMarkdown>
             </div>
-            <div className={`${(previewing && markdownText !== "") ? "hidden" : ""} text-sm min-h-7 `}>
+            <div className={`${(previewing && markdownText !== "") ? "hidden" : ""} text-base min-h-7 `}>
                 <TextEditor
                     ref={textareaRef}
                     SendContent={SendMDContent2}
                     placeholder="在這輸入其他說明! (支持 Markdown)"
                     className="myjx-textarea border-none"
-                    // value={markdownText}
+                    defaultValue={defaultValue}
                     onBlur={handleBlur}
                 ></TextEditor>
             </div>

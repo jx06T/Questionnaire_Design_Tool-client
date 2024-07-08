@@ -118,6 +118,20 @@ code {
   padding-left: 20px;
 }
 
+.markdown-preview h1{
+  @apply text-2xl font-bold
+}
+.markdown-preview h2{
+  @apply text-xl font-bold
+}
+.markdown-preview h3{
+  @apply text-xl font-bold
+}
+.markdown-preview h4{
+  @apply text-lg font-bold
+}
+
+
 .debug *{
   border: solid 1px ;
 }
