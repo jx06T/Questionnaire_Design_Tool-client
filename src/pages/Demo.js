@@ -7,7 +7,7 @@ function Demo(props) {
 
     useEffect(() => {
         // import('./demo.json')
-        import('./ccc.json')
+        import('./demo2.json')
             .then(data => setQuestionnaireData(data))
             .catch(error => console.error('Error loading questionnaire:', error));
     }, []);

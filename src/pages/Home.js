@@ -6,7 +6,6 @@ import Content from '../components/Content';
 
 function Home() {
     // const navigate = useNavigate();
-
     return (
         <div className='Home'>
             <Content img={home_img}>

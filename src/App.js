@@ -1,14 +1,15 @@
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import './App.css';
 
-import Home from './pages/Home';
-import Design from './pages/Design';
-import Preview from './pages/Preview';
-import Demo from './pages/Demo';
-import Test from './pages/Test';
-import UserList from './components/UserList';
 import Header from './components/Header';
 import Footer from './components/Footer';
+const Home = lazy(() => import('./pages/Home'));
+const Design = lazy(() => import('./pages/Design'));
+const Preview = lazy(() => import('./pages/Preview'));
+const Demo = lazy(() => import('./pages/Demo'));
+const Test = lazy(() => import('./pages/Test'));
+// const UserList = lazy(() => import('./components/UserList'));
 
 
 function App() {
@@ -17,11 +18,11 @@ function App() {
       <IsHeader />
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/users" element={<UserList />} />
+        {/* <Route path="/users" element={<UserList />} /> */}
         <Route path="/demo" element={<Demo />} />
         <Route path="/test" element={<Test />} />
         <Route path="/design" element={<Design />} />
-        <Route path="/preview" element={<Preview />} />
+        <Route path="/preview" element={<Preview />} /> 
       </Routes>
       <IsFooter />
     </Router>

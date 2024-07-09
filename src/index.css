@@ -33,6 +33,10 @@ code {
   @apply border-gray-300 bg-transparent focus:border-gray-400 outline-none rounded-none;
 }
 
+.myjx-input3{
+  @apply w-[100%] shadow border-b-2 border-dotted border-red-500 bg-transparent focus:border-red-600 outline-none rounded-none;
+}
+
 .myjx-inputP::placeholder { /* 標準語法 */
   color: rgb(95, 95, 95);
 }

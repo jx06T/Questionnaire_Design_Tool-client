@@ -1,0 +1,313 @@
+{
+  "setting": {
+    "theme": "默認主題",
+    "language": "中文",
+    "title": "暑假在做啥大調查",
+    "subtitle": "感謝你的猜參與，請認真回答"
+  },
+  "questionnaire": [
+    {
+      "type": "description",
+      "params": {
+        "question": "這是非常認真的問卷",
+        "description": "**一切資料蒐集僅供學術使用，並在結束後妥善銷毀**\n# dd",
+        "required": true,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1720459253025
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "姓名",
+        "description": "輸入**全名**或是**中間字用O代替**",
+        "required": true,
+        "placeholder": "例如:王曉明或王O明",
+        "originalData": "例如:王曉明或王O明\n/^.{2,10}$/",
+        "regex": "/^.{2,10}$/"
+      },
+      "id": 1720457917243
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "聯絡方式",
+        "description": "歡迎留下下列任一聯絡方式:\n- ig\n- fb\n- line\n- gmail\n- 電話",
+        "required": false,
+        "placeholder": "",
+        "originalData": "",
+        "regex": ""
+      },
+      "id": 1720458887711
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "你多大",
+        "description": "選擇最接近的",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[5]幼稚園 \n[7]低年級 \n[9]中年級 \n[11]高年級 \n[13]國中 \n[18]高中 \n[23]成人",
+        "options": [
+          {
+            "id": "5",
+            "text": "幼稚園"
+          },
+          {
+            "id": "7",
+            "text": "低年級"
+          },
+          {
+            "id": "9",
+            "text": "中年級"
+          },
+          {
+            "id": "11",
+            "text": "高年級"
+          },
+          {
+            "id": "13",
+            "text": "國中"
+          },
+          {
+            "id": "18",
+            "text": "高中"
+          },
+          {
+            "id": "23",
+            "text": "成人"
+          }
+        ]
+      },
+      "id": 1720458923066
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "你的暑假有幾周",
+        "description": "輸入數字不要有單位",
+        "required": true,
+        "placeholder": "例如:3.5",
+        "originalData": "例如:3.5\n/^\\d+(\\.\\d+)?$/",
+        "regex": "/^\\d+(\\.\\d+)?$/"
+      },
+      "id": 1720458971011
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "有在暑假期間補習嗎",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[y]有\n[n]無",
+        "options": [
+          {
+            "id": "y",
+            "text": "有"
+          },
+          {
+            "id": "n",
+            "text": "無"
+          }
+        ]
+      },
+      "id": 1720458997661
+    },
+    {
+      "type": "MCQ",
+      "params": {
+        "question": "補習的科目包含哪些",
+        "description": "",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[]數學 \n[]英文 \n[]國文 \n[]社會 \n[]理化 \n[]生物 \n[ELSE]",
+        "options": [
+          {
+            "id": "數學",
+            "text": "數學"
+          },
+          {
+            "id": "英文",
+            "text": "英文"
+          },
+          {
+            "id": "國文",
+            "text": "國文"
+          },
+          {
+            "id": "社會",
+            "text": "社會"
+          },
+          {
+            "id": "理化",
+            "text": "理化"
+          },
+          {
+            "id": "生物",
+            "text": "生物"
+          }
+        ]
+      },
+      "id": 1720459031451
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "有上暑期營隊嗎",
+        "description": "[概觀 | Cloudflare](https://www.cloudflare.com/zh-tw/lp/ppc/overview-x/?utm_source=google&utm_medium=cpc&utm_campaign=ao-fy-acq-apac_en_hktw-umbrella-br-ge-prospecting-sch_g_brand_alpha_na_pure&utm_content=Alpha_Brand_Pure_Cloudflare&utm_term=cloudflare&campaignid=71700000117613218&adgroupid=58700008672904806&creativeid=691028161805&gad_source=1&gclid=CjwKCAjw-O6zBhASEiwAOHeGxehv9mXaXIfHF1EGNDydxkETqmJS8wh89wMwCy3BHKROge9w1lWO0BoCOlwQAvD_BwE&gclsrc=aw.ds)",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[y]有\n[n]無",
+        "options": [
+          {
+            "id": "y",
+            "text": "有"
+          },
+          {
+            "id": "n",
+            "text": "無"
+          }
+        ]
+      },
+      "id": 1720459054397
+    },
+    {
+      "type": "MCQ",
+      "params": {
+        "question": "營隊的種類有",
+        "description": "若覺得該營隊包含一種以上可以**同時勾選**\n若參加一個以上的營隊也可以**一起勾選**",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[]戶外探索 \n[]專業運動 \n[]學業 \n[]人際互動 \n[]職崖規劃",
+        "options": [
+          {
+            "id": "戶外探索",
+            "text": "戶外探索"
+          },
+          {
+            "id": "專業運動",
+            "text": "專業運動"
+          },
+          {
+            "id": "學業",
+            "text": "學業"
+          },
+          {
+            "id": "人際互動",
+            "text": "人際互動"
+          },
+          {
+            "id": "職崖規劃",
+            "text": "職崖規劃"
+          }
+        ]
+      },
+      "id": 1720459070241
+    },
+    {
+      "type": "DAQ",
+      "params": {
+        "question": "可以的話寫一篇短文關於對暑假的看法",
+        "description": "*不寫也沒關係啦*",
+        "required": false,
+        "placeholder": "",
+        "originalData": "",
+        "regex": ""
+      },
+      "id": 1720459101168
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "認為現在的暑假長度如何",
+        "description": "- A ![d](https://www.cloudflare.com/network-maps/cloudflare-pops-2O04nulSdNrRpJR9fs9OKv.svg)\n- B ![d](https://www.cloudflare.com/network-maps/cloudflare-pops-2O04nulSdNrRpJR9fs9OKv.svg)\n- C ![d](https://www.cloudflare.com/network-maps/cloudflare-pops-2O04nulSdNrRpJR9fs9OKv.svg)",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[]非常短\n[]短\n[]適中\n[]長\n[]超級長",
+        "capture": 10,
+        "min": -112.5,
+        "max": 112.5,
+        "options": [
+          {
+            "value": -100,
+            "text": "非常短"
+          },
+          {
+            "value": -50,
+            "text": "短"
+          },
+          {
+            "value": 0,
+            "text": "適中"
+          },
+          {
+            "value": 50,
+            "text": "長"
+          },
+          {
+            "value": 100,
+            "text": "超級長"
+          }
+        ]
+      },
+      "id": 1720459119091
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "認為現在的暑假月份合適嗎",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[]非常不合適\n[]不合適\n[]合適\n[]超合適",
+        "capture": 10,
+        "min": -85,
+        "max": 85,
+        "options": [
+          {
+            "value": -75,
+            "text": "非常不合適"
+          },
+          {
+            "value": -25,
+            "text": "不合適"
+          },
+          {
+            "value": 25,
+            "text": "合適"
+          },
+          {
+            "value": 75,
+            "text": "超合適"
+          }
+        ]
+      },
+      "id": 1720459151321
+    },
+    {
+      "type": "UDQ",
+      "params": {
+        "question": "上傳一張妳之前暑假的照片",
+        "description": "檔案名稱格式範例如下:\n\"王曉明的暑假\"\n\"王O明的暑假\"\n\"我的暑假\"",
+        "required": false,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1720459180466
+    },
+    {
+      "type": "submit",
+      "params": {
+        "question": "恭喜你完成了",
+        "description": "你有機會得到精美小禮物",
+        "required": true,
+        "placeholder": "",
+        "originalData": "提交",
+        "message": "提交"
+      },
+      "id": 1720459222219
+    }
+  ]
+}

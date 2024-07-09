@@ -10,6 +10,10 @@ const MDBlock = forwardRef(({ SendMDContent, defaultValue }, externalRef) => {
     const hiddenDivRef = useRef(null);
     const markdownTextRef = useRef('');
 
+    const newTabLink = ({ node, ...props }) => {
+        return <a target="_blank" rel="noopener noreferrer" {...props} />;
+    };
+
     useImperativeHandle(externalRef, () => ({
         focus: () => {
             setPreviewing(false);
@@ -64,7 +68,12 @@ const MDBlock = forwardRef(({ SendMDContent, defaultValue }, externalRef) => {
                 onClick={handlePreviewAreaClick}
                 ref={hiddenDivRef}
             >
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText.replace(/\n/g, '　  \n')}</ReactMarkdown>
+                <ReactMarkdown
+                    components={{ a: newTabLink }}
+                    remarkPlugins={[remarkGfm]}
+                >
+                    {markdownText.replace(/\n/g, '　  \n')}
+                </ReactMarkdown>
             </div>
             <div className={`${(previewing && markdownText !== "") ? "hidden" : ""} text-base min-h-7 `}>
                 <TextEditor

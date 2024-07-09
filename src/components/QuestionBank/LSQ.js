@@ -30,7 +30,7 @@ function LSQ(props) {
       repeating-linear-gradient(to right, #e2e8f0, #e2e8f0 3px, transparent 4px, transparent ${100 / (options.length - 1)}%),
       linear-gradient(to right, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%)
       `;
-      InputRef.current.style.backgroundPosition = `45% 0%, 0% 0%`;
+      InputRef.current.style.backgroundPosition = `49% 0%, 0% 0%`;
       InputRef.current.style.backgroundSize = `${((parseInt(options[options.length - 1].value) - parseInt(options[0].value)) / (parseInt(props.max) - parseInt(props.min))) * 100 - 1}% 100%, 100% 100%`;
     }
   }, [props.options]);

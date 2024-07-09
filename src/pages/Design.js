@@ -25,7 +25,8 @@ const Ablock = {
 function scrollToCenter(element, y) {
     const elementRect = element.getBoundingClientRect();
     const absoluteElementTop = elementRect.top + window.pageYOffset;
-    const middle = absoluteElementTop - (window.innerHeight / 2) - y + 250 + 310;
+    // const middle = absoluteElementTop - (window.innerHeight / 2) - y + 250 + 310;
+    const middle = absoluteElementTop - (window.innerHeight / 2) - y + 660;
     window.scrollTo({
         top: middle,
         behavior: 'smooth'
@@ -166,13 +167,13 @@ function Design() {
                 if (index < newQuestionnaire.length - 1) {
                     [newQuestionnaire[index], newQuestionnaire[index + 1]] = [newQuestionnaire[index + 1], newQuestionnaire[index]];
 
+                    setTimeout(() => {
+                        console.log(questionDivRef.current.getElementsByClassName('a-question')[index + 1])
+                        scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index + 1], event.clientY)
+                    }, 1);
                 }
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
-            setTimeout(() => {
-                console.log(questionDivRef.current.getElementsByClassName('a-question')[index + 1])
-                scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index + 1], event.clientY)
-            }, 1);
         },
         handlerequired: (index, r) => {
             setQuestionnaireData(prevData => {
@@ -198,7 +199,7 @@ function Design() {
             </div>
             <br />
         </>
-            );
+    );
 }
 
-            export default Design;
+export default Design;
