@@ -70,11 +70,6 @@ function Design() {
                 event.preventDefault();
                 handleAddQuestion()
             }
-            if (event.ctrlKey && event.key === 's') {
-                event.preventDefault();
-                // localStorage.setItem('questionnaireData', JSON.stringify(questionnaireData));
-                console.log(545345)
-            }
             console.log(event)
         };
 
@@ -86,9 +81,10 @@ function Design() {
 
     // ---------------------------------------------------------------------------------
 
-    // useEffect(() => {
-    //     console.log("-----------------------", questionnaireData)
-    // }, [questionnaireData]);
+    useEffect(() => {
+        // console.log("-----------------------", questionnaireData)
+        localStorage.setItem('questionnaireData', JSON.stringify(questionnaireData));
+    }, [questionnaireData]);
 
     const handleFileDownload = () => {
         const dataStr = JSON.stringify(questionnaireData, null, 2);
@@ -137,16 +133,20 @@ function Design() {
     const updateQuestionnaireData = (index, data) => {
         setQuestionnaireData(prevData => {
             const newQuestionnaire = [...prevData.questionnaire];
-            newQuestionnaire[index].type = data.type;
-            newQuestionnaire[index].params = data.params;
-            return { ...prevData, questionnaire: newQuestionnaire };
+            if (JSON.stringify(newQuestionnaire[index]) !== JSON.stringify(data)) {
+                newQuestionnaire[index] = data;
+                return { ...prevData, questionnaire: newQuestionnaire };
+            }
+            return prevData;
         });
     };
 
     const buttonsFUN = {
         handleDelete: (index) => {
+            console.log(index)
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
+                console.log(index)
                 newQuestionnaire.splice(index, 1);
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
@@ -158,8 +158,6 @@ function Design() {
                     [newQuestionnaire[index - 1], newQuestionnaire[index]] = [newQuestionnaire[index], newQuestionnaire[index - 1]];
                     return { ...prevData, questionnaire: newQuestionnaire };
                 });
-                // questionDivRef.getElementsByClassName('a-question')[index-1].focus();
-                // questionDivRef.current.getElementsByClassName('a-question')[index - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         },
         handleDown: (index, event) => {
@@ -192,7 +190,7 @@ function Design() {
 
                 {questionnaireData.questionnaire.map((element, index) => (
                     element.type !== 'block'
-                        ? <DB.Question type={element.type} key={element.id} buttonsFUN={{ ...buttonsFUN, id: index, defaultValue: element.params.required }} onUpdateB={(data) => updateQuestionnaireData(index, data)} {...element.params} />
+                        ? <DB.Question type={element.type} key={element.id} id={element.id} buttonsFUN={{ ...buttonsFUN, id: index, defaultValue: element.params.required }} onUpdateB={(data) => updateQuestionnaireData(index, data)} {...element.params} />
                         : <DB.BlockEdit key={element.id} onUpdate={(data) => updateQuestionnaireData(index, data)} />
                 ))}
 
@@ -200,7 +198,7 @@ function Design() {
             </div>
             <br />
         </>
-    );
+            );
 }
 
-export default Design;
+            export default Design;

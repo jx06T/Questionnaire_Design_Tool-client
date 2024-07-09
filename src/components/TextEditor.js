@@ -83,7 +83,7 @@ const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
         internalRef.current.style.height = `${internalRef.current.scrollHeight}px`;
         SendContent(internalRef.current.value)
 
-        console.log(92, internalRef.current.value)
+        // console.log(92, internalRef.current.value)
     };
 
     return (

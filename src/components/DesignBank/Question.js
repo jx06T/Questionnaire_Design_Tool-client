@@ -113,14 +113,11 @@ class interpreter {
 function Question({ buttonsFUN, onUpdateB, ...props }) {
     const Myinterpreter = new interpreter()
     const inputRef = useRef(null);
+
     useEffect(() => {
         inputRef.current.focus()
     }, []);
 
-    const onUpdate = (d) => {
-        onUpdateB(d)
-    }
-    
     const options = [
         { value: 'SAQ', label: 'SAQ' },
         { value: 'DAQ', label: 'DAQ' },
@@ -131,26 +128,28 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
         { value: 'description', label: 'Dsc' },
         { value: 'submit', label: 'Sub' },
     ];
+
     const getLabelByValue = (value) => {
         const option = options.find(option => option.value === value);
         return option ? option.label : null;
     }
 
     const [questionData, setQuestionData] = useState({
-        type: 'SAQ',
+        type: props.type || 'SAQ',
         params: {
-            question: '',
-            description: '',
-            required: false,
-            placeholder: '',
-            originalData: ''
-        }
+            question: props.question || '',
+            description: props.description || '',
+            required: props.required || false,
+            placeholder: props.placeholder || '',
+            originalData: props.originalData || ''
+        },
+        id: props.id || Date.now()
     });
 
     const SelectionType = (value) => {
         setQuestionData(prevData => {
             const updatedData = { ...prevData, type: value }
-            onUpdate(updatedData)
+            // onUpdate(updatedData)
             return (updatedData)
         })
     }
@@ -161,7 +160,7 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
                 ...prevData,
                 params: { ...prevData.params, description: newContent }
             }
-            onUpdate(updatedData)
+            // onUpdate(updatedData)
             return updatedData;
         })
     };
@@ -172,7 +171,7 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
                 ...prevData,
                 params: { ...Myinterpreter[prevData.type](newContent, prevData.params), originalData: newContent }
             }
-            onUpdate(updatedData)
+            // onUpdate(updatedData)
             return updatedData;
         });
 
@@ -184,10 +183,17 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
                 ...prevData,
                 params: { ...prevData.params, question: inputRef.current.value }
             };
-            onUpdate(updatedData);
+            // onUpdate(updatedData);
             return updatedData;
         })
     }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            onUpdateB(questionData);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [questionData, onUpdateB]);
 
     const MDBlockRef = useRef(null);
     const handleInputKeyDown = (event) => {
