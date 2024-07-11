@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState, useId } from 'react';
 import EveryPiece from '../EveryPiece';
 import QuestionTitle from '../QuestionTitle';
+import { ReplyContext } from '../QuestionnaireRendering'
+import { changeArray } from '../../utils/changeArray'
 
-function MCQ(props) {
+function MCQ({ id, ...props }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const { replyContent, setReplyContent } = useContext(ReplyContext);
   const uniqueId = useId();
   const options = props.options || [
     { id: 'A', text: '選項 A' },
@@ -13,6 +16,10 @@ function MCQ(props) {
     { id: 'D', text: '選項 D' },
   ];
 
+  useEffect(()=>{
+    setReplyContent((p) => changeArray(p, { id: id, answer: selectedOptions, question: props.question }))
+  },[selectedOptions])
+  
   const handleOptionChange = (optionId) => {
     setSelectedOptions(prevSelected => {
       if (prevSelected.includes(optionId)) {

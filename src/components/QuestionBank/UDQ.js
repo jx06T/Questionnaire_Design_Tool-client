@@ -1,15 +1,23 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useContext, useEffect } from 'react';
 import EveryPiece from '../EveryPiece';
 import { FluentRename20Filled, IcBaselineDelete, IcRoundDoneOutline, CiUndo } from '../Icons';
 import QuestionTitle from '../QuestionTitle';
+import { ReplyContext } from '../QuestionnaireRendering'
+import { changeArray } from '../../utils/changeArray'
 
-function UDQ(props) {
+function UDQ({ id, ...props }) {
+  const { replyContent, setReplyContent } = useContext(ReplyContext);
+
   const [files, setFiles] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const fileInputRef = useRef(null);
 
   const [isDragging, setIsDragging] = useState(false);
   const dropZoneRef = useRef(null);
+
+  useEffect(() => {
+    setReplyContent((p) => changeArray(p, { id: id, answer: files, question: props.question }))
+  }, [files])
 
   const handleFile = useCallback((file) => {
     const reader = new FileReader();

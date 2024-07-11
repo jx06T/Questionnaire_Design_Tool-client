@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import EveryPiece from '../EveryPiece';
 import QuestionTitle from '../QuestionTitle';
+import { ReplyContext } from '../QuestionnaireRendering'
+import { changeArray } from '../../utils/changeArray'
 
-function SAQ(props) {
+function SAQ({ id, ...props }) {
+  const { replyContent, setReplyContent } = useContext(ReplyContext);
+
   const handleInput = (e) => {
     if (props.regex) {
       const regex = new RegExp(props.regex.slice(1, props.regex.length - 1))
       if (!regex.test(e.target.value)) {
         e.target.classList.add("myjx-input3")
         e.target.classList.remove("myjx-input")
-      }else{
+      } else {
         e.target.classList.add("myjx-input")
         e.target.classList.remove("myjx-input3")
       }
       console.log(regex, regex.test(e.target.value))
     }
+    setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
   }
+  
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "簡單的回答"} required={props.required}></QuestionTitle>

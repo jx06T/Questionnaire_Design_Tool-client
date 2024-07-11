@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState, useId } from 'react';
 import EveryPiece from '../EveryPiece';
 import QuestionTitle from '../QuestionTitle';
+import { ReplyContext } from '../QuestionnaireRendering'
+import { changeArray } from '../../utils/changeArray'
 
-function MCQ(props) {
+function MCQ({ id, ...props }) {
+  const { replyContent, setReplyContent } = useContext(ReplyContext);
+  
   const [selectedOption, setSelectedOption] = useState(null);
   const uniqueId = useId();
   const options = props.options || [
@@ -13,13 +17,17 @@ function MCQ(props) {
     { id: 'D', text: '選項 D' },
   ];
 
+  useEffect(() => {
+    setReplyContent((p) => changeArray(p, { id: id, answer: selectedOption, question: props.question }))
+  }, [selectedOption])
+  
   const handleOptionChange = (optionId) => {
     setSelectedOption(optionId);
   };
 
   return (
     <EveryPiece>
-      <QuestionTitle question={props.question} description={props.description||"選擇一個妳認為適合的答案"} required={props.required}></QuestionTitle>
+      <QuestionTitle question={props.question} description={props.description || "選擇一個妳認為適合的答案"} required={props.required}></QuestionTitle>
       <div>
         {options.map((option) => (
           <div key={option.id} className="mb-2">

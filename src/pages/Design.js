@@ -71,7 +71,7 @@ function Design() {
                 event.preventDefault();
                 handleAddQuestion()
             }
-            console.log(event)
+            // console.log(event)
         };
 
         document.addEventListener('keydown', handleKeyDown);
@@ -168,17 +168,27 @@ function Design() {
                     [newQuestionnaire[index], newQuestionnaire[index + 1]] = [newQuestionnaire[index + 1], newQuestionnaire[index]];
 
                     setTimeout(() => {
-                        console.log(questionDivRef.current.getElementsByClassName('a-question')[index + 1])
+                        // console.log(questionDivRef.current.getElementsByClassName('a-question')[index + 1])
                         scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index + 1], event.clientY)
                     }, 1);
                 }
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
         },
-        handlerequired: (index, r) => {
+        handleRequired: (index, r) => {
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
                 newQuestionnaire[index].params.required = r
+                return { ...prevData, questionnaire: newQuestionnaire };
+            });
+        },
+        handleDuplicate: (index, event) => {
+            setQuestionnaireData(prevData => {
+                const newQuestionnaire = [...prevData.questionnaire];
+                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], id: Date.now() })
+                setTimeout(() => {
+                    scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index],100)
+                }, 1);
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
         }

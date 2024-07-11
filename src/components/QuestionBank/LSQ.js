@@ -1,8 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import EveryPiece from '../EveryPiece';
 import QuestionTitle from '../QuestionTitle';
+import { ReplyContext } from '../QuestionnaireRendering'
+import { changeArray } from '../../utils/changeArray'
 
-function LSQ(props) {
+function LSQ({ id, ...props }) {
+  const { replyContent, setReplyContent } = useContext(ReplyContext);
+
   const InputRef = useRef(null);
   props = { ...props, min: props.min || "-105", max: props.max || "105", capture: props.capture || 5 };
 
@@ -19,19 +23,31 @@ function LSQ(props) {
     options.forEach(option => {
       const difference = Math.abs(parseInt(option.value) - parseInt(I.value));
       if (difference < props.capture) {
+        setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
         I.value = option.value
       }
     });
+    setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
+  }
+
+  const getStripes = (max, min, options) => {
+    const stripes = options.map((i) => {
+      const percentage = ((i.value - min) / (max - min) * 100).toFixed(2)
+      return `transparent calc(${percentage}% - 1.5px) , #e2e8f0 calc(${percentage}% - 1.5px) , #e2e8f0 calc(${percentage}% + 1.5px) , transparent calc(${percentage}% + 1.5px)`
+    })
+    // return `repeating-linear-gradient(to right,${stripes.join(",")}, transparent 100%)`
+    return `linear-gradient(to right,${stripes.join(",")}, transparent 100%)`
+
   }
 
   useEffect(() => {
     if (InputRef.current) {
       InputRef.current.style.background = `
-      repeating-linear-gradient(to right, #e2e8f0, #e2e8f0 3px, transparent 4px, transparent ${100 / (options.length - 1)}%),
+      ${getStripes(props.max, props.min, options)},
       linear-gradient(to right, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%)
       `;
-      InputRef.current.style.backgroundPosition = `49% 0%, 0% 0%`;
-      InputRef.current.style.backgroundSize = `${((parseInt(options[options.length - 1].value) - parseInt(options[0].value)) / (parseInt(props.max) - parseInt(props.min))) * 100 - 1}% 100%, 100% 100%`;
+      InputRef.current.style.backgroundSize = `98% 100%, 100% 100%`;
+      InputRef.current.style.backgroundPosition = `54% 0%, 0% 0%`;
     }
   }, [props.options]);
 

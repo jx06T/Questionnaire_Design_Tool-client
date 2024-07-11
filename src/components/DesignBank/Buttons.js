@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { IcRoundStar, IcBaselineDelete, ArrowDownwardRounded, ArrowUpwardRounded } from '../Icons';
+import { FileDuplicate, IcRoundStar, IcBaselineDelete, ArrowDownwardRounded, ArrowUpwardRounded } from '../Icons';
 
-function Buttons({ defaultValue, handlerequired, handleDelete, handleUp, handleDown, id }) {
+function Buttons({ defaultValue, handleDuplicate, handleRequired, handleDelete, handleUp, handleDown, id }) {
     const [required, setRequired] = useState(defaultValue)
-    const handlerequiredI = () => {
-        handlerequired(id, !required)
+    const handleRequiredI = () => {
+        handleRequired(id, !required)
         setRequired(!required)
     }
     return (
         <div className="flex space-x-3 justify-end -mb-3">
             <button
-                onClick={handlerequiredI}
+                onClick={handleRequiredI}
                 className={`bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center ${required ? "text-red-600 hover:text-red-700" : "text-stone-600 hover:text-stone-700"}`}
             ><IcRoundStar /></button>
             <button
@@ -18,12 +18,16 @@ function Buttons({ defaultValue, handlerequired, handleDelete, handleUp, handleD
                 className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-red-800 hover:text-red-900"
             ><IcBaselineDelete /></button>
             <button
+                onClick={(e) => handleDuplicate(id,e)}
+                className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-blue-600 hover:text-blue-700"
+            ><FileDuplicate /></button>
+            <button
                 onClick={(e) => handleDown(id, e)}
-                className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-blue-600 hover:text-blue-900"
+                className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-blue-600 hover:text-blue-800"
             ><ArrowDownwardRounded /></button>
             <button
                 onClick={() => handleUp(id)}
-                className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-blue-600 hover:text-blue-900"
+                className="bg-slate-300 text-2xl w-8 h-8 rounded-[50%] flex items-center justify-center text-blue-600 hover:text-blue-800"
             ><ArrowUpwardRounded /></button>
         </div>
     )

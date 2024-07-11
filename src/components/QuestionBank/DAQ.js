@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import EveryPiece from '../EveryPiece';
 import QuestionTitle from '../QuestionTitle';
+import { ReplyContext } from '../QuestionnaireRendering'
+import { changeArray } from '../../utils/changeArray'
 
 
-function DAQ(props) {
+function DAQ({ id, ...props }) {
+  const { replyContent, setReplyContent } = useContext(ReplyContext);
   const textareaRef = useRef(null)
 
   useEffect(() => {
@@ -14,11 +17,13 @@ function DAQ(props) {
     }
   }, [])
 
-  const UProw = (event) => {
+  const UProw = (e) => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight + 1}px`;
     }
+    if(!e)return
+    setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
   }
   return (
     <EveryPiece>
