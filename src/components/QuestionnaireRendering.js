@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import QB from './QuestionBank'
 import MB from './MethodBank'
 
@@ -7,10 +7,11 @@ export const ReplyContext = React.createContext(null);
 function QuestionnaireRendering(props) {
     const [questionnaireData, setQuestionnaireData] = useState(props.data);
     const [replyContent, setReplyContent] = useState([]);
-    const contextValue = {
+    const contextValue = useMemo(() => {
         replyContent,
-        setReplyContent
-    }
+            setReplyContent
+    })
+    
     useEffect(() => {
         console.log(replyContent)
     }, [replyContent])
