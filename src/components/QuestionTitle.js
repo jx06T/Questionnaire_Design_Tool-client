@@ -15,7 +15,8 @@ function QuestionTitle({ question, description = "詳細說明", required = fals
                     className="text-base mb-6"
                     remarkPlugins={[remarkGfm]}
                 >
-                    {description.replace(/(?<!\n)\n(?!\n)/g, '  \n')}
+                    {/* {description.replace(/(?<!\n)\n(?!\n)/g, '　  \n')} */}
+                    {description.replace(/\n/g, '　  \n')}
                 </ReactMarkdown>
             </div>
         </>

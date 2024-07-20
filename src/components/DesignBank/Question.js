@@ -126,7 +126,7 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
         { value: 'LSQ', label: 'LSQ' },
         { value: 'UDQ', label: 'UDQ' },
         { value: 'description', label: 'Dsc' },
-        { value: 'submit', label: 'Sub' },
+        // { value: 'submit', label: 'Sub' },
     ];
 
     const getLabelByValue = (value) => {

@@ -21,11 +21,13 @@ function SAQ({ id, ...props }) {
     }
     setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
   }
-  
+
+  const initialValue = replyContent.filter(e => e.id === id)[0]
+  const answer = initialValue ? initialValue.answer : null
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "簡單的回答"} required={props.required}></QuestionTitle>
-      <input onInput={handleInput} type="text" className='myjx-input' placeholder={props.placeholder || '依照說明填寫'} defaultValue={props.defaultValue || ""}></input>
+      <input onInput={handleInput} type="text" className='myjx-input' placeholder={props.placeholder || '依照說明填寫'} defaultValue={answer}></input>
     </EveryPiece>
   );
 }

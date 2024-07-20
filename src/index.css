@@ -18,7 +18,7 @@ code {
   @apply rounded-md bg-slate-200 hover:bg-slate-300 p-1;
 }
 .myjx-button2{
-  @apply rounded-md bg-slate-300 hover:bg-slate-400 p-1;
+  @apply rounded-md bg-slate-300 hover:bg-slate-400 p-1 px-3 min-w-20;
 }
 
 .myjx-a{
@@ -129,10 +129,10 @@ code {
   @apply text-xl font-bold
 }
 .markdown-preview h3{
-  @apply text-xl font-bold
+  @apply text-xl 
 }
 .markdown-preview h4{
-  @apply text-lg font-bold
+  @apply text-lg 
 }
 
 

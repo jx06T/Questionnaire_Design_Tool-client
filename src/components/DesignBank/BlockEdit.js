@@ -80,11 +80,11 @@ function BlockEdit({ isFirst, buttonsFUN, onUpdateB, ...props }) {
         <div className='flex flex-col a-question'>
             {!isFirst && <hr className='my-8 w-[110%] -ml-[5%] bg-slate-200 h-[1.8px] max-w-[98vw]' />}
             {!props.noI && <EveryPiece color="300">
-                <input defaultValue={props.question} onChange={(e) => handleInputChange(e, "question")} ref={inputRef} placeholder="在這輸入區塊說明!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}></input>
+                <input defaultValue={props.question} onChange={(e) => handleInputChange(e, "question")} ref={inputRef} placeholder="在這輸入區塊說明!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] w-full ${props.required ? "J-required" : ""}`}></input>
                 <MDBlock defaultValue={props.description} SendMDContent={(v) => handleMDChange(v, "description")} />
 
                 <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
-                <input defaultValue={props.questionN} onChange={(e) => handleInputChange(e, "questionN")} placeholder="在這輸入區塊說明!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] ${props.required ? "J-required" : ""}`}></input>
+                <input defaultValue={props.questionN} onChange={(e) => handleInputChange(e, "questionN")} placeholder="在這輸入區塊說明!" type='text' className={`myjx-input2 text-2xl mb-[0.2rem] w-full ${props.required ? "J-required" : ""}`}></input>
                 <MDBlock defaultValue={props.descriptionN} SendMDContent={(v) => handleMDChange(v, "descriptionN")} />
 
                 <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />

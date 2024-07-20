@@ -27,6 +27,10 @@ const Ablock = {
     },
 }
 
+function getRandId() {
+    return Math.random().toString(36).substring(2.9) + Math.random().toString(36).substring(2.9)
+}
+
 function scrollToCenter(element, y) {
     const elementRect = element.getBoundingClientRect();
     const absoluteElementTop = elementRect.top + window.pageYOffset;
@@ -47,7 +51,8 @@ function Design() {
             theme: "默認主題",
             language: "中文",
             title: "",
-            subtitle: ""
+            subtitle: "",
+            id: getRandId()
         },
         questionnaire: []
     }
@@ -125,6 +130,14 @@ function Design() {
         }
     };
 
+    const createNewQuestionnaire = () => {
+        const shouldContinue = confirm('這會刪除目前建立的問卷?');// eslint-disable-line no-restricted-globals
+        if (shouldContinue) {
+            localStorage.setItem('questionnaireData', '');
+            window.location.reload();
+        }
+    }
+
     // ---------------------------------------------------------------------------------
 
     const updateTitleData = (title, subtitle) => {
@@ -201,7 +214,7 @@ function Design() {
         <>
             <HeaderTool handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
             <div ref={questionDivRef} className='Design flex bg-slate-50 flex-col items-center justify-center'>
-                <DB.TitleEdit defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
+                <DB.TitleEdit createNewQuestionnaire={createNewQuestionnaire} defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
 
                 {questionnaireData.questionnaire.map((element, index) => (
                     element.type !== "block"

@@ -12,9 +12,9 @@ function DAQ({ id, ...props }) {
   useEffect(() => {
     if (textareaRef.current.value == "") {
       textareaRef.current.value = textareaRef.current.placeholder
-      UProw()
       textareaRef.current.value = ""
     }
+    UProw()
   }, [])
 
   const UProw = (e) => {
@@ -22,13 +22,16 @@ function DAQ({ id, ...props }) {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight + 1}px`;
     }
-    if(!e)return
+    if (!e) return
     setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
   }
+
+  const initialValue = replyContent.filter(e => e.id === id)[0]
+  const answer = initialValue ? initialValue.answer : null
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "這是一道詳答題!"} required={props.required}></QuestionTitle>
-      <textarea ref={textareaRef} onInput={UProw} type="text" placeholder={props.placeholder || '提示內容照規定寫啊'} className='myjx-textarea' defaultValue={props.defaultValue || ""}></textarea>
+      <textarea ref={textareaRef} onInput={UProw} type="text" placeholder={props.placeholder || '提示內容照規定寫啊'} className='myjx-textarea' defaultValue={answer}></textarea>
     </EveryPiece>
   );
 }

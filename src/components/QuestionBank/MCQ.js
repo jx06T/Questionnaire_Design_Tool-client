@@ -6,8 +6,12 @@ import { ReplyContext } from '../QuestionnaireRendering'
 import { changeArray } from '../../utils/changeArray'
 
 function MCQ({ id, ...props }) {
-  const [selectedOptions, setSelectedOptions] = useState([]);
   const { replyContent, setReplyContent } = useContext(ReplyContext);
+
+  const initialValue = replyContent.filter(e => e.id === id)[0]
+  const answer = initialValue ? initialValue.answer : []
+  const [selectedOptions, setSelectedOptions] = useState(answer);
+  
   const uniqueId = useId();
   const options = props.options || [
     { id: 'A', text: '選項 A' },
@@ -16,10 +20,10 @@ function MCQ({ id, ...props }) {
     { id: 'D', text: '選項 D' },
   ];
 
-  useEffect(()=>{
+  useEffect(() => {
     setReplyContent((p) => changeArray(p, { id: id, answer: selectedOptions, question: props.question }))
-  },[selectedOptions])
-  
+  }, [selectedOptions])
+
   const handleOptionChange = (optionId) => {
     setSelectedOptions(prevSelected => {
       if (prevSelected.includes(optionId)) {
@@ -32,7 +36,7 @@ function MCQ({ id, ...props }) {
 
   return (
     <EveryPiece>
-      <QuestionTitle question={props.question} description={props.description||"選擇一個或多個妳認為適合的答案"} required={props.required}></QuestionTitle>
+      <QuestionTitle question={props.question} description={props.description || "選擇一個或多個妳認為適合的答案"} required={props.required}></QuestionTitle>
       <div>
         {options.map((option) => (
           <div key={option.id} className="mb-2">

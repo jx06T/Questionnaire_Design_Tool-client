@@ -1,0 +1,338 @@
+{
+  "setting": {
+    "theme": "默認主題",
+    "language": "中文",
+    "title": "【新北市立文山國民中學112學年度畢業學生升學就業動向調查】",
+    "subtitle": "輔導處113.06.07",
+    "id": "53v3xmra7zb9xw2j254mtu"
+  },
+  "questionnaire": [
+    {
+      "type": "description",
+      "params": {
+        "question": "前言",
+        "description": "#### 親愛的同學們：\n　　恭喜大家完成國中學業，即將邁入新的里程碑！學校希望了解大家畢業後的規劃，做為未來活動安排或升學輔導上的參考，請協助於**7月22**日**星期一**前完成此份問卷，**感謝**。\n\n輔導處*113.06.07*",
+        "required": false,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1721489269733
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "第一部分：基本資料",
+        "description": "",
+        "questionN": "繼續填寫：「畢業後規劃」",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]喔這不能點喔\n[n]繼續",
+        "message1": "喔這不能點喔",
+        "message2": "繼續"
+      },
+      "id": 1721489574821
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "班級/座號/姓名",
+        "description": "Ex:901/05/王大明",
+        "required": true,
+        "placeholder": "Ex:901/05/王大明",
+        "originalData": "Ex:901/05/王大明\n/^\\d{3}\\/\\d{2}\\/[\\u4e00-\\u9fa5]{2,4}$/",
+        "regex": "/^\\d{3}\\/\\d{2}\\/[\\u4e00-\\u9fa5]{2,4}$/"
+      },
+      "id": 1721489687183
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "聯絡電話：",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "/^\\d{10}$/",
+        "regex": "/^\\d{10}$/"
+      },
+      "id": 1721489728688
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "第二部分：畢業後規劃",
+        "description": "",
+        "questionN": "繼續填寫：「技藝教育課程」",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]繼續",
+        "message1": "返回",
+        "message2": "繼續"
+      },
+      "id": 1721490220057
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "畢業後動向",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[高中] 就讀普通型高中(高中)\n[高職] 就讀技術型高中(高職)\n[綜合高中] 就讀綜合高中\n[五專] 就讀五專\n[] 就業\n[] 其他",
+        "options": [
+          {
+            "id": "高中",
+            "text": "就讀普通型高中(高中)"
+          },
+          {
+            "id": "高職",
+            "text": "就讀技術型高中(高職)"
+          },
+          {
+            "id": "綜合高中",
+            "text": "就讀綜合高中"
+          },
+          {
+            "id": "五專",
+            "text": "就讀五專"
+          },
+          {
+            "id": "就業",
+            "text": "就業"
+          },
+          {
+            "id": "其他",
+            "text": "其他"
+          }
+        ]
+      },
+      "id": 1721490404439
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "升學學校就讀職群(科別)",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[] 普通科(普通高中)\n[] 機械群\n[] 動力機械群\n[] 電機電子群\n[] 食品群\n[] 藝術群\n[] 設計群\n[] 餐旅群\n[] 醫護群\n[] 家政群\n[] 化工群\n[] 土木建築群\n[] 商業管理群\n[] 外語群\n[] 農業群\n[] 水產群\n[] 海事群\n[] 未繼續升學",
+        "options": [
+          {
+            "id": "普通科(普通高中)",
+            "text": "普通科(普通高中)"
+          },
+          {
+            "id": "機械群",
+            "text": "機械群"
+          },
+          {
+            "id": "動力機械群",
+            "text": "動力機械群"
+          },
+          {
+            "id": "電機電子群",
+            "text": "電機電子群"
+          },
+          {
+            "id": "食品群",
+            "text": "食品群"
+          },
+          {
+            "id": "藝術群",
+            "text": "藝術群"
+          },
+          {
+            "id": "設計群",
+            "text": "設計群"
+          },
+          {
+            "id": "餐旅群",
+            "text": "餐旅群"
+          },
+          {
+            "id": "醫護群",
+            "text": "醫護群"
+          },
+          {
+            "id": "家政群",
+            "text": "家政群"
+          },
+          {
+            "id": "化工群",
+            "text": "化工群"
+          },
+          {
+            "id": "土木建築群",
+            "text": "土木建築群"
+          },
+          {
+            "id": "商業管理群",
+            "text": "商業管理群"
+          },
+          {
+            "id": "外語群",
+            "text": "外語群"
+          },
+          {
+            "id": "農業群",
+            "text": "農業群"
+          },
+          {
+            "id": "水產群",
+            "text": "水產群"
+          },
+          {
+            "id": "海事群",
+            "text": "海事群"
+          },
+          {
+            "id": "未繼續升學",
+            "text": "未繼續升學"
+          }
+        ]
+      },
+      "id": 1721490354736
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "升學學校名稱、科系：",
+        "description": "(未升學，請填「無」) ",
+        "required": true,
+        "placeholder": "",
+        "originalData": "",
+        "regex": ""
+      },
+      "id": 1721490473602
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "就業規劃、工作名稱及內容：",
+        "description": "(未就業，請填「無」)   ",
+        "required": false,
+        "placeholder": "",
+        "originalData": "",
+        "regex": ""
+      },
+      "id": 1721490742815
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "其他，請補充說明：",
+        "description": "(已選升學、就業者，請填「無」) ",
+        "required": false,
+        "placeholder": "",
+        "originalData": "",
+        "regex": ""
+      },
+      "id": 1721490461964
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "第三部分：技藝教育課程",
+        "description": "",
+        "questionN": "繼續填寫「薪火相傳學長姐返校座談」分享人意願調查",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]繼續",
+        "message1": "返回",
+        "message2": "繼續"
+      },
+      "id": 1721490925623
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "九年級是否參加「技藝教育課程」？",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[y]是\n[n]否",
+        "options": [
+          {
+            "id": "y",
+            "text": "是"
+          },
+          {
+            "id": "n",
+            "text": "否"
+          }
+        ]
+      },
+      "id": 1721490932414
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "第四部分：「薪火相傳學長姐返校座談」分享人意願調查",
+        "description": "",
+        "questionN": "提交囉",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]提交",
+        "message1": "返回",
+        "message2": "提交"
+      },
+      "id": 1721490960115
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "是否有意願擔任「薪火相傳學長姐返校座談」分享人？",
+        "description": "",
+        "required": true,
+        "placeholder": "",
+        "originalData": "[]沒有意願\n[]考慮看看\n[]非常樂意",
+        "capture": 10,
+        "min": -57.5,
+        "max": 57.5,
+        "options": [
+          {
+            "value": -50,
+            "text": "沒有意願"
+          },
+          {
+            "value": 0,
+            "text": "考慮看看"
+          },
+          {
+            "value": 50,
+            "text": "非常樂意"
+          }
+        ]
+      },
+      "id": 1721491004823
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "我可以分享的主題有？",
+        "description": "",
+        "required": true,
+        "placeholder": "會考準備方法 我的學校介紹 以上皆可 無意願分享",
+        "originalData": "[] 會考準備方法\n[] 我的學校介紹\n[] 以上皆可\n[] 無意願分享",
+        "options": [
+          {
+            "id": "會考準備方法",
+            "text": "會考準備方法"
+          },
+          {
+            "id": "我的學校介紹",
+            "text": "我的學校介紹"
+          },
+          {
+            "id": "以上皆可",
+            "text": "以上皆可"
+          },
+          {
+            "id": "無意願分享",
+            "text": "無意願分享"
+          }
+        ]
+      },
+      "id": 1721491039277
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "setting": {
+    "theme": "默認主題",
+    "language": "中文",
+    "title": "暑假在做啥大調查   ",
+    "subtitle": "感謝你的猜參與，請認真回答"
+  },
+  "questionnaire": [
+    {
+      "type": "block",
+      "params": {
+        "question": "一",
+        "description": "",
+        "questionN": "切換到下一個區塊(二)",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]繼續",
+        "message1": "返回",
+        "message2": "繼續"
+      },
+      "id": 1721483683791
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "例如:王曉明或王O明",
+        "originalData": "例如:王曉明或王O明\n/^.{2,10}$/",
+        "regex": "/^.{2,10}$/"
+      },
+      "id": 1721483459719
+    },
+    {
+      "type": "DAQ",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1721483463171
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "二",
+        "description": "",
+        "questionN": "切換到下一個區塊(三)",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]繼續",
+        "message1": "返回",
+        "message2": "繼續"
+      },
+      "id": 1721483711792
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[5]幼稚園\n[7]低年級\n[9]中年級\n[11]高年級\n[13]國中\n[18]高中\n[23]成人",
+        "options": [
+          {
+            "id": "5",
+            "text": "幼稚園"
+          },
+          {
+            "id": "7",
+            "text": "低年級"
+          },
+          {
+            "id": "9",
+            "text": "中年級"
+          },
+          {
+            "id": "11",
+            "text": "高年級"
+          },
+          {
+            "id": "13",
+            "text": "國中"
+          },
+          {
+            "id": "18",
+            "text": "高中"
+          },
+          {
+            "id": "23",
+            "text": "成人"
+          }
+        ]
+      },
+      "id": 1721483443135
+    },
+    {
+      "type": "MCQ",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[]數學\n[]英文\n[]國文\n[]社會\n[]理化\n[]生物\n[ELSE]",
+        "options": [
+          {
+            "id": "數學",
+            "text": "數學"
+          },
+          {
+            "id": "英文",
+            "text": "英文"
+          },
+          {
+            "id": "國文",
+            "text": "國文"
+          },
+          {
+            "id": "社會",
+            "text": "社會"
+          },
+          {
+            "id": "理化",
+            "text": "理化"
+          },
+          {
+            "id": "生物",
+            "text": "生物"
+          }
+        ]
+      },
+      "id": 1721483475987
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "三",
+        "description": "",
+        "questionN": "切換到下一個區塊(四)",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]繼續",
+        "message1": "返回",
+        "message2": "繼續"
+      },
+      "id": 1721483699063
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[]非常短\n[]短\n[]適中\n[]長\n[]超級長",
+        "capture": 10,
+        "min": -112.5,
+        "max": 112.5,
+        "options": [
+          {
+            "value": -100,
+            "text": "非常短"
+          },
+          {
+            "value": -50,
+            "text": "短"
+          },
+          {
+            "value": 0,
+            "text": "適中"
+          },
+          {
+            "value": 50,
+            "text": "長"
+          },
+          {
+            "value": 100,
+            "text": "超級長"
+          }
+        ]
+      },
+      "id": 1721483487908
+    },
+    {
+      "type": "UDQ",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": true,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1721483491501
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "四",
+        "description": "",
+        "questionN": "切換到下一個區塊(提交)",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[b]返回\n[n]繼續",
+        "message1": "返回",
+        "message2": "繼續"
+      },
+      "id": 1721483723434
+    },
+    {
+      "type": "description",
+      "params": {
+        "question": "測試",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1721483466409
+    },
+    {
+      "type": "submit",
+      "params": {
+        "question": "提交",
+        "description": "**測試**",
+        "required": false,
+        "placeholder": "",
+        "originalData": ""
+      },
+      "id": 1721477692858
+    }
+  ]
+}

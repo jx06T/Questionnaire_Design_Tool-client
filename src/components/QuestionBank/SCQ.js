@@ -7,8 +7,10 @@ import { changeArray } from '../../utils/changeArray'
 
 function MCQ({ id, ...props }) {
   const { replyContent, setReplyContent } = useContext(ReplyContext);
-  
-  const [selectedOption, setSelectedOption] = useState(null);
+
+  const initialValue = replyContent.filter(e => e.id === id)[0]
+  const answer = initialValue ? initialValue.answer : null
+  const [selectedOption, setSelectedOption] = useState(answer);
   const uniqueId = useId();
   const options = props.options || [
     { id: 'A', text: '選項 A' },
@@ -20,7 +22,7 @@ function MCQ({ id, ...props }) {
   useEffect(() => {
     setReplyContent((p) => changeArray(p, { id: id, answer: selectedOption, question: props.question }))
   }, [selectedOption])
-  
+
   const handleOptionChange = (optionId) => {
     setSelectedOption(optionId);
   };

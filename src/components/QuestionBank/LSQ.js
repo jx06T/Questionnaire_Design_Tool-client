@@ -1,8 +1,16 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext, useCallback } from 'react';
 import EveryPiece from '../EveryPiece';
 import QuestionTitle from '../QuestionTitle';
 import { ReplyContext } from '../QuestionnaireRendering'
 import { changeArray } from '../../utils/changeArray'
+
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
 function LSQ({ id, ...props }) {
   const { replyContent, setReplyContent } = useContext(ReplyContext);
@@ -18,16 +26,21 @@ function LSQ({ id, ...props }) {
     { "value": "100", "text": "非常同意" }
   ]
 
+  const sendReplyContent = useCallback(
+    debounce((n) => {
+      setReplyContent((p) => changeArray(p, n))
+    }, 300), [])
+
   const correction = (e) => {
     const I = InputRef.current
     options.forEach(option => {
       const difference = Math.abs(parseInt(option.value) - parseInt(I.value));
       if (difference < props.capture) {
-        setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
+        sendReplyContent({ id: id, answer: e.target.value, question: props.question })
         I.value = option.value
       }
     });
-    setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
+    sendReplyContent({ id: id, answer: e.target.value, question: props.question })
   }
 
   const getStripes = (max, min, options) => {
@@ -51,7 +64,8 @@ function LSQ({ id, ...props }) {
     }
   }, [props.options]);
 
-
+  const initialValue = replyContent.filter(e => e.id === id)[0]
+  const answer = initialValue ? initialValue.answer : 0
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "點選或拖動到最符合妳感受的刻度"} required={props.required}></QuestionTitle>
@@ -64,7 +78,7 @@ function LSQ({ id, ...props }) {
         ))}
 
       </div>
-      <input ref={InputRef} onChange={correction} className='myjx-LS range-wrap w-[104%] -ml-[2%] md:w-[96%] md:ml-[2%] lg:w-[96%] lg:ml-[2%]' type="range" name="range" min={props.min || "-105"} max={props.max || "105"} defaultValue="0" />
+      <input ref={InputRef} onChange={correction} className='myjx-LS range-wrap w-[104%] -ml-[2%] md:w-[96%] md:ml-[2%] lg:w-[96%] lg:ml-[2%]' type="range" name="range" min={props.min || "-105"} max={props.max || "105"} defaultValue={answer} />
     </EveryPiece>
   );
 }

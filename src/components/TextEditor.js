@@ -8,7 +8,7 @@ const TextEditor = forwardRef(({ SendContent, defaultValue = "", ...otherProps }
     useEffect(() => {
         const textarea = internalRef.current;
         if (!textarea) return;
-        // UProw()
+        UProw()
 
         const handleKeyDown = (e) => {
             const { key, ctrlKey, altKey, shiftKey } = e;
