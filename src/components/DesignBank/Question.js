@@ -13,6 +13,7 @@ class interpreter {
         this.DAQ = (c, p) => { return this.SDAQ(c, p, "\n") }
         this.UDQ = (c, p) => { return p }
         this.description = (c, p) => { return p }
+        this.finish = (c, p) => { return p }
         this.submit = (c, p) => {
             p.message = c
             return p
@@ -126,6 +127,7 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
         { value: 'LSQ', label: 'LSQ' },
         { value: 'UDQ', label: 'UDQ' },
         { value: 'description', label: 'Dsc' },
+        { value: 'finish', label: 'ok' },
         // { value: 'submit', label: 'Sub' },
     ];
 

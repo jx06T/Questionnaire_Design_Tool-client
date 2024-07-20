@@ -333,6 +333,18 @@
         ]
       },
       "id": 1721491039277
+    },
+    {
+      "type": "finish",
+      "params": {
+        "question": "恭喜你完成問卷!",
+        "description": "# 你有機會得到精美小禮物\n\n[吉星出租 - 暮色回響『神啊可不可以讓我感受一下，看在我們對彼此都放心不下。』- YouTube](https://www.youtube.com/watch?v=vSajpNUctPk)",
+        "required": false,
+        "placeholder": "",
+        "originalData": "",
+        "regex": ""
+      },
+      "id": 1721493559567
     }
   ]
 }

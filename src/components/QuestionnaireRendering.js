@@ -20,6 +20,8 @@ function QuestionnaireRendering(props) {
     );
 
     const previousPage = useRef(null)
+    const finishPage = useRef(null)
+
     const contextValue = useMemo(() => ({
         replyContent,
         setReplyContent
@@ -81,6 +83,13 @@ function QuestionnaireRendering(props) {
         }
     };
 
+    const submit = () => {
+        setIsLoading(true);
+        setCurrentPage(questionnaireData.setting.id);
+        setSearchParams({ p: questionnaireData.setting.id.toString() });
+        setTimeout(() => setIsLoading(false), 400);
+    };
+
     const renderQuestion = (question, index) => {
         if (rangeList[index] != currentPage) {
             if (question.type === "block" && rangeList[index] - 1 === currentPage && previousPage.current) {
@@ -116,6 +125,10 @@ function QuestionnaireRendering(props) {
                     return (
                         <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description>
                     );
+                case 'finish':
+                    finishPage.current = <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description>
+                    console.log("ddd")
+                    return null;
                 default:
                     return null;
             }
@@ -124,10 +137,10 @@ function QuestionnaireRendering(props) {
             return (
                 <>
                     {q()}
-                    <MB.NextPage goToPreviousPage={goToPreviousPage} goToNextPage={goToNextPage} {...previousPage.current} key={previousPage.current.id + "-next"} id={previousPage.current.id + "-next"}></MB.NextPage>
+                    <MB.NextPage goToPreviousPage={goToPreviousPage} goToNextPage={submit} {...previousPage.current} key={previousPage.current.id + "-next"} id={previousPage.current.id + "-next"}></MB.NextPage>
                 </>
             )
-        }else{
+        } else {
             return q()
         }
 
@@ -135,7 +148,19 @@ function QuestionnaireRendering(props) {
 
     previousPage.current = null
     const rangeList = getRangeList()
-    console.log(rangeList)
+
+    if (questionnaireData.setting.id === searchParams.get('p') && finishPage.current) {
+        return (
+            <ReplyContext.Provider value={contextValue}>
+                {isLoading && <Loading />}
+                <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
+                    <MB.Title {...questionnaireData.setting} page={currentPage}></MB.Title>
+                    {finishPage.current}
+                </div>
+            </ReplyContext.Provider>
+        );
+    }
+
     return (
         <ReplyContext.Provider value={contextValue}>
             {isLoading && <Loading />}
