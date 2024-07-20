@@ -17,8 +17,13 @@ const Aquestion = {
 const Ablock = {
     type: "block",
     params: {
-        title: "個人興趣調查區塊",
-        description: "以下問題旨在了解您的個人興趣",
+        question: undefined,
+        description: undefined,
+        questionN: undefined,
+        descriptionN: undefined,
+        // originalData: undefined,
+        // message1: '返回',
+        // message2: '繼續'
     },
 }
 
@@ -60,7 +65,7 @@ function Design() {
     const handleAddBlock = () => {
         const id = Date.now()
         setQuestionnaireData(prevData => {
-            const newQuestionnaire = [...prevData.questionnaire, { ...Ablock, idT: id }];
+            const newQuestionnaire = [...prevData.questionnaire, { ...Ablock, id: id }];
             return { ...prevData, questionnaire: newQuestionnaire };
         });
     };
@@ -144,10 +149,9 @@ function Design() {
 
     const buttonsFUN = {
         handleDelete: (index) => {
-            console.log(index)
+            // console.log(index)
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
-                console.log(index)
                 newQuestionnaire.splice(index, 1);
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
@@ -187,7 +191,7 @@ function Design() {
                 const newQuestionnaire = [...prevData.questionnaire];
                 newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], id: Date.now() })
                 setTimeout(() => {
-                    scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index],100)
+                    scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index], 100)
                 }, 1);
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
@@ -200,11 +204,10 @@ function Design() {
                 <DB.TitleEdit defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
 
                 {questionnaireData.questionnaire.map((element, index) => (
-                    element.type !== 'block'
+                    element.type !== "block"
                         ? <DB.Question type={element.type} key={element.id} id={element.id} buttonsFUN={{ ...buttonsFUN, id: index, defaultValue: element.params.required }} onUpdateB={(data) => updateQuestionnaireData(index, data)} {...element.params} />
-                        : <DB.BlockEdit key={element.id} onUpdate={(data) => updateQuestionnaireData(index, data)} />
+                        : <DB.BlockEdit key={element.id} id={element.id} buttonsFUN={{ ...buttonsFUN, id: index, defaultValue: element.params.required }} onUpdateB={(data) => updateQuestionnaireData(index, data)} {...element.params} isFirst={index === 0} />
                 ))}
-
                 <DB.AddBlock onAddQuestion={handleAddQuestion} onAddBlock={handleAddBlock}></DB.AddBlock>
             </div>
             <br />

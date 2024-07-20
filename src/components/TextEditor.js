@@ -1,14 +1,14 @@
 import React, { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 
 
-const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
+const TextEditor = forwardRef(({ SendContent, defaultValue = "", ...otherProps }, externalRef) => {
     const internalRef = useRef(null);
     useImperativeHandle(externalRef, () => internalRef.current);
 
     useEffect(() => {
         const textarea = internalRef.current;
         if (!textarea) return;
-        UProw()
+        // UProw()
 
         const handleKeyDown = (e) => {
             const { key, ctrlKey, altKey, shiftKey } = e;
@@ -88,6 +88,7 @@ const TextEditor = forwardRef(({ SendContent, ...otherProps }, externalRef) => {
 
     return (
         <textarea
+            defaultValue={defaultValue}
             ref={internalRef}
             onInput={UProw}
             {...otherProps}

@@ -1,17 +1,26 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import QB from './QuestionBank'
 import MB from './MethodBank'
 
 export const ReplyContext = React.createContext(null);
 
 function QuestionnaireRendering(props) {
+    const { page } = useParams();
+    const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(parseInt(page) || 1);
+    console.log(page, navigate, currentPage)
+
     const [questionnaireData, setQuestionnaireData] = useState(props.data);
     const [replyContent, setReplyContent] = useState([]);
-    const contextValue = useMemo(() => {
+    const previousPage = useRef(null)
+
+    const contextValue = useMemo(() => ({
         replyContent,
-            setReplyContent
-    })
-    
+        setReplyContent
+    }))
+
     useEffect(() => {
         console.log(replyContent)
     }, [replyContent])
@@ -23,7 +32,7 @@ function QuestionnaireRendering(props) {
         }
     }, [props.data]);
 
-    const renderQuestion = (question) => {
+    const renderQuestion = (question,index) => {
         switch (question.type) {
             case 'SAQ':
                 return <QB.SAQ {...question.params} key={question.id} id={question.id} />;
@@ -38,15 +47,17 @@ function QuestionnaireRendering(props) {
             case 'UDQ':
                 return <QB.UDQ {...question.params} key={question.id} id={question.id} />;
             case 'block':
+                if (previousPage.current) {
+                    return (
+                        <>
+                            <MB.NextPage {...previousPage.current} key={previousPage.current.id + "-next"} id={previousPage.current.id + "-next"}></MB.NextPage>
+                            <MB.Block {...question.params} key={question.id} id={question.id} />
+                        </>
+                    );
+                }
+                previousPage.current = { ...question.params }
                 return (
-                    <MB.Block {...question.params} key={question.id} id={question.id}>
-                        {/* <MB.Illustrate>{question.params.description}</MB.Illustrate> */}
-                        {question.subQuestions.map((subQ, index) => (
-                            <React.Fragment key={index}>
-                                {renderQuestion(subQ)}
-                            </React.Fragment>
-                        ))}
-                    </MB.Block>
+                    <MB.Block {...question.params} key={question.id} id={question.id} />
                 );
             case 'submit':
                 return (
@@ -61,13 +72,14 @@ function QuestionnaireRendering(props) {
         }
     };
 
+    previousPage.current = null
     return (
         <ReplyContext.Provider value={contextValue}>
             <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
                 <MB.Title {...questionnaireData.setting}></MB.Title>
                 {questionnaireData.questionnaire.map((question, index) => (
                     <React.Fragment key={index}>
-                        {renderQuestion(question)}
+                        {renderQuestion(question,index)}
                     </React.Fragment>
                 ))}
             </div>

@@ -193,7 +193,7 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
             onUpdateB(questionData);
         }, 300);
         return () => clearTimeout(timer);
-    }, [questionData, onUpdateB]);
+    }, [questionData]);
 
     const MDBlockRef = useRef(null);
     const handleInputKeyDown = (event) => {

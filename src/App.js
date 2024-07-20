@@ -20,9 +20,10 @@ function App() {
         <Route exact path="/" element={<Home />} />
         {/* <Route path="/users" element={<UserList />} /> */}
         <Route path="/demo" element={<Demo />} />
+        <Route path="/demo/:page" element={<Demo />} />
         <Route path="/test" element={<Test />} />
         <Route path="/design" element={<Design />} />
-        <Route path="/preview" element={<Preview />} /> 
+        <Route path="/preview" element={<Preview />} />
       </Routes>
       <IsFooter />
     </Router>
