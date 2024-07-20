@@ -27,7 +27,7 @@ function DAQ({ id, ...props }) {
   }
 
   const initialValue = replyContent.filter(e => e.id === id)[0]
-  const answer = initialValue ? initialValue.answer : null
+  const answer = initialValue && initialValue.answer ? initialValue.answer : null
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "這是一道詳答題!"} required={props.required}></QuestionTitle>

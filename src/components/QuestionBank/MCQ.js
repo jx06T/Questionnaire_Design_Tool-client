@@ -9,9 +9,9 @@ function MCQ({ id, ...props }) {
   const { replyContent, setReplyContent } = useContext(ReplyContext);
 
   const initialValue = replyContent.filter(e => e.id === id)[0]
-  const answer = initialValue ? initialValue.answer : []
+  const answer = initialValue && initialValue.answer ? initialValue.answer : []
   const [selectedOptions, setSelectedOptions] = useState(answer);
-  
+
   const uniqueId = useId();
   const options = props.options || [
     { id: 'A', text: '選項 A' },

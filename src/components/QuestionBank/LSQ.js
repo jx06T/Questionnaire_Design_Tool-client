@@ -65,7 +65,7 @@ function LSQ({ id, ...props }) {
   }, [props.options]);
 
   const initialValue = replyContent.filter(e => e.id === id)[0]
-  const answer = initialValue ? initialValue.answer : 0
+  const answer = initialValue && initialValue.answer ? initialValue.answer : 0
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "點選或拖動到最符合妳感受的刻度"} required={props.required}></QuestionTitle>
