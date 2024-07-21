@@ -6,6 +6,7 @@ import QB from './QuestionBank'
 import MB from './MethodBank'
 import Block from './MethodBank/Block';
 import EveryPiece from './EveryPiece';
+import Loading from './Loading';
 
 export const ReplyContext = React.createContext(null);
 
@@ -138,8 +139,6 @@ function QuestionnaireRendering(props) {
         setIsLoading(true);
         setCurrentPage(questionnaireData.setting.id);
         setSearchParams({ p: questionnaireData.setting.id.toString() });
-        setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "done", time: Date.now() }))
-        setIsDone(true)
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "text/plain");
@@ -148,19 +147,28 @@ function QuestionnaireRendering(props) {
             headers: myHeaders,
             body: JSON.stringify({
                 answers: replyContent,
-                time: getCurrentFormattedTime()
+                time: getCurrentFormattedTime(),
+                id: props.data.setting.id
             }),
             redirect: "follow"
         };
-        fetch("https://script.google.com/macros/s/AKfycby9_S71SMWZfrvIxcoCGYARspqrdnMb5_wHHa9z_7FaULQzDdgYe_1vXBTJUzJCrFzK/exec", requestOptions)
-            .then((response) => response.text())
+        fetch(props.data.setting.replyURL, requestOptions)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then((result) => {
                 console.log("提交成功", result);
+                setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "done", time: Date.now() }))
+                setIsDone(true)
                 setIsLoading(false);
             })
             .catch((error) => {
                 console.error("提交失敗", error)
                 setIsLoading(false);
+                setIsDone("erroe")
             });
     };
 
@@ -230,7 +238,22 @@ function QuestionnaireRendering(props) {
     previousPage.current = null
     const rangeList = getRangeList()
 
-    console.log(isDone, finishPage.current, rangeList)
+    // console.log(isDone, finishPage.current, rangeList)
+
+    if (isDone == "erroe") {
+        return (
+            <ReplyContext.Provider value={contextValue}>
+                {isLoading && <Loading />}
+                <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
+                    <MB.Title {...questionnaireData.setting} page={currentPage}></MB.Title>
+                    <EveryPiece className="text-right">
+                        <button onClick={modifyAnswer} className='underline '>提交失敗，點此再試一次</button>
+                    </EveryPiece>
+                </div>
+            </ReplyContext.Provider>
+        );
+    }
+
     if (isDone) {
         finishPage.current = questionnaireData.questionnaire.filter(((question, i) => (
             question.type == "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
@@ -248,6 +271,7 @@ function QuestionnaireRendering(props) {
             </ReplyContext.Provider>
         );
     }
+
     return (
         <ReplyContext.Provider value={contextValue}>
             {isLoading && <Loading />}
@@ -262,11 +286,4 @@ function QuestionnaireRendering(props) {
         </ReplyContext.Provider>
     );
 }
-const Loading = () => (
-    <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-85 flex flex-col items-center justify-center">
-        <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-        <h2 className="text-center text-white text-xl font-semibold">Loading...</h2>
-        <p className="w-1/3 text-center text-white">這可能需要幾秒鐘，請不要關閉頁面。</p>
-    </div>
-);
 export default QuestionnaireRendering;

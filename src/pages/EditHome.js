@@ -31,7 +31,8 @@ function EditHome() {
                     "title": "",
                     "subtitle": "",
                     "id": id,
-                    "token": token
+                    "token": token,
+                    "replyURL": "https://script.google.com/macros/s/AKfycbxEEzGhUcbu2bTZ-BX2EB3jg8bNa7MZA17O2Ks-JX73kstcF91iT8zgOHgoY60gDfpU/exec"
                 },
                 "questionnaire": []
             };
@@ -44,14 +45,14 @@ function EditHome() {
                 setTimeout(() => {
                     setIsLoading(false)
                     navigate(`/edit/${id}?t=${token}`)
-                }, 300);
+                }, 200);
             }
 
         } catch (err) {
             setTimeout(() => {
                 setIsLoading(false)
                 navigate('/edit')
-            }, 300);
+            }, 200);
         }
     }
 

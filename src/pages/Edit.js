@@ -176,17 +176,21 @@ function Edit() {
     }
 
     const handleRelease = async () => {
+        setIsLoading(true)
         try {
             const getResult = await saveQuestionnaire(questionnaireData);
             // const getResult = { success: true };
             if (!getResult.success) {
                 throw new Error(getResult.error);
             } else {
-                console.log("發布")
+                console.log("發布成功")
             }
         } catch (err) {
             console.log("發布失敗", err)
         }
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 200);
     }
 
     const handleInfo = () => {
@@ -277,7 +281,8 @@ function Edit() {
             fetchData();
         }
         const handleBeforeUnload = (event) => {
-            handleRelease()
+            event.preventDefault()
+            event.returnValue = "";
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
         return () => {
@@ -287,6 +292,13 @@ function Edit() {
 
     if (!questionnaireData) {
         return (<Loading />)
+    }
+
+    const changeReplyURL = (e) => {
+        setQuestionnaireData(prevData => {
+            const newSetting = { ...prevData.setting, replyURL: e.target.value };
+            return { ...prevData, setting: newSetting };
+        });
     }
 
     const myUrl = process.env.NODE_ENV == "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
@@ -300,6 +312,10 @@ function Edit() {
                 </div>
             </InfoBlock>}
             {showSetting && <InfoBlock close={handleSettings} title='setting'>
+                <div className="flex flex-col">
+                    <span className='w-36'>Reply URL：</span>
+                    <input onInput={changeReplyURL} defaultValue={questionnaireData.setting.replyURL} className='w-full bg-transparent outline-none'></input>
+                </div>
             </InfoBlock>}
 
             {isLoading && <Loading />}
