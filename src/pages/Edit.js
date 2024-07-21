@@ -4,6 +4,7 @@ import HeaderTool from '../components/HeaderTool'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/kvStore';
 import InfoBlock from '../components/InfoBlock';
+import CopyableText from '../components/CopyableText';
 
 const Aquestion = {
     type: "SAQ",
@@ -191,9 +192,11 @@ function Edit() {
 
     const handleInfo = () => {
         setShowInfo(p => !p)
+        setShowSetting(p => false)
     }
 
     const handleSettings = () => {
+        setShowInfo(p => false)
         setShowSetting(p => !p)
     }
 
@@ -283,16 +286,30 @@ function Edit() {
         };
     }, [])
 
+    console.log(process.env)
+    
     if (!questionnaireData) {
         return (<Loading />)
     }
-
+    
     return (
         <>
-            {showInfo && <InfoBlock>
-                <div>Info</div>
+            {showInfo && <InfoBlock close={handleInfo} title='Info'>
+                <duv className="grid grid-cols-custom jx-1">
+                    <span className='my-1 w-24 border-b border-b-slate-100 '>Id</span>
+                    <span className='my-1 mr-1 w-4 '>：</span>
+                    <CopyableText text={questionnaireData.setting.id} />
+                    <span className='my-1 w-24 border-b border-b-slate-100 '>Edit link</span>
+                    <span className='my-1 mr-1 w-4 '>：</span>
+                    <CopyableText text={`${questionnaireData.setting.id}`} />
+                    <span className='my-1 w-24 border-b border-b-slate-100 '>Public link</span>
+                    <span className='my-1 mr-1 w-4 '>：</span>
+                    <CopyableText text={questionnaireData.setting.id} />
+                </duv>
             </InfoBlock>}
-            {showSetting && <div>setting</div>}
+            {showSetting && <InfoBlock close={handleSettings} title='setting'>
+            </InfoBlock>}
+
             {isLoading && <Loading />}
             <HeaderTool handleInfo={handleInfo} handleSettings={handleSettings} handleRelease={handleRelease} handleNew={handleNew} handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
             <div ref={questionDivRef} className='Design flex bg-slate-50 flex-col items-center justify-center'>
