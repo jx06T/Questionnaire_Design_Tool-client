@@ -9,6 +9,7 @@ const Design = lazy(() => import('./pages/Design'));
 const Preview = lazy(() => import('./pages/Preview'));
 const Demo = lazy(() => import('./pages/Demo'));
 const Test = lazy(() => import('./pages/Test'));
+const KVTest = lazy(() => import('./pages/KVTest'));
 // const UserList = lazy(() => import('./components/UserList'));
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/test" element={<Test />} />
         <Route path="/design" element={<Design />} />
         <Route path="/preview" element={<Preview />} />
+        <Route path="/kv-test" element={<KVTest />} />
       </Routes>
       <IsFooter />
     </Router>
