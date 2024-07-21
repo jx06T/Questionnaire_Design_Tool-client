@@ -62,9 +62,11 @@ function KVTest() {
                 if (!saveResult.success) {
                     throw new Error(saveResult.error);
                 }
-
+                console.log(saveResult)
+                
                 // 列出所有問卷 ID
                 const listResult = await listAllQuestionnaires();
+                console.log(listResult)
                 if (!listResult.success) {
                     throw new Error(listResult.error);
                 }
@@ -75,9 +77,11 @@ function KVTest() {
                 if (!getResult.success) {
                     throw new Error(getResult.error);
                 }
+                console.log(getResult)
 
             } catch (err) {
                 setError(err.message);
+                console.log(err)
             }
         }
 
@@ -87,17 +91,6 @@ function KVTest() {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
-
-    console.log('API URL:', process.env.REACT_APP_KV_REST_API_TOKEN);
-    console.log('Other Variable:', process.env.KV_REST_API_TOKEN);
-    console.log('Other Variable:', process.env);
-    fetch("https://teaching-molly-37810.upstash.io/set/user_1_session/session_token_value", {
-        headers: {
-            Authorization: "Bearer AZOyAAIncDE1Y2NmZWM4Y2Q3Yzc0YjlmYWMzNGQ5ZmY2Y2I3ODk3Y3AxMzc4MTA"
-        }
-    }).then(response => response.json())
-        .then(data => console.log(data));
 
     return (
         <div>

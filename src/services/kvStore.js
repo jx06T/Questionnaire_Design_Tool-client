@@ -1,66 +1,82 @@
-import { kv } from '@vercel/kv';
+const API_URL = process.env.REACT_APP_KV_REST_API_URL;
+const API_TOKEN = process.env.REACT_APP_KV_REST_API_TOKEN;
+const AUTH_HEADER = `Bearer ${API_TOKEN}`;
 
-// import dotenv from 'dotenv';
-// dotenv.config();
-
-
-export  async function saveQuestionnaire(questionnaireData) {
+export async function saveQuestionnaire(questionnaireData) {
     try {
         const id = questionnaireData.setting.id;
         const key = `questionnaire:${id}`;
-        await kv.set(key, JSON.stringify(questionnaireData));
+        const response = await fetch(`${API_URL}/set/${key}`, {
+            method: 'POST',
+            headers: {
+                Authorization: AUTH_HEADER,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(questionnaireData),
+        });
 
-        console.log(`問卷 ${id} 已成功儲存`);
-        return { success: true, id };
-    } catch (error) {
-        console.error('儲存問卷時發生錯誤:', error);
-        return { success: false, error: error.message };
-    }
-}
-
-export  async function getQuestionnaireById(id) {
-    try {
-        const key = `questionnaire:${id}`;
-        const data = await kv.get(key);
-        if (data) {
-            return { success: true, data: JSON.parse(data) };
+        if (response.ok) {
+            console.log(`问卷 ${id} 已成功保存`);
+            return { success: true, id };
         } else {
-            return { success: false, error: '找不到問卷' };
+            const errorText = await response.text();
+            throw new Error(errorText);
         }
     } catch (error) {
-        console.error('查詢問卷時發生錯誤:', error);
+        console.error('保存问卷时发生错误:', error);
         return { success: false, error: error.message };
     }
 }
 
-export  async function listAllQuestionnaires() {
+export async function getQuestionnaireById(id) {
     try {
-        const keys = await kv.keys('questionnaire:*');
-        const questionnaires = await Promise.all(
-            keys.map(async (key) => {
-                const data = await kv.get(key);
-                return JSON.parse(data);
-            })
-        );
-        return { success: true, data: questionnaires };
+        const key = `questionnaire:${id}`;
+        const response = await fetch(`${API_URL}/get/${key}`, {
+            method: 'GET',
+            headers: {
+                Authorization: AUTH_HEADER,
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return { success: true, data: JSON.parse(data.result) };
+        } else {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
     } catch (error) {
-        console.error('列出問卷時發生錯誤:', error);
+        console.error('查询问卷时发生错误:', error);
         return { success: false, error: error.message };
     }
 }
 
-export  async function exampleUsage() {
-    const questionnaire = {
-        setting: { id: '123', title: '示例問卷' },
-        questionnaire: []
-    };
-    await saveQuestionnaire(questionnaire);
+export async function listAllQuestionnaires() {
+    try {
+        const response = await fetch(`${API_URL}/keys/questionnaire:*`, {
+            method: 'GET',
+            headers: {
+                Authorization: AUTH_HEADER,
+            },
+        });
 
-    const result = await getQuestionnaireById('123');
-    console.log(result);
+        if (response.ok) {
+            const keys = await response.json();
 
-    const allQuestionnaires = await listAllQuestionnaires();
-    console.log(allQuestionnaires);
+            const questionnaires = await Promise.all(
+                keys.result.map(async (key) => {
+                    console.log("!",key)
+                    return key;
+                })
+            );
+
+            return { success: true, data: questionnaires };
+        } else {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+    } catch (error) {
+        console.error('列出问卷时发生错误:', error);
+        return { success: false, error: error.message };
+    }
 }
-
-// exampleUsage();
