@@ -5,7 +5,7 @@ const dummyQuestionnaire = {
     "setting": {
         "theme": "默認主題",
         "language": "中文",
-        "title": "【新北市立文山國民中學112學年度畢業學生升學就業動向調查】",
+        "title": "【新北市立中山國民中學112學年度畢業學生升學就業動向調查】",
         "subtitle": "輔導處113.06.07",
         "id": "53v3xmra7zb9xw3j254mto"
     },
@@ -78,6 +78,12 @@ function KVTest() {
                     throw new Error(getResult.error);
                 }
                 console.log(getResult)
+
+                const getResult2 = await getQuestionnaireById("ss");
+                if (!getResult2.success) {
+                    throw new Error(getResult2.error);
+                }
+                console.log(getResult2)
 
             } catch (err) {
                 setError(err.message);

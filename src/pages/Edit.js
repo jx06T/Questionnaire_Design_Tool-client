@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
-
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/kvStore';
+import InfoBlock from '../components/InfoBlock';
 
 const Aquestion = {
     type: "SAQ",
@@ -21,14 +23,15 @@ const Ablock = {
         description: undefined,
         questionN: undefined,
         descriptionN: undefined,
-        // originalData: undefined,
-        // message1: '返回',
-        // message2: '繼續'
     },
 }
 
 function getRandId() {
-    return Math.random().toString(36).substring(2.9) + Math.random().toString(36).substring(2.9)
+    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const charsetLength = charset.length;
+    const bytes = window.crypto.getRandomValues(new Uint8Array(12));
+    return Array.from(bytes).map(byte => charset[byte % charsetLength]).join('');
+    // return Math.random().toString(36).substring(2.9) + Math.random().toString(36).substring(2.9)
 }
 
 function scrollToCenter(element, y) {
@@ -42,22 +45,59 @@ function scrollToCenter(element, y) {
     });
 }
 
-function Design() {
+function Edit() {
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
+    const { id } = useParams();
+    const [questionnaireData, setQuestionnaireData] = useState(null)
     const questionDivRef = useRef(null)
 
-    const questionnaireData0 = localStorage.getItem('questionnaireData')
-    const questionnaireData1 = questionnaireData0 ? JSON.parse(questionnaireData0) : {
-        setting: {
-            theme: "默認主題",
-            language: "中文",
-            title: "",
-            subtitle: "",
-            id: getRandId()
-        },
-        questionnaire: []
-    }
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const [questionnaireData, setQuestionnaireData] = useState(questionnaireData1)
+    const [showSetting, setShowSetting] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
+
+    async function fetchData() {
+        try {
+            // const getResult = await getQuestionnaireById(id);
+            const getResult = id == "seca4xhmeo9s" ? {
+                success: true,
+                data: {
+                    setting: {
+                        theme: '默認主題',
+                        language: '中文',
+                        title: '55',
+                        subtitle: '',
+                        id: "seca4xhmeo9s",
+                        token: "seca4xhmeo9sseca4xhmeo9s",
+                    },
+                    questionnaire: []
+                }
+            } : {
+                success: true,
+                data: null
+            };
+
+            console.log(getResult)
+            if (!getResult.success) {
+                throw new Error(getResult.error);
+            }
+            if (getResult.data) {
+                if (getResult.data.setting.token === searchParams.get('t')) {
+                    setIsLoading(false)
+                    setQuestionnaireData(getResult.data)
+                } else {
+                    navigate(`/public/${getResult.data.setting.id}`)
+                }
+            } else {
+                navigate('/edit')
+            }
+
+        } catch (err) {
+            navigate('/edit')
+        }
+    }
+    // ----------------------------------------------------------
 
     const handleAddQuestion = () => {
         const id = Date.now()
@@ -81,7 +121,6 @@ function Design() {
                 event.preventDefault();
                 handleAddQuestion()
             }
-            // console.log(event)
         };
 
         document.addEventListener('keydown', handleKeyDown);
@@ -93,7 +132,6 @@ function Design() {
     // ---------------------------------------------------------------------------------
 
     useEffect(() => {
-        // console.log("-----------------------", questionnaireData)
         localStorage.setItem('questionnaireData', JSON.stringify(questionnaireData));
     }, [questionnaireData]);
 
@@ -130,12 +168,33 @@ function Design() {
         }
     };
 
-    const createNewQuestionnaire = () => {
-        const shouldContinue = confirm('這會刪除目前建立的問卷?');// eslint-disable-line no-restricted-globals
-        if (shouldContinue) {
-            localStorage.setItem('questionnaireData', '');
-            window.location.reload();
+    const handleNew = () => {
+        setIsLoading(true)
+        setTimeout(() => {
+            navigate('/edit?n=t')
+        }, 100);
+    }
+
+    const handleRelease = () => {
+        try {
+            // const getResult = await saveQuestionnaire(questionnaireData);
+            const getResult = { success: true };
+            if (!getResult.success) {
+                throw new Error(getResult.error);
+            } else {
+                console.log("發布")
+            }
+        } catch (err) {
+            console.log("發布失敗", err)
         }
+    }
+
+    const handleInfo = () => {
+        setShowInfo(p => !p)
+    }
+
+    const handleSettings = () => {
+        setShowSetting(p => !p)
     }
 
     // ---------------------------------------------------------------------------------
@@ -210,11 +269,34 @@ function Design() {
             });
         }
     }
+
+    useEffect(() => {
+        if (!questionnaireData) {
+            fetchData();
+        }
+        const handleBeforeUnload = (event) => {
+            handleRelease()
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [])
+
+    if (!questionnaireData) {
+        return (<Loading />)
+    }
+
     return (
         <>
-            <HeaderTool handleNew={createNewQuestionnaire} handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
+            {showInfo && <InfoBlock>
+                <div>Info</div>
+            </InfoBlock>}
+            {showSetting && <div>setting</div>}
+            {isLoading && <Loading />}
+            <HeaderTool handleInfo={handleInfo} handleSettings={handleSettings} handleRelease={handleRelease} handleNew={handleNew} handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
             <div ref={questionDivRef} className='Design flex bg-slate-50 flex-col items-center justify-center'>
-                <DB.TitleEdit createNewQuestionnaire={createNewQuestionnaire} defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
+                <DB.TitleEdit createNewQuestionnaire={handleNew} defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
 
                 {questionnaireData.questionnaire.map((element, index) => (
                     element.type !== "block"
@@ -228,4 +310,12 @@ function Design() {
     );
 }
 
-export default Design;
+export default Edit;
+
+const Loading = () => (
+    <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-85 flex flex-col items-center justify-center">
+        <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+        <h2 className="text-center text-white text-xl font-semibold">Loading...</h2>
+        <p className="w-1/3 text-center text-white">這可能需要幾秒鐘，請不要關閉頁面。</p>
+    </div>
+);

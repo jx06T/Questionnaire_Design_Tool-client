@@ -10,6 +10,8 @@ const Preview = lazy(() => import('./pages/Preview'));
 const Demo = lazy(() => import('./pages/Demo'));
 const Test = lazy(() => import('./pages/Test'));
 const KVTest = lazy(() => import('./pages/KVTest'));
+const Edit = lazy(() => import('./pages/Edit'));
+const EditHome = lazy(() => import('./pages/EditHome'));
 // const UserList = lazy(() => import('./components/UserList'));
 
 
@@ -19,13 +21,20 @@ function App() {
       <IsHeader />
       <Routes>
         <Route exact path="/" element={<Home />} />
-        {/* <Route path="/users" element={<UserList />} /> */}
+
         <Route path="/demo" element={<Demo />} />
         <Route path="/demo/:name" element={<Demo />} />
+
+        {/* <Route path="/users" element={<UserList />} /> */}
         <Route path="/test" element={<Test />} />
+        <Route path="/kv-test" element={<KVTest />} />
+
         <Route path="/design" element={<Design />} />
         <Route path="/preview" element={<Preview />} />
-        <Route path="/kv-test" element={<KVTest />} />
+
+        {/* <Route path="/preview/id" element={<Preview />} /> */}
+        <Route path="/edit" element={<EditHome />} />
+        <Route path="/edit/:id" element={<Edit />} />
       </Routes>
       <IsFooter />
     </Router>
@@ -34,12 +43,16 @@ function App() {
 
 const excludePaths = [
   '/users',
-  '/design'
+  '/design',
+  '/edit/',
 ];
+
 function IsHeader() {
-  const { pathname } = useLocation()
-  return excludePaths.includes(pathname) ? null : <Header />;
+  const { pathname } = useLocation();
+  const shouldExclude = excludePaths.some(path => pathname.startsWith(path));
+  return shouldExclude ? null : <Header />;
 }
+
 function IsFooter() {
   const { pathname } = useLocation()
   // return excludePaths.includes(pathname) ? null : <Footer />;
