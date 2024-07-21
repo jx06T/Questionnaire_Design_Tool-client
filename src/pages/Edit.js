@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/kvStore';
+import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDBStore';
 import InfoBlock from '../components/InfoBlock';
 import CopyableText from '../components/CopyableText';
+import Loading from '../components/Loading';
 
 const Aquestion = {
     type: "SAQ",
@@ -25,14 +26,6 @@ const Ablock = {
         questionN: undefined,
         descriptionN: undefined,
     },
-}
-
-function getRandId() {
-    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    const charsetLength = charset.length;
-    const bytes = window.crypto.getRandomValues(new Uint8Array(12));
-    return Array.from(bytes).map(byte => charset[byte % charsetLength]).join('');
-    // return Math.random().toString(36).substring(2.9) + Math.random().toString(36).substring(2.9)
 }
 
 function scrollToCenter(element, y) {
@@ -60,24 +53,24 @@ function Edit() {
 
     async function fetchData() {
         try {
-            // const getResult = await getQuestionnaireById(id);
-            const getResult = id == "seca4xhmeo9s" ? {
-                success: true,
-                data: {
-                    setting: {
-                        theme: '默認主題',
-                        language: '中文',
-                        title: '55',
-                        subtitle: '',
-                        id: "seca4xhmeo9s",
-                        token: "seca4xhmeo9sseca4xhmeo9s",
-                    },
-                    questionnaire: []
-                }
-            } : {
-                success: true,
-                data: null
-            };
+            const getResult = await getQuestionnaireById(id);
+            // const getResult = id == "seca4xhmeo9s" ? {
+            //     success: true,
+            //     data: {
+            //         setting: {
+            //             theme: '默認主題',
+            //             language: '中文',
+            //             title: '55',
+            //             subtitle: '',
+            //             id: "seca4xhmeo9s",
+            //             token: "seca4xhmeo9sseca4xhmeo9s",
+            //         },
+            //         questionnaire: []
+            //     }
+            // } : {
+            //     success: true,
+            //     data: null
+            // };
 
             console.log(getResult)
             if (!getResult.success) {
@@ -155,7 +148,13 @@ function Edit() {
             reader.onload = (e) => {
                 try {
                     const jsonData = JSON.parse(e.target.result);
-                    setQuestionnaireData(jsonData);
+                    setQuestionnaireData(p => {
+                        const newSetting = { ...jsonData.setting, id: p.setting.id, token: p.setting.token }
+                        const newData = { ...jsonData, setting: newSetting }
+                        console.log(newData)
+                        return newData
+                    });
+                    // setQuestionnaireData(jsonData);
 
                     console.log('File imported successfully');
                 } catch (error) {
@@ -176,10 +175,10 @@ function Edit() {
         }, 100);
     }
 
-    const handleRelease = () => {
+    const handleRelease = async () => {
         try {
-            // const getResult = await saveQuestionnaire(questionnaireData);
-            const getResult = { success: true };
+            const getResult = await saveQuestionnaire(questionnaireData);
+            // const getResult = { success: true };
             if (!getResult.success) {
                 throw new Error(getResult.error);
             } else {
@@ -286,26 +285,19 @@ function Edit() {
         };
     }, [])
 
-    console.log(process.env)
-    
     if (!questionnaireData) {
         return (<Loading />)
     }
-    
+
+    const myUrl = process.env.NODE_ENV == "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
     return (
         <>
             {showInfo && <InfoBlock close={handleInfo} title='Info'>
-                <duv className="grid grid-cols-custom jx-1">
-                    <span className='my-1 w-24 border-b border-b-slate-100 '>Id</span>
-                    <span className='my-1 mr-1 w-4 '>：</span>
-                    <CopyableText text={questionnaireData.setting.id} />
-                    <span className='my-1 w-24 border-b border-b-slate-100 '>Edit link</span>
-                    <span className='my-1 mr-1 w-4 '>：</span>
-                    <CopyableText text={`${questionnaireData.setting.id}`} />
-                    <span className='my-1 w-24 border-b border-b-slate-100 '>Public link</span>
-                    <span className='my-1 mr-1 w-4 '>：</span>
-                    <CopyableText text={questionnaireData.setting.id} />
-                </duv>
+                <div className="flex flex-col">
+                    <CopyableText label="Id" text={questionnaireData.setting.id} />
+                    <CopyableText label="Edit link" text={`${myUrl}/edit/${questionnaireData.setting.id}?t=${questionnaireData.setting.token}`} />
+                    <CopyableText label="Public link" text={`${myUrl}/public/${questionnaireData.setting.id}`} />
+                </div>
             </InfoBlock>}
             {showSetting && <InfoBlock close={handleSettings} title='setting'>
             </InfoBlock>}
@@ -329,10 +321,3 @@ function Edit() {
 
 export default Edit;
 
-const Loading = () => (
-    <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-85 flex flex-col items-center justify-center">
-        <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-        <h2 className="text-center text-white text-xl font-semibold">Loading...</h2>
-        <p className="w-1/3 text-center text-white">這可能需要幾秒鐘，請不要關閉頁面。</p>
-    </div>
-);

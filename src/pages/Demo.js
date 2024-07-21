@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import QuestionnaireRendering from '../components/QuestionnaireRendering'
 import { useParams } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 function Demo(props) {
     const { name } = useParams();
@@ -26,7 +27,7 @@ function Demo(props) {
         loadQuestionnaire();
     }, []);
 
-    if (!questionnaireData) return <div>Loading...</div>;
+    if (!questionnaireData) return <Loading/>;
 
     return (
         <QuestionnaireRendering data={questionnaireData} />

@@ -1,11 +1,29 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { changeArray } from '../utils/changeArray';
 
 import QB from './QuestionBank'
 import MB from './MethodBank'
 import Block from './MethodBank/Block';
+import EveryPiece from './EveryPiece';
 
 export const ReplyContext = React.createContext(null);
+
+
+function getCurrentFormattedTime() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(now.getDate()).padStart(2, '0');
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+}
+
 
 function QuestionnaireRendering(props) {
     const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +37,22 @@ function QuestionnaireRendering(props) {
         savedReplies ? JSON.parse(savedReplies) : []
     );
 
+
+    const savedQuestionnaires = localStorage.getItem(`savedQuestionnaires`);
+    const [questionnairesList, setQuestionnairesList] = useState(
+        savedQuestionnaires ? JSON.parse(savedQuestionnaires) : []
+    );
+
+    const questionnairesListME = questionnairesList.filter(e => e.id == props.data.setting.id)
+    if (questionnairesListME.length > 0) {
+        var isDone0 = questionnairesListME[0].state == "done"
+    } else {
+        setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
+        var isDone0 = false
+    }
+
+    const [isDone, setIsDone] = useState(isDone0);
+
     const previousPage = useRef(null)
     const finishPage = useRef(null)
 
@@ -29,7 +63,13 @@ function QuestionnaireRendering(props) {
 
     useEffect(() => {
         localStorage.setItem(`questionnaireReplies-${questionnaireData.setting.id}`, JSON.stringify(replyContent));
+        console.log(replyContent)
     }, [replyContent])
+
+    useEffect(() => {
+        localStorage.setItem(`savedQuestionnaires`, JSON.stringify(questionnairesList));
+        console.log(questionnairesList)
+    }, [questionnairesList])
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -44,6 +84,7 @@ function QuestionnaireRendering(props) {
                 setReplyContent(JSON.parse(savedReplies));
             }
         }
+        // setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
     }, [props.data]);
 
     const getRangeList = () => {
@@ -83,11 +124,44 @@ function QuestionnaireRendering(props) {
         }
     };
 
+    const modifyAnswer = () => {
+        setIsLoading(true);
+        setIsDone(false)
+        setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
+        setTimeout(() => {
+            setIsLoading(false);
+            window.location.reload();
+        }, 300);
+    }
+
     const submit = () => {
         setIsLoading(true);
         setCurrentPage(questionnaireData.setting.id);
         setSearchParams({ p: questionnaireData.setting.id.toString() });
-        setTimeout(() => setIsLoading(false), 400);
+        setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "done", time: Date.now() }))
+        setIsDone(true)
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "text/plain");
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: JSON.stringify({
+                answers: replyContent,
+                time: getCurrentFormattedTime()
+            }),
+            redirect: "follow"
+        };
+        fetch("https://script.google.com/macros/s/AKfycby9_S71SMWZfrvIxcoCGYARspqrdnMb5_wHHa9z_7FaULQzDdgYe_1vXBTJUzJCrFzK/exec", requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+                console.log("提交成功", result);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error("提交失敗", error)
+                setIsLoading(false);
+            });
     };
 
     const renderQuestion = (question, index) => {
@@ -127,13 +201,20 @@ function QuestionnaireRendering(props) {
                     );
                 case 'finish':
                     finishPage.current = <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description>
-                    console.log("ddd")
                     return null;
                 default:
                     return null;
             }
         }
-        if (index === questionnaireData.questionnaire.length - 1 && previousPage.current) {
+        if (index === questionnaireData.questionnaire.length - 1) {
+            if (!previousPage.current) {
+                previousPage.current = {
+                    id: Date.now(),
+                    questionN: "提交",
+                    message1: "",
+                    message2: "提交"
+                }
+            }
             return (
                 <>
                     {q()}
@@ -149,18 +230,24 @@ function QuestionnaireRendering(props) {
     previousPage.current = null
     const rangeList = getRangeList()
 
-    if (questionnaireData.setting.id === searchParams.get('p') && finishPage.current) {
+    console.log(isDone, finishPage.current, rangeList)
+    if (isDone) {
+        finishPage.current = questionnaireData.questionnaire.filter(((question, i) => (
+            question.type == "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
+        )))
         return (
             <ReplyContext.Provider value={contextValue}>
                 {isLoading && <Loading />}
                 <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
                     <MB.Title {...questionnaireData.setting} page={currentPage}></MB.Title>
-                    {finishPage.current}
+                    {finishPage.current && finishPage.current}
+                    <EveryPiece className="text-right">
+                        <button onClick={modifyAnswer} className='underline '>修改答案</button>
+                    </EveryPiece>
                 </div>
             </ReplyContext.Provider>
         );
     }
-
     return (
         <ReplyContext.Provider value={contextValue}>
             {isLoading && <Loading />}

@@ -143,7 +143,3 @@ code {
 .debug div{
   border: red 1px dashed;
 }
-
-.jx-1{
-  grid-template-columns: auto auto 1fr;
-}

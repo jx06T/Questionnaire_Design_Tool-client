@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import QuestionnaireRendering from '../components/QuestionnaireRendering'
+import Loading from '../components/Loading';
 
 function Preview() {
     const questionnaireData0 = localStorage.getItem('questionnaireData')
@@ -28,7 +29,7 @@ function Preview() {
         };
     }, []);
 
-    if (!questionnaireData) return <div>Loading...</div>;
+    if (!questionnaireData) return <Loading />;
 
     return (
         <QuestionnaireRendering data={questionnaireData} />
@@ -36,3 +37,4 @@ function Preview() {
 }
 
 export default Preview;
+

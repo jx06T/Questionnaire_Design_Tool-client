@@ -12,6 +12,7 @@ const Test = lazy(() => import('./pages/Test'));
 const KVTest = lazy(() => import('./pages/KVTest'));
 const Edit = lazy(() => import('./pages/Edit'));
 const EditHome = lazy(() => import('./pages/EditHome'));
+const Public = lazy(() => import('./pages/Public'));
 // const UserList = lazy(() => import('./components/UserList'));
 
 
@@ -32,7 +33,8 @@ function App() {
         <Route path="/design" element={<Design />} />
         <Route path="/preview" element={<Preview />} />
 
-        {/* <Route path="/preview/id" element={<Preview />} /> */}
+        <Route path="/public/:id" element={<Public />} />
+        <Route path="/public" element={<Public />} />
         <Route path="/edit" element={<EditHome />} />
         <Route path="/edit/:id" element={<Edit />} />
       </Routes>
