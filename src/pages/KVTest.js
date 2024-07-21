@@ -88,6 +88,16 @@ function KVTest() {
         return <div>Error: {error}</div>;
     }
 
+
+    console.log('API URL:', process.env.REACT_APP_KV_REST_API_TOKEN);
+    console.log('Other Variable:', process.env.KV_REST_API_TOKEN);
+    fetch("https://teaching-molly-37810.upstash.io/set/user_1_session/session_token_value", {
+        headers: {
+            Authorization: "Bearer AZOyAAIncDE1Y2NmZWM4Y2Q3Yzc0YjlmYWMzNGQ5ZmY2Y2I3ODk3Y3AxMzc4MTA"
+        }
+    }).then(response => response.json())
+        .then(data => console.log(data));
+
     return (
         <div>
             <h2 className="mt-6 bg-red-400">KV</h2>
