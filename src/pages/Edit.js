@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDBStore';
+import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDB';
 import InfoBlock from '../components/InfoBlock';
 import CopyableText from '../components/CopyableText';
 import Loading from '../components/Loading';

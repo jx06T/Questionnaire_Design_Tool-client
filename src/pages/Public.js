@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import QuestionnaireRendering from '../components/QuestionnaireRendering'
 import { useParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDBStore';
+import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDB';
 import Loading from '../components/Loading';
 import EveryPiece from '../components/EveryPiece';
 

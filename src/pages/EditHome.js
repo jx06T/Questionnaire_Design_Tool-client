@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDBStore';
+import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDB';
 import EveryPiece from '../components/EveryPiece';
 import Loading from '../components/Loading';
 
