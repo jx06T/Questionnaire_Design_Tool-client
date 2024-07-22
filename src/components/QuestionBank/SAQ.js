@@ -17,13 +17,14 @@ function SAQ({ id, ...props }) {
         e.target.classList.add("myjx-input")
         e.target.classList.remove("myjx-input3")
       }
-      console.log(regex, regex.test(e.target.value))
+      // console.log(regex, regex.test(e.target.value))
     }
     setReplyContent((p) => changeArray(p, { id: id, answer: e.target.value, question: props.question }))
   }
 
   const initialValue = replyContent.filter(e => e.id === id)[0]
   const answer = initialValue && initialValue.answer ? initialValue.answer : null
+
   return (
     <EveryPiece>
       <QuestionTitle question={props.question} description={props.description || "簡單的回答"} required={props.required}></QuestionTitle>

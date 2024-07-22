@@ -16,7 +16,7 @@ export async function saveQuestionnaire(questionnaireData) {
         });
 
         if (response.ok) {
-            console.log(`问卷 ${id} 已成功保存`);
+            console.log(`問卷 ${id} 已成功保存`);
             return { success: true, id };
         } else {
             const errorText = await response.text();

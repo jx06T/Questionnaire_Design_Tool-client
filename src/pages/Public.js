@@ -33,7 +33,7 @@ function Public(props) {
             //     data: null
             // };
 
-            console.log(getResult)
+            // console.log(getResult)
 
             if (!getResult.success) {
                 throw new Error(getResult.error);
@@ -47,7 +47,7 @@ function Public(props) {
                 setIsLoading(false)
             }
         } catch (err) {
-            console.log(err)
+            console.error(err)
             setIsLoading(false)
             setIsError(true)
         }

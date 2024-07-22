@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDB';
+import { saveQuestionnaire } from '../services/MGDB';
 import EveryPiece from '../components/EveryPiece';
 import Loading from '../components/Loading';
+import MB from '../components/MethodBank';
 
 function getRandId() {
     // return "seca4xhmeo9s"
@@ -23,6 +24,7 @@ function EditHome() {
         setIsLoading(true)
         try {
             const id = getRandId()
+            const demoId = getRandId()
             const token = getRandId() + getRandId()
             const dummyQuestionnaire = {
                 "setting": {
@@ -31,8 +33,11 @@ function EditHome() {
                     "title": "",
                     "subtitle": "",
                     "id": id,
+                    "demoId": demoId,
                     "token": token,
-                    "replyURL": "https://script.google.com/macros/s/AKfycbxEEzGhUcbu2bTZ-BX2EB3jg8bNa7MZA17O2Ks-JX73kstcF91iT8zgOHgoY60gDfpU/exec"
+                    "replyURL": "https://script.google.com/macros/s/AKfycbxEEzGhUcbu2bTZ-BX2EB3jg8bNa7MZA17O2Ks-JX73kstcF91iT8zgOHgoY60gDfpU/exec",
+                    "author": "Anonymous",
+                    "demo": false
                 },
                 "questionnaire": []
             };
@@ -65,8 +70,9 @@ function EditHome() {
     return (
         <>
             {isLoading && <Loading />}
-            <div className='editJ flex bg-slate-50 flex-col items-center justify-center'>
-                <EveryPiece className="h-36 items-center flex justify-center">
+            <div className='edit-home flex bg-slate-50 flex-col items-center justify-center'>
+                <MB.Title subtitle="創建後請記住編輯網址，你需要他來編輯你的問卷" title="創建問卷"></MB.Title>
+                <EveryPiece className="h-32 items-center flex justify-center">
                     <button onClick={fetchData} className='text-lg underline'>
                         Create new questionnaire
                     </button>

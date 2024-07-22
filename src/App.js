@@ -13,6 +13,11 @@ const KVTest = lazy(() => import('./pages/KVTest'));
 const Edit = lazy(() => import('./pages/Edit'));
 const EditHome = lazy(() => import('./pages/EditHome'));
 const Public = lazy(() => import('./pages/Public'));
+
+const About = lazy(() => import('./pages/other/AboutJ'));
+const Privacy = lazy(() => import('./pages/other/Privacy'));
+const Contact = lazy(() => import('./pages/other/ContactJ'));
+const NotFound = lazy(() => import('./pages/other/NotFound'));
 // const UserList = lazy(() => import('./components/UserList'));
 
 
@@ -27,16 +32,22 @@ function App() {
         <Route path="/demo/:name" element={<Demo />} />
 
         {/* <Route path="/users" element={<UserList />} /> */}
-        <Route path="/test" element={<Test />} />
-        <Route path="/kv-test" element={<KVTest />} />
+        {/* <Route path="/test" element={<Test />} /> */}
+        {/* <Route path="/kv-test" element={<KVTest />} /> */}
 
         <Route path="/design" element={<Design />} />
         <Route path="/preview" element={<Preview />} />
+
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/public/:id" element={<Public />} />
         <Route path="/public" element={<Public />} />
         <Route path="/edit" element={<EditHome />} />
         <Route path="/edit/:id" element={<Edit />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <IsFooter />
     </Router>

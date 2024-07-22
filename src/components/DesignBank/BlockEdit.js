@@ -90,7 +90,7 @@ function BlockEdit({ isFirst, buttonsFUN, onUpdateB, ...props }) {
                 <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
                 <TextEditor defaultValue={props.originalData} SendContent={handleTextEditorChange} rows={3} placeholder={"在這輸入預設答案等等設定"} className='myjx-textarea text-base  border-none' />
                 <hr className='w-[100%] mx-auto bg-slate-50 h-[0.1rem] mb-4 mt-1' />
-                <Buttons {...buttonsFUN} />
+                <Buttons {...buttonsFUN} ShowRequired={false} />
             </EveryPiece>}
         </div>
     );

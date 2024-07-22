@@ -7,7 +7,7 @@ import Content from '../components/Content';
 function Home() {
     // const navigate = useNavigate();
     return (
-        <div className='Home'>
+        <div className='Home max-w-[1100px] mx-auto'>
             <Content img={home_img}>
                 開源的問卷設計工具!
                 <br />
@@ -21,7 +21,7 @@ function Home() {
             <Content img={home_img}>
                 開始設計你的第一份問卷!
                 <br />
-                <button className='mt-3 myjx-button w-[7rem]'><a className='w-full h-full block' href='/design'>GO!</a></button>
+                <button className='mt-3 myjx-button w-[7rem]'><a className='w-full h-full block' href='/edit'>GO!</a></button>
             </Content >
         </div >
     );

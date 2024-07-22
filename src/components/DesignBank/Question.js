@@ -206,6 +206,11 @@ function Question({ buttonsFUN, onUpdateB, ...props }) {
             }
         }
     };
+    if (questionData.type === "finish" || questionData.type === "description") {
+        buttonsFUN.ShowRequired = false
+    } else {
+        buttonsFUN.ShowRequired = true
+    }
 
     return (
         <EveryPiece >

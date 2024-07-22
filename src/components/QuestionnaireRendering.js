@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { changeArray } from '../utils/changeArray';
 
 import QB from './QuestionBank'
@@ -25,8 +25,23 @@ function getCurrentFormattedTime() {
     return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 }
 
+function scrollToCenter(element, y) {
+    console.log(element)
+    const elementRect = element.getBoundingClientRect();
+    const absoluteElementTop = elementRect.top + window.pageYOffset;
+    // const middle = absoluteElementTop - (window.innerHeight / 2) - y + 250 + 310;
+    const middle = absoluteElementTop - (window.innerHeight / 2) - y + 660;
+    window.scrollTo({
+        top: middle,
+        behavior: 'smooth'
+    });
+}
 
 function QuestionnaireRendering(props) {
+    const editRef = useRef(null)
+
+    const navigate = useNavigate();
+
     const [isLoading, setIsLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('p')) || 1);
@@ -64,12 +79,12 @@ function QuestionnaireRendering(props) {
 
     useEffect(() => {
         localStorage.setItem(`questionnaireReplies-${questionnaireData.setting.id}`, JSON.stringify(replyContent));
-        console.log(replyContent)
+        // console.log(replyContent)
     }, [replyContent])
 
     useEffect(() => {
         localStorage.setItem(`savedQuestionnaires`, JSON.stringify(questionnairesList));
-        console.log(questionnairesList)
+        // console.log(questionnairesList)
     }, [questionnairesList])
 
     useEffect(() => {
@@ -80,7 +95,7 @@ function QuestionnaireRendering(props) {
         if (props.data) {
             setQuestionnaireData(props.data);
             const savedReplies = localStorage.getItem(`questionnaireReplies-${questionnaireData.setting.id}`);
-            console.log(JSON.parse(savedReplies))
+            // console.log(JSON.parse(savedReplies))
             if (savedReplies) {
                 setReplyContent(JSON.parse(savedReplies));
             }
@@ -88,16 +103,42 @@ function QuestionnaireRendering(props) {
         // setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
     }, [props.data]);
 
+    const confirmRequired = () => {
+        const unfilledI = []
+        const unfilled = questionnaireData.questionnaire.filter((element, i) => {
+            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer != [] && e.answer != '')).length == 0)) {
+                unfilledI.push(i)
+                return true;
+            }
+            return false;
+        });
+        if (unfilledI.length > 0) {
+            const allQ = editRef.current.querySelectorAll(".every-piece")
+            for (let i = allQ.length - 1; i > 0; i--) {
+                const e = allQ[i]
+                if (unfilledI.includes(i - 1)) {
+                    scrollToCenter(e, 500)
+                    e.classList.add("unfilled")
+                } else {
+                    e.classList.remove("unfilled")
+                }
+            }
+        }
+
+        return unfilled.length > 0
+    }
+
     const getRangeList = () => {
         let count = 1;
         let first = false
         return questionnaireData.questionnaire.map((element, i) => {
             if (element.type === "block" && i !== 0) {
-                if (!first) {
-                    first = true
-                } else {
+                if (first) {
                     count++;
                 }
+            }
+            if (element.type === "block") {
+                first = true
             }
             const currentCount = count;
             return currentCount;
@@ -105,6 +146,9 @@ function QuestionnaireRendering(props) {
     };
 
     const goToNextPage = () => {
+        if (confirmRequired()) {
+            return
+        }
         const totalBlocks = questionnaireData.questionnaire.filter(q => q.type === 'block').length;
         if (currentPage < totalBlocks) {
             setIsLoading(true);
@@ -136,6 +180,9 @@ function QuestionnaireRendering(props) {
     }
 
     const submit = () => {
+        if (confirmRequired()) {
+            return
+        }
         setIsLoading(true);
         setCurrentPage(questionnaireData.setting.id);
         setSearchParams({ p: questionnaireData.setting.id.toString() });
@@ -152,6 +199,13 @@ function QuestionnaireRendering(props) {
             }),
             redirect: "follow"
         };
+
+        if (props.isDemo) {
+            setIsLoading(false);
+            setIsDone("demo")
+            return
+        }
+
         fetch(props.data.setting.replyURL, requestOptions)
             .then((response) => {
                 if (!response.ok) {
@@ -179,6 +233,7 @@ function QuestionnaireRendering(props) {
             }
             return null
         }
+
 
         const q = () => {
             switch (question.type) {
@@ -237,53 +292,52 @@ function QuestionnaireRendering(props) {
 
     previousPage.current = null
     const rangeList = getRangeList()
+    let temp = null
 
     // console.log(isDone, finishPage.current, rangeList)
+    if (isDone == "demo") {
+        temp = <>
+            <EveryPiece className="text-right">
+                <button onClick={() => navigate(`/demo`)} className='underline '>展示問卷無法提交，點此返回展示列表</button>
+            </EveryPiece>
+        </>
+    } else if (isDone == "erroe") {
+        temp = <>
+            <EveryPiece className="text-right">
+                <button onClick={modifyAnswer} className='underline '>提交失敗，點此再試一次</button>
+            </EveryPiece>
+        </>
 
-    if (isDone == "erroe") {
-        return (
-            <ReplyContext.Provider value={contextValue}>
-                {isLoading && <Loading />}
-                <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
-                    <MB.Title {...questionnaireData.setting} page={currentPage}></MB.Title>
-                    <EveryPiece className="text-right">
-                        <button onClick={modifyAnswer} className='underline '>提交失敗，點此再試一次</button>
-                    </EveryPiece>
-                </div>
-            </ReplyContext.Provider>
-        );
-    }
-
-    if (isDone) {
+    } else if (isDone) {
         finishPage.current = questionnaireData.questionnaire.filter(((question, i) => (
             question.type == "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
         )))
-        return (
-            <ReplyContext.Provider value={contextValue}>
-                {isLoading && <Loading />}
-                <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
-                    <MB.Title {...questionnaireData.setting} page={currentPage}></MB.Title>
-                    {finishPage.current && finishPage.current}
-                    <EveryPiece className="text-right">
-                        <button onClick={modifyAnswer} className='underline '>修改答案</button>
-                    </EveryPiece>
-                </div>
-            </ReplyContext.Provider>
-        );
+
+        temp = <>
+            {finishPage.current && finishPage.current}
+            <EveryPiece className="text-right">
+                <button onClick={modifyAnswer} className='underline '>修改答案</button>
+            </EveryPiece>
+        </>
+
+    } else {
+        temp = <>
+            {questionnaireData.questionnaire.map((question, index) => (
+                <React.Fragment key={index}>
+                    {renderQuestion(question, index)}
+                </React.Fragment>
+            ))}
+        </>
     }
 
     return (
         <ReplyContext.Provider value={contextValue}>
             {isLoading && <Loading />}
-            <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
+            <div ref={editRef} className='edit flex bg-slate-50 flex-col items-center justify-center'>
                 <MB.Title {...questionnaireData.setting} page={currentPage}></MB.Title>
-                {questionnaireData.questionnaire.map((question, index) => (
-                    <React.Fragment key={index}>
-                        {renderQuestion(question, index)}
-                    </React.Fragment>
-                ))}
+                {temp}
             </div>
-        </ReplyContext.Provider>
+        </ReplyContext.Provider >
     );
 }
 export default QuestionnaireRendering;

@@ -129,9 +129,12 @@ code {
   @apply text-xl font-bold
 }
 .markdown-preview h3{
-  @apply text-xl 
+  @apply text-lg font-bold
 }
 .markdown-preview h4{
+  @apply text-xl
+}
+.markdown-preview h5{
   @apply text-lg 
 }
 
@@ -142,4 +145,8 @@ code {
 
 .debug div{
   border: red 1px dashed;
+}
+
+.unfilled{
+  box-shadow: 0 0 1px 1px red;
 }

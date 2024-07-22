@@ -72,7 +72,7 @@ function Edit() {
             //     data: null
             // };
 
-            console.log(getResult)
+            // console.log(getResult)
             if (!getResult.success) {
                 throw new Error(getResult.error);
             }
@@ -151,7 +151,7 @@ function Edit() {
                     setQuestionnaireData(p => {
                         const newSetting = { ...jsonData.setting, id: p.setting.id, token: p.setting.token }
                         const newData = { ...jsonData, setting: newSetting }
-                        console.log(newData)
+                        // console.log(newData)
                         return newData
                     });
                     // setQuestionnaireData(jsonData);
@@ -186,7 +186,7 @@ function Edit() {
                 console.log("發布成功")
             }
         } catch (err) {
-            console.log("發布失敗", err)
+            console.error("發布失敗", err)
         }
         setTimeout(() => {
             setIsLoading(false)
@@ -258,16 +258,18 @@ function Edit() {
             });
         },
         handleRequired: (index, r) => {
+            console.log(index,questionnaireData)
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
                 newQuestionnaire[index].params.required = r
                 return { ...prevData, questionnaire: newQuestionnaire };
             });
         },
+
         handleDuplicate: (index, event) => {
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
-                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], id: Date.now() })
+                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index],params:{...newQuestionnaire[index].params}, id: Date.now() })
                 setTimeout(() => {
                     scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index], 100)
                 }, 1);
@@ -294,9 +296,9 @@ function Edit() {
         return (<Loading />)
     }
 
-    const changeReplyURL = (e) => {
+    const changeSetting = (k, v) => {
         setQuestionnaireData(prevData => {
-            const newSetting = { ...prevData.setting, replyURL: e.target.value };
+            const newSetting = { ...prevData.setting, [k]: v };
             return { ...prevData, setting: newSetting };
         });
     }
@@ -313,8 +315,19 @@ function Edit() {
             </InfoBlock>}
             {showSetting && <InfoBlock close={handleSettings} title='setting'>
                 <div className="flex flex-col">
-                    <span className='w-36'>Reply URL：</span>
-                    <input onInput={changeReplyURL} defaultValue={questionnaireData.setting.replyURL} className='w-full bg-transparent outline-none'></input>
+                    <span className=''>Reply URL：</span>
+                    <input onInput={(e) => changeSetting("replyURL", e.target.value)} defaultValue={questionnaireData.setting.replyURL} className='w-full bg-transparent outline-none'></input>
+                    <hr className='mb-1 w-full bg-slate-300 h-[1.8px]' />
+                    <span className=''>author：</span>
+                    <input onInput={(e) => changeSetting("author", e.target.value)} defaultValue={questionnaireData.setting.author} className='w-full bg-transparent outline-none'></input>
+                    <hr className='mb-1 w-full bg-slate-300 h-[1.8px]' />
+                    <span className=''>make the copy as a demo?</span>
+                    <span className='text-xs'>*The copy cannot be submitted</span>
+                    <span onClick={(e) => {
+                        e.target.textContent = e.target.textContent == "false" ? "true" : "false"
+                        changeSetting("demo", e.target.textContent)
+                    }} className='w-full bg-transparent outline-none cursor-pointer'>{questionnaireData.setting.demo+""}</span>
+                    <hr className='mb-1 w-full bg-slate-300 h-[1.8px]' />
                 </div>
             </InfoBlock>}
 
