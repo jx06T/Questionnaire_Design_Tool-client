@@ -25,7 +25,7 @@ function getCurrentFormattedTime() {
 }
 
 function scrollToCenter(element, y) {
-    console.log(element)
+    // console.log(element)
     const elementRect = element.getBoundingClientRect();
     const absoluteElementTop = elementRect.top + window.pageYOffset;
     // const middle = absoluteElementTop - (window.innerHeight / 2) - y + 250 + 310;
@@ -105,17 +105,18 @@ function QuestionnaireRendering(props) {
     const confirmRequired = () => {
         const unfilledI = []
         const unfilled = questionnaireData.questionnaire.filter((element, i) => {
-            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer != [] && e.answer !== '')).length === 0)) {
+            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer != [] && (e.answer.trim ? e.answer.trim() !== '' : true))).length === 0)) {
                 unfilledI.push(i)
                 return true;
             }
             return false;
         });
+        console.log(replyContent)
         if (unfilledI.length > 0) {
             const allQ = editRef.current.querySelectorAll(".every-piece")
             for (let i = allQ.length - 1; i > 0; i--) {
                 const e = allQ[i]
-                if (unfilledI.includes(i - 1)) {
+                if (unfilledI.includes(i + rangeList.lastIndexOf(currentPage - 1))) {
                     scrollToCenter(e, 500)
                     e.classList.add("unfilled")
                 } else {
@@ -263,7 +264,7 @@ function QuestionnaireRendering(props) {
                     );
                 case 'finish':
                     finishPage.current = <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description>
-                    return null;
+                    return <EveryPiece className=" hidden "></EveryPiece>;
                 default:
                     return null;
             }

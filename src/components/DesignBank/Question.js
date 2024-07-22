@@ -33,12 +33,12 @@ class interpreter {
         const regex0 = /[\[|\［]([^\]\］]*)[\]|\］](.*)/g;
         const options = [];
         let match;
-
+        let ELSE = false
         while ((match = regex0.exec(content)) !== null) {
             const [, id, text] = match;
             console.log(id, text)
             if (id === "ELSE") {
-                params.else = true
+                ELSE = true
             }
             if (text.trim() !== '') {
                 options.push({
@@ -47,6 +47,7 @@ class interpreter {
                 });
             }
         }
+        params.else = ELSE
         params.options = options
         return params;
     }
