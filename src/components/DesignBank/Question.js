@@ -36,7 +36,6 @@ class interpreter {
         let ELSE = false
         while ((match = regex0.exec(content)) !== null) {
             const [, id, text] = match;
-            console.log(id, text)
             if (id === "ELSE") {
                 ELSE = true
             }
