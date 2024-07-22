@@ -10,7 +10,7 @@ import Content from '../components/Content';
 function Home() {
     // const navigate = useNavigate();
     return (
-        <div className='Home max-w-[1100px] mx-auto bg-slate-50'>
+        <div className='Home max-w-[1100px] mx-auto bg-slate-50 pt-4'>
             <Content img={frog1}>
                 開源的問卷設計工具!
                 <br />
