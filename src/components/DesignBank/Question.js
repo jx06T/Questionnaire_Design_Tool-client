@@ -30,12 +30,13 @@ class interpreter {
     }
 
     SMCQ(content, params) {
-        const regex0 = /\[([^\]]*)\](.*)/g;
+        const regex0 = /[\[|\［]([^\]\］]*)[\]|\］](.*)/g;
         const options = [];
         let match;
 
         while ((match = regex0.exec(content)) !== null) {
             const [, id, text] = match;
+            console.log(id, text)
             if (id === "ELSE") {
                 params.else = true
             }
@@ -51,7 +52,9 @@ class interpreter {
     }
 
     LSQ(content, params) {
-        const regex0 = /\[([^\]]*)\](.*)/g;
+        // const regex0 = /\[([^\]]*)\](.*)/g;
+        const regex0 = /[\[|\［]([^\]\］]*)[\]|\］](.*)/g;
+
         const options = [];
         let match;
         const TempParams = {}
