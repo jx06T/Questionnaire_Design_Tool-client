@@ -11,7 +11,7 @@ const MDBlock = forwardRef(({ SendMDContent, defaultValue }, externalRef) => {
     const markdownTextRef = useRef('');
 
     const newTabLink = ({ node, ...props }) => {
-        return <a target="_blank" rel="noopener noreferrer" {...props} />;
+        return <a target="_blank" rel="noopener noreferrer" className='underline' {...props} />;
     };
 
     useImperativeHandle(externalRef, () => ({

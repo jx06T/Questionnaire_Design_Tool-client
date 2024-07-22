@@ -1,0 +1,227 @@
+{
+  "_id": "669debc0b1570d1991c02931",
+  "setting": {
+    "theme": "默認主題",
+    "language": "中文",
+    "title": "這是標題，純文字",
+    "subtitle": "這是副標題，純文字",
+    "id": "cp7xbs5jn1dq",
+    "demoId": "xs7exo55ycoj",
+    "token": "x4rcky8igsbhdobkabvoxlhb",
+    "replyURL": "https://script.google.com/macros/s/AKfycbxEEzGhUcbu2bTZ-BX2EB3jg8bNa7MZA17O2Ks-JX73kstcF91iT8zgOHgoY60gDfpU/exec",
+    "author": "我",
+    "demo": "true"
+  },
+  "questionnaire": [
+    {
+      "type": "block",
+      "params": {
+        "question": "這是區塊說明，純文字",
+        "description": "*這是*~區塊~的**詳細**\n# 說明\n## 說明\n### 說明\n#### 說明\n##### 說明\n- 說明\n- 說明\n1. 說明\n1. 說明\n[Markdown](https://markdown.tw/)\n![Markdown](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/263px-Markdown-mark.svg.png)\n",
+        "questionN": "這是區塊結束說明，純文字",
+        "descriptionN": "這是區塊結束的詳細說明，markdown",
+        "required": false,
+        "originalData": "[b]這是返回按鈕的文字，在第一頁沒有用\n[n]這是繼續按鈕的文字，在最後一個區塊記得改成提交",
+        "message1": "這是返回按鈕的文字，在第一頁沒有用",
+        "message2": "這是繼續按鈕的文字，在最後一個區塊記得改成提交"
+      },
+      "id": 1721638967120
+    },
+    {
+      "type": "SAQ",
+      "params": {
+        "question": "這是簡答題的題目，純文字",
+        "description": "這是簡答題的說明，markdown\n每個題目右上角可以選擇題目類型，各類型見下方的說明\n下面那個文字輸入框是每個題目的選項設定，每個題目有各自接受的格式",
+        "required": false,
+        "placeholder": "這是提示文字，純文字",
+        "originalData": "這是提示文字，純文字\n/這是正規表達式/",
+        "regex": "/這是正規表達式/"
+      },
+      "id": 1721638114792
+    },
+    {
+      "type": "DAQ",
+      "params": {
+        "question": "這是詳答題的題目，純文字",
+        "description": "這是詳答題的說明，markdown\n多行輸入框支援一些常見的編輯器快捷鍵，如下：\n- 不選取時直接 ctrl + c / x 複製整行\n- ctrl + (shift) + enter 向 (上) 下增加一行空白\n- alt + 上/下鍵 向上/下移動整行\n- alt + shift 上/下鍵 向上/下複製整行\n",
+        "required": false,
+        "placeholder": "這是提示文字的第一行，純文字\n這是提示文字的第二行，純文字",
+        "originalData": "這是提示文字的第一行，純文字\n這是提示文字的第二行，純文字\n/這是正規表達式/",
+        "regex": "/這是正規表達式/"
+      },
+      "id": 1721638110404
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "區塊 2",
+        "description": "",
+        "questionN": "前往區塊 3",
+        "descriptionN": "",
+        "required": false,
+        "originalData": ""
+      },
+      "id": 1721638999026
+    },
+    {
+      "type": "SCQ",
+      "params": {
+        "question": "這是單選題的題目，純文字",
+        "description": "這是多選題的題目的說明，markdown\n方框內填選項的 **id** （收到回覆時顯示的內容）\n右邊填寫選項的**標籤**（顯示出的文字）\n**id** 不填則預設與**標籤**一樣\n不同選項的 **標籤可以一樣** 但 **id 不行**\n**ELSE** 是保留字代表使用者能自行輸入",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[A] 選項一\n[B] 選項二\n[C] 選項三\n[D] 選項四\n[ELSE] ",
+        "options": [
+          {
+            "id": "A",
+            "text": "選項一"
+          },
+          {
+            "id": "B",
+            "text": "選項二"
+          },
+          {
+            "id": "C",
+            "text": "選項三"
+          },
+          {
+            "id": "D",
+            "text": "選項四"
+          }
+        ]
+      },
+      "id": 1721638942382
+    },
+    {
+      "type": "MCQ",
+      "params": {
+        "question": "這是單選題的題目，純文字",
+        "description": "這是多選題的題目的說明，markdown\n格式與單選題一樣，若要拿圖片當選項可以將圖片放在此處。\n\n- 選項一\n![A](https://upload.wikimedia.org/wikipedia/commons/8/81/Cyrillic_letter_A_-_uppercase_and_lowercase.svg)\n\n- 選項二\n![A](https://upload.wikimedia.org/wikipedia/commons/8/8d/Latin_letter_B.svg)",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[A] 選項一\n[B] 選項二\n[C] 選項三\n[D] 選項四\n[ELSE] ",
+        "options": [
+          {
+            "id": "A",
+            "text": "選項一"
+          },
+          {
+            "id": "B",
+            "text": "選項二"
+          },
+          {
+            "id": "C",
+            "text": "選項三"
+          },
+          {
+            "id": "D",
+            "text": "選項四"
+          }
+        ]
+      },
+      "id": 1721638949339
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "區塊 3",
+        "description": "",
+        "questionN": "前往區塊 4",
+        "descriptionN": "",
+        "required": false,
+        "originalData": ""
+      },
+      "id": 1721639011746
+    },
+    {
+      "type": "LSQ",
+      "params": {
+        "question": "這是題目，純文字",
+        "description": "這是說明，markdown\n方框中可以填寫數字，只要填寫兩個就會線性的計算出其他刻度，預設中間為 0 每個刻度差 50。下方的情況 7 個刻度分別是：\n- 0\n- 20\n- 40\n- 60\n- 80\n- 100\n- 120\n方框右邊填寫標籤，可以不要填，這樣會創建一個新的刻度但沒有標籤。\n最下面三個保留字右邊都填數字，+m 代表在最右邊的選項最右側的刻度，-m 同理，-c 則是每個刻度向左右捕獲的範圍",
+        "required": false,
+        "placeholder": "",
+        "originalData": "[0]最靠左的文字\n[20]靠左邊的文字\n[]\n[]中間的文字\n[]\n[]靠右邊的文字\n[]最靠右的文字\n[+m]130\n[-m]-10\n[-c]10",
+        "capture": 10,
+        "min": -10,
+        "max": 130,
+        "options": [
+          {
+            "value": 0,
+            "text": "最靠左的文字"
+          },
+          {
+            "value": 20,
+            "text": "靠左邊的文字"
+          },
+          {
+            "value": 40,
+            "text": ""
+          },
+          {
+            "value": 60,
+            "text": "中間的文字"
+          },
+          {
+            "value": 80,
+            "text": ""
+          },
+          {
+            "value": 100,
+            "text": "靠右邊的文字"
+          },
+          {
+            "value": 120,
+            "text": "最靠右的文字"
+          }
+        ]
+      },
+      "id": 1721638954453
+    },
+    {
+      "type": "finish",
+      "params": {
+        "question": "這是提交後的訊息",
+        "description": "詳細說明，markdown\n這個區塊放在哪都可以，提交後才會顯示此區塊",
+        "required": false,
+        "placeholder": "",
+        "originalData": "這邊沒有用"
+      },
+      "id": 1721638963916
+    },
+    {
+      "type": "UDQ",
+      "params": {
+        "question": "這是題目，純文字",
+        "description": "這是說明，markdown\n使用者能由此上傳檔案",
+        "required": false,
+        "placeholder": "",
+        "originalData": "這邊沒有用"
+      },
+      "id": 1721638957434
+    },
+    {
+      "type": "block",
+      "params": {
+        "question": "區塊 4",
+        "description": "",
+        "questionN": "提交!",
+        "descriptionN": "",
+        "required": false,
+        "originalData": "[n]提交",
+        "message2": "提交"
+      },
+      "id": 1721638977348
+    },
+    {
+      "type": "description",
+      "params": {
+        "question": "這是說明塊",
+        "description": "詳細說明，markdown\n單純用來說明資訊而已",
+        "required": false,
+        "placeholder": "",
+        "originalData": "這邊沒有用"
+      },
+      "id": 1721638960477
+    }
+  ]
+}

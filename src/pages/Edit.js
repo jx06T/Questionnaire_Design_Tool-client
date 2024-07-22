@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDB';
+import { saveQuestionnaire, getQuestionnaireById } from '../services/MGDB';
 import InfoBlock from '../components/InfoBlock';
 import CopyableText from '../components/CopyableText';
 import Loading from '../components/Loading';
@@ -21,10 +21,11 @@ const Aquestion = {
 const Ablock = {
     type: "block",
     params: {
-        question: undefined,
+        question: "區塊說明",
         description: undefined,
-        questionN: undefined,
+        questionN: "前往下一個區塊",
         descriptionN: undefined,
+        originalData: "[b]返回\n[n]繼續",
     },
 }
 
@@ -258,7 +259,7 @@ function Edit() {
             });
         },
         handleRequired: (index, r) => {
-            console.log(index,questionnaireData)
+            // console.log(index,questionnaireData)
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
                 newQuestionnaire[index].params.required = r
@@ -269,7 +270,7 @@ function Edit() {
         handleDuplicate: (index, event) => {
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
-                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index],params:{...newQuestionnaire[index].params}, id: Date.now() })
+                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], params: { ...newQuestionnaire[index].params }, id: Date.now() })
                 setTimeout(() => {
                     scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index], 100)
                 }, 1);
@@ -303,7 +304,7 @@ function Edit() {
         });
     }
 
-    const myUrl = process.env.NODE_ENV == "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
+    const myUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
     return (
         <>
             {showInfo && <InfoBlock close={handleInfo} title='Info'>
@@ -324,9 +325,9 @@ function Edit() {
                     <span className=''>make the copy as a demo?</span>
                     <span className='text-xs'>*The copy cannot be submitted</span>
                     <span onClick={(e) => {
-                        e.target.textContent = e.target.textContent == "false" ? "true" : "false"
+                        e.target.textContent = e.target.textContent === "false" ? "true" : "false"
                         changeSetting("demo", e.target.textContent)
-                    }} className='w-full bg-transparent outline-none cursor-pointer'>{questionnaireData.setting.demo+""}</span>
+                    }} className='w-full bg-transparent outline-none cursor-pointer'>{questionnaireData.setting.demo + ""}</span>
                     <hr className='mb-1 w-full bg-slate-300 h-[1.8px]' />
                 </div>
             </InfoBlock>}

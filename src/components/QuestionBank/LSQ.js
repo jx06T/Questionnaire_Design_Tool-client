@@ -72,7 +72,7 @@ function LSQ({ id, ...props }) {
 
       <div id="LS-Option" className='myjx-datalist'>
         {options.map(option => (
-          <span key={option.value} className='text-xs sm:text-base' value={option.value}>
+          option.text.trim() !== "" && <span key={option.value} className='text-xs sm:text-base' value={option.value}>
             {option.text}
           </span>
         ))}

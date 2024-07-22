@@ -4,7 +4,6 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Loading from '../components/Loading';
 import MB from '../components/MethodBank';
 import { listAllDemoQuestionnaires, getDemoQuestionnaireById } from '../services/MGDB';
-import { changeArray } from '../utils/changeArray';
 
 
 function Demo(props) {
@@ -21,6 +20,14 @@ function Demo(props) {
             id: "53v3xmra7zb9xw3j254mto",
             location: "local",
             source: "further-education",
+            author: "jx06_t"
+        },
+        {
+            title: "問題範例與選項",
+            subtitle: "document",
+            id: "cp7xbs5jn1dqcp7xbs5jn1dq",
+            location: "local",
+            source: "sample",
             author: "jx06_t"
         }
     ]
@@ -67,12 +74,15 @@ function Demo(props) {
     }, [name]);
 
     const handleClick = (e) => {
+        console.log("SSS")
         navigate(`/demo/${e.source}?l=${e.location}`)
+        loadQuestionnaire();
     }
 
     if (questionnaireData === "Failed") {
         loadDemoQuestionnaires()
     }
+    
     if (questionnaireData === "Failed" || questionnaireData === "FailedOk") {
         return (
             <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>

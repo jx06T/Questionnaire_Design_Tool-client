@@ -1,7 +1,7 @@
 import React from 'react';
 import MB from '../../components/MethodBank';
 
-const myUrl = process.env.NODE_ENV == "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
+const myUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
 const description =
     `
 # 功能介紹
@@ -11,7 +11,7 @@ const description =
 
 - 基礎編輯
 1. 輸入標題副標題等等
-3. 撰寫問題或新增區塊 *[**[問題範例與選項]**]()
+3. 撰寫問題或新增區塊 *[**[問題範例與選項]**](${myUrl+"/edit/cp7xbs5jn1dq?t=x4rcky8igsbhdobkabvoxlhb"})
 4. 調整問題的位置或設定必填問題等
 6. 點擊 **file** ⇒ **Preview** 預覽問卷
 

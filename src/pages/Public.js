@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import QuestionnaireRendering from '../components/QuestionnaireRendering'
 import { useParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById, listAllQuestionnaires } from '../services/MGDB';
+import { getQuestionnaireById } from '../services/MGDB';
 import Loading from '../components/Loading';
 import EveryPiece from '../components/EveryPiece';
 
@@ -60,7 +60,7 @@ function Public(props) {
     if (isError) return (
         <div className='editJ flex bg-slate-50 flex-col items-center justify-center'>
             <EveryPiece className="h-36 text-lg">
-                    這份問卷可能已經被刪除，請聯絡問卷連結的提供者。
+                這份問卷可能已經被刪除，請聯絡問卷連結的提供者。
             </EveryPiece>
         </div>
     );

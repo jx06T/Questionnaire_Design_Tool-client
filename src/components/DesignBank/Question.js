@@ -36,6 +36,9 @@ class interpreter {
 
         while ((match = regex0.exec(content)) !== null) {
             const [, id, text] = match;
+            if (id === "ELSE") {
+                params.else = true
+            }
             if (text.trim() !== '') {
                 options.push({
                     id: id.trim() || text.trim(),
@@ -54,24 +57,24 @@ class interpreter {
         const TempParams = {}
         while ((match = regex0.exec(content)) !== null) {
             const [, id, text] = match;
-            if (text.trim() !== '') {
-                if (id === "-m") {
-                    TempParams.min = parseFloat(text.trim())
-                    continue
-                }
-                if (id === "+m") {
-                    TempParams.max = parseFloat(text.trim())
-                    continue
-                }
-                if (id === "-c") {
-                    TempParams.capture = parseFloat(text.trim())
-                    continue
-                }
-                options.push({
-                    value: id.trim() || undefined,
-                    text: text.trim()
-                });
+            // if (text.trim() !== '') {
+            if (id === "-m") {
+                TempParams.min = parseFloat(text.trim())
+                continue
             }
+            if (id === "+m") {
+                TempParams.max = parseFloat(text.trim())
+                continue
+            }
+            if (id === "-c") {
+                TempParams.capture = parseFloat(text.trim())
+                continue
+            }
+            options.push({
+                value: id.trim() || undefined,
+                text: text.trim()
+            });
+            // }
         }
 
         let min = undefined
@@ -80,15 +83,16 @@ class interpreter {
         options.forEach((item, index) => {
             const value = parseFloat(item.value)
             if (!isNaN(value)) {
-                if (!min) {
+                if (min === undefined) {
                     min = value
                     minIndex = index
                 } else {
                     spacing = (value - min) / (index - minIndex)
                 }
             }
+            console.log(value, item, min, minIndex, spacing)
         })
-        if (!min || !spacing) {
+        if (min === undefined || spacing === undefined) {
             spacing = 50
             let medIndex = (options.length - 1) / 2
             minIndex = Math.floor(medIndex)

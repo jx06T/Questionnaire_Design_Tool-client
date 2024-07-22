@@ -27,7 +27,7 @@ function SAQ({ id, ...props }) {
 
   return (
     <EveryPiece>
-      <QuestionTitle question={props.question} description={props.description || "簡單的回答"} required={props.required}></QuestionTitle>
+      <QuestionTitle question={props.question} description={props.description || "簡單敘述你的想法"} required={props.required}></QuestionTitle>
       <input onInput={handleInput} type="text" className='myjx-input' placeholder={props.placeholder || '依照說明填寫'} defaultValue={answer}></input>
     </EveryPiece>
   );

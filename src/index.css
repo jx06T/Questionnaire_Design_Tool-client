@@ -18,7 +18,7 @@ code {
   @apply rounded-md bg-slate-200 hover:bg-slate-300 p-1;
 }
 .myjx-button2{
-  @apply rounded-md bg-slate-300 hover:bg-slate-400 p-1 px-3 min-w-20;
+  @apply rounded-md bg-slate-300 hover:bg-slate-400 p-1 px-3 min-w-20 my-1;
 }
 
 .myjx-a{
@@ -34,7 +34,7 @@ code {
 }
 
 .myjx-input3{
-  @apply w-[100%] shadow border-b-2 border-dotted border-red-500 bg-transparent focus:border-red-600 outline-none rounded-none;
+  @apply w-[100%] shadow !border-b-2 border-dotted !border-red-500 bg-transparent focus:!border-red-600 outline-none rounded-none;
 }
 
 .myjx-inputP::placeholder { /* 標準語法 */

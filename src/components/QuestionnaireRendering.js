@@ -4,7 +4,6 @@ import { changeArray } from '../utils/changeArray';
 
 import QB from './QuestionBank'
 import MB from './MethodBank'
-import Block from './MethodBank/Block';
 import EveryPiece from './EveryPiece';
 import Loading from './Loading';
 
@@ -40,7 +39,7 @@ function scrollToCenter(element, y) {
 function QuestionnaireRendering(props) {
     const editRef = useRef(null)
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -61,7 +60,7 @@ function QuestionnaireRendering(props) {
 
     const questionnairesListME = questionnairesList.filter(e => e.id == props.data.setting.id)
     if (questionnairesListME.length > 0) {
-        var isDone0 = questionnairesListME[0].state == "done"
+        var isDone0 = questionnairesListME[0].state === "done"
     } else {
         setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
         var isDone0 = false
@@ -106,7 +105,7 @@ function QuestionnaireRendering(props) {
     const confirmRequired = () => {
         const unfilledI = []
         const unfilled = questionnaireData.questionnaire.filter((element, i) => {
-            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer != [] && e.answer != '')).length == 0)) {
+            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer != [] && e.answer !== '')).length === 0)) {
                 unfilledI.push(i)
                 return true;
             }
@@ -184,8 +183,8 @@ function QuestionnaireRendering(props) {
             return
         }
         setIsLoading(true);
-        setCurrentPage(questionnaireData.setting.id);
-        setSearchParams({ p: questionnaireData.setting.id.toString() });
+        setCurrentPage("1");
+        setSearchParams({ p: "1" });
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "text/plain");
@@ -295,28 +294,25 @@ function QuestionnaireRendering(props) {
     let temp = null
 
     // console.log(isDone, finishPage.current, rangeList)
-    if (isDone == "demo") {
-        temp = <>
-            <EveryPiece className="text-right">
-                <button onClick={() => navigate(`/demo`)} className='underline '>展示問卷無法提交，點此返回展示列表</button>
-            </EveryPiece>
-        </>
-    } else if (isDone == "erroe") {
+    if (isDone === "erroe") {
         temp = <>
             <EveryPiece className="text-right">
                 <button onClick={modifyAnswer} className='underline '>提交失敗，點此再試一次</button>
             </EveryPiece>
         </>
 
-    } else if (isDone) {
-        finishPage.current = questionnaireData.questionnaire.filter(((question, i) => (
-            question.type == "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
+    } else if (isDone === "demo" || isDone) {
+        finishPage.current = questionnaireData.questionnaire.map(((question, i) => (
+            question.type === "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
         )))
-
+        let temp2 = "已提交，修改答案"
+        if (isDone === "demo") {
+            temp2 = "展示問卷無法提交，點此返回展示列表"
+        }
         temp = <>
             {finishPage.current && finishPage.current}
             <EveryPiece className="text-right">
-                <button onClick={modifyAnswer} className='underline '>修改答案</button>
+                <button onClick={modifyAnswer} className='underline '>{temp2}</button>
             </EveryPiece>
         </>
 

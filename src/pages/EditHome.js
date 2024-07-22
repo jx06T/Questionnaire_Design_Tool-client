@@ -62,7 +62,7 @@ function EditHome() {
     }
 
     useEffect(() => {
-        if (searchParams.get('n') == "t") {
+        if (searchParams.get('n') === "t") {
             fetchData()
         }
     }, [])
