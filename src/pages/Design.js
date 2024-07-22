@@ -69,7 +69,7 @@ function Design() {
             console.warn(`Failed to load json, falling back to test.json`);
         }
     };
-    
+
     useEffect(() => {
         if (searchParams.get('s') === "t") {
             loadQuestionnaire()
@@ -219,7 +219,7 @@ function Design() {
         handleDuplicate: (index, event) => {
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
-                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], params: { ...newQuestionnaire[index].params }, id: Date.now() })
+                newQuestionnaire.splice(index + 1, 0, { ...newQuestionnaire[index], params: { ...newQuestionnaire[index].params }, id: Date.now() })
                 setTimeout(() => {
                     scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index], 100)
                 }, 1);
