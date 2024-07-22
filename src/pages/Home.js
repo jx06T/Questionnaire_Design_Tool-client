@@ -15,6 +15,7 @@ function Home() {
                 開源的問卷設計工具!
                 <br />
                 <p>自行部署掌握所有東西!</p>
+                <p><a className='w-full h-full block underline' href='/about'>簡介</a></p>
             </Content >
             <Content img={frog2} direction='L'>
                 查看線上的問卷範本
