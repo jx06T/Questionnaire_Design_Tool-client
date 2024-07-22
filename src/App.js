@@ -18,6 +18,8 @@ const About = lazy(() => import('./pages/other/AboutJ'));
 const Privacy = lazy(() => import('./pages/other/Privacy'));
 const Contact = lazy(() => import('./pages/other/ContactJ'));
 const NotFound = lazy(() => import('./pages/other/NotFound'));
+const CallbackDescription = lazy(() => import('./pages/other/CallbackDescription'));
+const Cooperation = lazy(() => import('./pages/other/Cooperation'));
 // const UserList = lazy(() => import('./components/UserList'));
 
 
@@ -39,8 +41,10 @@ function App() {
         <Route path="/preview" element={<Preview />} />
 
         <Route path="/about" element={<About />} />
+        <Route path="/callbackdescription" element={<CallbackDescription />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/cooperation" element={<Cooperation />} />
 
         <Route path="/public/:id" element={<Public />} />
         <Route path="/public" element={<Public />} />

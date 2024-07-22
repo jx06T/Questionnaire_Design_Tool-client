@@ -11,19 +11,19 @@ const description =
 
 - 基礎編輯
 1. 輸入標題副標題等等
-3. 撰寫問題或新增區塊 *[**[問題範例與選項]**](${myUrl+"/edit/cp7xbs5jn1dq?t=x4rcky8igsbhdobkabvoxlhb"})
+3. 撰寫問題或新增區塊 *[**[問題範例與選項]**](${myUrl + "/design?s=t"})
 4. 調整問題的位置或設定必填問題等
 6. 點擊 **file** ⇒ **Preview** 預覽問卷
 
 - 發布
 5. 前往 **settings** 填寫作者名稱
-5. 前往 **settings** 設定回調連結 *[**[回調連結]**]()
+5. 前往 **settings** 設定回調連結 *[**[回調連結]**](${myUrl + "/callbackdescription"})
 6. 點擊 **file** ⇒ **Release** 發布問卷 ***這將會強制的更新雲端的版本**
 6. 前往 **Info** 複製公開連結讓使用者填寫
 
 - 進階設定
-1. 前往 **Info** 將編輯連結複製給協作者 *[**[協作]**]()
-5. 前往 **settings** 設定是否將此問卷的副本作為無提交功能的公開展示 [**[Demo]**](${myUrl+"/demo"})
+1. 前往 **Info** 將編輯連結複製給協作者 *[**[協作]**](${myUrl + "/cooperation"})
+5. 前往 **settings** 設定是否將此問卷的副本作為無提交功能的公開展示 [**[Demo]**](${myUrl + "/demo"})
 6. 點擊 **file** ⇒ **Download** 或 **Import** 匯出成本地檔案或由本地檔案匯入
 
 - ## 接收回應
@@ -50,7 +50,7 @@ function About() {
             <div className='edit-home flex bg-slate-50 flex-col items-center justify-center'>
                 <MB.Title subtitle="JXQDT" title="About"></MB.Title>
                 <MB.Description description={description} title="關於問卷設計工具"></MB.Description>
-                </div>
+            </div>
         </>
     );
 }

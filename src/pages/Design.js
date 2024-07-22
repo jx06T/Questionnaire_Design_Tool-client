@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
+import { useSearchParams } from 'react-router-dom';
 
 
 const Aquestion = {
@@ -17,13 +18,11 @@ const Aquestion = {
 const Ablock = {
     type: "block",
     params: {
-        question: undefined,
+        question: "區塊說明",
         description: undefined,
-        questionN: undefined,
+        questionN: "前往下一個區塊",
         descriptionN: undefined,
-        // originalData: undefined,
-        // message1: '返回',
-        // message2: '繼續'
+        originalData: "[b]返回\n[n]繼續",
     },
 }
 
@@ -43,6 +42,7 @@ function scrollToCenter(element, y) {
 }
 
 function Design() {
+    const [searchParams, setSearchParams] = useSearchParams();
     const questionDivRef = useRef(null)
 
     const questionnaireData0 = localStorage.getItem('questionnaireData')
@@ -59,6 +59,22 @@ function Design() {
 
     const [questionnaireData, setQuestionnaireData] = useState(questionnaireData1)
 
+    const loadQuestionnaire = async () => {
+        try {
+            const data = await import(`./questionnaireJson/sample.json`);
+            console.log(data)
+            setQuestionnaireData(data);
+            setSearchParams({});
+        } catch (error) {
+            console.warn(`Failed to load json, falling back to test.json`);
+        }
+    };
+    
+    useEffect(() => {
+        if (searchParams.get('s') === "t") {
+            loadQuestionnaire()
+        }
+    }, [])
     const handleAddQuestion = () => {
         const id = Date.now()
         setQuestionnaireData(prevData => {
@@ -131,11 +147,12 @@ function Design() {
     };
 
     const createNewQuestionnaire = () => {
-        const shouldContinue = confirm('這會刪除目前建立的問卷?');// eslint-disable-line no-restricted-globals
-        if (shouldContinue) {
-            localStorage.setItem('questionnaireData', '');
-            window.location.reload();
-        }
+        // const shouldContinue = confirm('這會刪除目前建立的問卷?');// eslint-disable-line no-restricted-globals
+        // if (shouldContinue) {
+        // localStorage.setItem('questionnaireData', '');
+        // }
+        setSearchParams({ s: "t" });
+        window.location.reload();
     }
 
     // ---------------------------------------------------------------------------------
@@ -202,7 +219,7 @@ function Design() {
         handleDuplicate: (index, event) => {
             setQuestionnaireData(prevData => {
                 const newQuestionnaire = [...prevData.questionnaire];
-                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], id: Date.now() })
+                newQuestionnaire.splice(index, 0, { ...newQuestionnaire[index], params: { ...newQuestionnaire[index].params }, id: Date.now() })
                 setTimeout(() => {
                     scrollToCenter(questionDivRef.current.getElementsByClassName('a-question')[index], 100)
                 }, 1);
@@ -212,7 +229,7 @@ function Design() {
     }
     return (
         <>
-            <HeaderTool handleNew={createNewQuestionnaire} handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
+            <HeaderTool handleReset={createNewQuestionnaire} handleFileDownload={handleFileDownload} handleFileImport={handleFileImport} />
             <div ref={questionDivRef} className='Design flex bg-slate-50 flex-col items-center justify-center'>
                 <DB.TitleEdit createNewQuestionnaire={createNewQuestionnaire} defaultSubtitle={questionnaireData.setting.subtitle} defaultTitle={questionnaireData.setting.title} onUpdate={updateTitleData} />
 

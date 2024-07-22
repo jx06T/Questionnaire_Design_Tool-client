@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 
 function QuestionTitle({ question, description = "", required = false }) {
     const newTabLink = ({ node, ...props }) => {
-        return <a target="_blank" rel="noopener noreferrer" {...props} />;
+        return <a target="_blank" rel="noopener noreferrer" className='underline' {...props} />;
     };
     return (
         <>
@@ -15,8 +15,8 @@ function QuestionTitle({ question, description = "", required = false }) {
                     className="text-base mb-6"
                     remarkPlugins={[remarkGfm]}
                 >
-                    {/* {description.replace(/(?<!\n)\n(?!\n)/g, '　  \n')} */}
-                    {description.replace(/\n/g, '　  \n\n')}
+                    {description.replace(/(?<!`)\n/g, '　  \n').replace(/\$n\//g, '\n')}
+
                 </ReactMarkdown>
             </div>
         </>

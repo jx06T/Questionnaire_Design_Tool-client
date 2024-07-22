@@ -6,7 +6,7 @@ const description =
 - instagram : [Jasper_Jx06（@jx06_t）](https://www.instagram.com/jx06_t/)
 - email : 50313tjx06@gmail.com
 
-我們會盡快回應您的請求。
+$n/我們會盡快回應您的請求。
 
 *2024/7/22*`
 

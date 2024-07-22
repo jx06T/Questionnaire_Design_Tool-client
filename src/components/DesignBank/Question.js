@@ -90,7 +90,7 @@ class interpreter {
                     spacing = (value - min) / (index - minIndex)
                 }
             }
-            console.log(value, item, min, minIndex, spacing)
+            // console.log(value, item, min, minIndex, spacing)
         })
         if (min === undefined || spacing === undefined) {
             spacing = 50
