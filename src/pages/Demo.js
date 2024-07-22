@@ -81,7 +81,9 @@ function Demo(props) {
     const handleClick = (e) => {
         // console.log("SSS")
         navigate(`/demo/${e.source}?l=${e.location}`)
-        loadQuestionnaire();
+        // setTimeout(() => {
+        //     loadQuestionnaire();
+        // }, 100);
     }
 
     if (questionnaireData === "Failed") {
