@@ -15,7 +15,9 @@ function QuestionTitle({ question, description = "", required = false }) {
                     className="text-base mb-6"
                     remarkPlugins={[remarkGfm]}
                 >
-                    {description.replace(/(?<!`)\n/g, '　  \n').replace(/\$n\//g, '\n')}
+                    {/* {description.replace(/(?<!`)\n/g, '　  \n').replace(/\$n\//g, '\n')} */}
+                    {/* {description.replace(/[^`]\n/g, '　  \n').replace(/\$n\//g, '\n')} */}
+                    {description.replace(/\n/g, '　  \n').replace(/`　  /g, '`').replace(/\$n\//g, '\n')}
 
                 </ReactMarkdown>
             </div>

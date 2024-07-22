@@ -72,7 +72,10 @@ const MDBlock = forwardRef(({ SendMDContent, defaultValue }, externalRef) => {
                     components={{ a: newTabLink }}
                     remarkPlugins={[remarkGfm]}
                 >
-                    {markdownText.replace(/(?<!`)\n/g, '　  \n').replace(/\$n\//g, '\n')}
+                    {/* {markdownText.replace(/(?<!`)\n/g, '　  \n').replace(/\$n\//g, '\n')} */}
+                    {/* {markdownText.replace(/(.|\n)/g, (match, p1) => p1 === '`' ? match : (p1 === '\n' ? '　  \n' : p1)).replace(/\$n\//g, '\n')} */}
+                    {markdownText.replace(/\n/g, '　  \n').replace(/`　  /g, '`').replace(/\$n\//g, '\n')}
+
                 </ReactMarkdown>
             </div>
             <div className={`${(previewing && markdownText !== "") ? "hidden" : ""} text-base min-h-7 `}>
