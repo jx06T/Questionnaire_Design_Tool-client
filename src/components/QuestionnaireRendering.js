@@ -111,7 +111,7 @@ function QuestionnaireRendering(props) {
             }
             return false;
         });
-        // console.log(replyContent)
+        console.log(replyContent)
         if (unfilledI.length > 0) {
             const allQ = editRef.current.querySelectorAll(".every-piece")
             for (let i = allQ.length - 1; i > 0; i--) {

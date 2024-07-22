@@ -57,6 +57,7 @@ function Demo(props) {
 
     const loadDemoQuestionnaires = async () => {
         try {
+            console.log("5")
             const getResult = await listAllDemoQuestionnaires();
             if (!getResult.success) {
                 throw new Error(getResult.error);
@@ -70,11 +71,15 @@ function Demo(props) {
     };
 
     useEffect(() => {
+        if (!name) {
+            setQuestionnaireData("Failed");
+            return
+        }
         loadQuestionnaire();
     }, [name]);
 
     const handleClick = (e) => {
-        console.log("SSS")
+        // console.log("SSS")
         navigate(`/demo/${e.source}?l=${e.location}`)
         loadQuestionnaire();
     }
