@@ -43,6 +43,7 @@ const description =
 
 # 貢獻者
 - [jx06T](https://github.com/jx06T)
+- [Elsie](https://www.instagram.com/elsie__12__/)
 `
 function About() {
     return (
