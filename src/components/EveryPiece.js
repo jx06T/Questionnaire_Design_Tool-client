@@ -10,7 +10,7 @@ function EveryPiece(props) {
     'bg-slate-400': props.color == 400,
     'bg-slate-500': props.color == 500,
     'bg-slate-600': props.color == 600,
-    "every-piece w-[20rem] sm:w-[30rem] md:w-[40rem] my-6 mx-0 rounded-md p-7": true
+    "every-piece w-[20rem] sm:w-[30rem] md:w-[40rem] my-6 mx-0 rounded-md p-5 sm:p-7 ": true
   }, props.className);
 
   return (

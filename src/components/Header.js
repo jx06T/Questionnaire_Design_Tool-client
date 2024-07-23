@@ -43,7 +43,7 @@ function Header() {
                     <ul className="flex flex-col text-center">
                         <li className="mt-3"><a href="/" className="p-1 pr-3 pl-3 rounded-md  hover:bg-slate-600">Home</a></li>
                         <li className="mt-3"><a href="/about" className="p-1 pr-3 pl-3 rounded-md  hover:bg-slate-600">About</a></li>
-                        <li className="mt-3"><a href="/edit" className="p-1 pr-3 pl-3 rounded-md  hover:bg-slate-600">Design</a></li>
+                        <li className="mt-3"><a href="/edit" className="p-1 pr-3 pl-3 rounded-md  hover:bg-slate-600">Create</a></li>
                     </ul>
                 </div>
             )}

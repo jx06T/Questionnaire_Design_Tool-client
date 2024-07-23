@@ -150,3 +150,28 @@ code {
 .unfilled{
   box-shadow: 0 0 1px 1px red;
 }
+
+.scrolling-text {
+  text-wrap: nowrap;
+}
+
+.scrolling-text:hover {
+  text-wrap: wrap;
+}
+
+pre:has(> code)  {
+  color:#e6eeff;
+  background-color: #575b61;
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-left:  5px solid #313636 ;
+  overflow-x: auto; 
+  /* white-space: nowrap;  */
+}
+
+code{
+  text-wrap: nowrap ;
+  /* display: inline-block; */
+  min-width: 100%; 
+}

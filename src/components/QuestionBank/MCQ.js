@@ -12,7 +12,7 @@ function MCQ({ id, ...props }) {
 
   const initialValue = replyContent.filter(e => e.id === id)[0]
   const answer = initialValue && initialValue.answer ? initialValue.answer : []
-  const [selectedOptions, setSelectedOptions] = useState(answer);
+  const [selectedOptions, setSelectedOptions] = useState(typeof (answer) === 'string' ? [] : answer);
 
   const options = props.options || [
     { id: 'A', text: '選項 A' },
@@ -21,6 +21,7 @@ function MCQ({ id, ...props }) {
     { id: 'D', text: '選項 D' },
   ];
   const optionsID = options.map(e => e.id)
+
   useEffect(() => {
     if (props.else && selectedOptions.includes("ELSE")) {
       setReplyContent((p) => changeArray(p, {
@@ -36,7 +37,7 @@ function MCQ({ id, ...props }) {
     setReplyContent((p) => changeArray(p, {
       id: id,
       answer: selectedOptions.filter(e => {
-        if (!optionsID.includes(e) && e !== "ELSE") {
+        if (!optionsID.includes(e) && optionsID.includes("ELSE")) {
           temp = e
         }
         return optionsID.includes(e)

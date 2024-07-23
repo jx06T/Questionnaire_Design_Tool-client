@@ -32,9 +32,14 @@ function MCQ({ id, ...props }) {
 
 
   useEffect(() => {
+    console.log(selectedOption, optionsID)
     if (!optionsID.includes(selectedOption)) {
-      setElseValue(selectedOption || "")
-      setSelectedOption("ELSE")
+      if (optionsID.includes("ELSE")) {
+        setElseValue(selectedOption || "")
+        setSelectedOption("ELSE")
+      } else {
+        setSelectedOption("")
+      }
     }
   }, [])
 

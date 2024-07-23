@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { changeArray } from '../utils/changeArray';
 
 import QB from './QuestionBank'
@@ -39,8 +39,6 @@ function scrollToCenter(element, y) {
 function QuestionnaireRendering(props) {
     const editRef = useRef(null)
 
-    // const navigate = useNavigate();
-
     const [isLoading, setIsLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('p')) || 1);
@@ -59,14 +57,14 @@ function QuestionnaireRendering(props) {
     );
 
     const questionnairesListME = questionnairesList.filter(e => e.id == props.data.setting.id)
+    let isDone0 = "undone"
     if (questionnairesListME.length > 0) {
-        var isDone0 = questionnairesListME[0].state === "done"
+        isDone0 = questionnairesListME[0].state === "done"
     } else {
         setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
-        var isDone0 = false
     }
 
-    const [isDone, setIsDone] = useState(isDone0);
+    const [state, setState] = useState(isDone0);
 
     const previousPage = useRef(null)
     const finishPage = useRef(null)
@@ -78,7 +76,7 @@ function QuestionnaireRendering(props) {
 
     useEffect(() => {
         localStorage.setItem(`questionnaireReplies-${questionnaireData.setting.id}`, JSON.stringify(replyContent));
-        // console.log(replyContent)
+        console.log(replyContent)
     }, [replyContent])
 
     useEffect(() => {
@@ -105,7 +103,7 @@ function QuestionnaireRendering(props) {
     const confirmRequired = () => {
         const unfilledI = []
         const unfilled = questionnaireData.questionnaire.filter((element, i) => {
-            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer != [] && (e.answer.trim ? e.answer.trim() !== '' : true))).length === 0)) {
+            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer.toString().trim() !== '')).length === 0)) {
                 unfilledI.push(i)
                 return true;
             }
@@ -170,9 +168,12 @@ function QuestionnaireRendering(props) {
     };
 
     const modifyAnswer = () => {
+        setCurrentPage(1);
+        setSearchParams({ p: "1" });
         setIsLoading(true);
-        setIsDone(false)
+        setState("undone")
         setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
+
         setTimeout(() => {
             setIsLoading(false);
             window.location.reload();
@@ -184,8 +185,12 @@ function QuestionnaireRendering(props) {
             return
         }
         setIsLoading(true);
-        setCurrentPage("1");
-        setSearchParams({ p: "1" });
+
+        if (props.isDemo) {
+            setIsLoading(false);
+            setState("demo")
+            return
+        }
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "text/plain");
@@ -200,12 +205,6 @@ function QuestionnaireRendering(props) {
             redirect: "follow"
         };
 
-        if (props.isDemo) {
-            setIsLoading(false);
-            setIsDone("demo")
-            return
-        }
-
         fetch(props.data.setting.replyURL, requestOptions)
             .then((response) => {
                 if (!response.ok) {
@@ -216,13 +215,13 @@ function QuestionnaireRendering(props) {
             .then((result) => {
                 console.log("提交成功", result);
                 setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "done", time: Date.now() }))
-                setIsDone(true)
+                setState("done")
                 setIsLoading(false);
             })
             .catch((error) => {
                 console.error("提交失敗", error)
                 setIsLoading(false);
-                setIsDone("erroe")
+                setState("erroe")
             });
     };
 
@@ -294,26 +293,24 @@ function QuestionnaireRendering(props) {
     const rangeList = getRangeList()
     let temp = null
 
-    // console.log(isDone, finishPage.current, rangeList)
-    if (isDone === "erroe") {
+    // console.log(state, finishPage.current, rangeList)
+    if (state === "erroe") {
         temp = <>
             <EveryPiece className="text-right">
                 <button onClick={modifyAnswer} className='underline '>提交失敗，點此再試一次</button>
             </EveryPiece>
         </>
 
-    } else if (isDone === "demo" || isDone) {
+    } else if (state === "demo" || state) {
         finishPage.current = questionnaireData.questionnaire.map(((question, i) => (
             question.type === "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
         )))
-        let temp2 = "已提交，修改答案"
-        if (isDone === "demo") {
-            temp2 = "展示問卷無法提交，點此返回展示列表"
-        }
+
         temp = <>
             {finishPage.current && finishPage.current}
             <EveryPiece className="text-right">
-                <button onClick={modifyAnswer} className='underline '>{temp2}</button>
+                {state === "demo" ? <a href='/demo' className='underline '>展示問卷無法提交，點此返回展示列表</a> :
+                    <button onClick={modifyAnswer} className='underline '>已提交，點此修改答案</button>}
             </EveryPiece>
         </>
 

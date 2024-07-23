@@ -64,11 +64,12 @@ function HeaderTool({
                             Info
                         </button>
                     </li>}
-                    {!handleInfo && <li className='flex justify-end w-full'>
-                        <span className='block mt-[0.4rem] ml-3 text-lg'>這是本地編輯器，不會在雲端建立任何東西，若要建立供其他人填寫的問卷請至</span>
-                        <a href='/edit' className="ml-1 mr-2 mt-[0.34rem] rounded-sm border-b border-slate-400 hover:border-slate-600">
-                            此
-                        </a>
+                    {!handleInfo && <li className='w-full'>
+                        <span className='scrolling-text block mt-[0.4rem] ml-3 text-base'>這是本地編輯器，不會在雲端建立任何東西，若要建立供其他人填寫的問卷請至
+                            <a href='/edit' className=" ml-[2px] text-base mr-2 mt-[0.34rem] underline">
+                                此
+                            </a>
+                        </span>
                     </li>}
                 </ul>
             </nav>

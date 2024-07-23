@@ -8,6 +8,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Design = lazy(() => import('./pages/Design'));
 const Preview = lazy(() => import('./pages/Preview'));
 const Demo = lazy(() => import('./pages/Demo'));
+const DemoHome = lazy(() => import('./pages/DemoHome'));
 const Test = lazy(() => import('./pages/Test'));
 const KVTest = lazy(() => import('./pages/KVTest'));
 const Edit = lazy(() => import('./pages/Edit'));
@@ -30,7 +31,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
 
-        <Route path="/demo" element={<Demo />} />
+        <Route path="/demo" element={<DemoHome />} />
         <Route path="/demo/:name" element={<Demo />} />
 
         {/* <Route path="/users" element={<UserList />} /> */}
