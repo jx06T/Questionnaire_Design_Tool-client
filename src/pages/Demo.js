@@ -37,7 +37,7 @@ function Demo(props) {
     if (!questionnaireData) return <Loading />;
 
     return (
-        <QuestionnaireRendering isDemo={true} data={questionnaireData} />
+        <QuestionnaireRendering source="Demo" isDemo={true} data={questionnaireData} />
     );
 }
 

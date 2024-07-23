@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import './App.css';
 
 import Header from './components/Header';
@@ -23,34 +23,40 @@ const CallbackDescription = lazy(() => import('./pages/other/CallbackDescription
 const Cooperation = lazy(() => import('./pages/other/Cooperation'));
 // const UserList = lazy(() => import('./components/UserList'));
 
+const Page = (props) => {
+  useEffect(() => {
+    document.title = props.title + " - JXQDT" || "";
+  }, [props.title]);
+  return props.children;
+};
 
 function App() {
   return (
     <Router>
       <IsHeader />
       <Routes>
-        <Route exact path="/" element={<Home />} />
-
-        <Route path="/demo" element={<DemoHome />} />
-        <Route path="/demo/:name" element={<Demo />} />
-
         {/* <Route path="/users" element={<UserList />} /> */}
         {/* <Route path="/test" element={<Test />} /> */}
         {/* <Route path="/kv-test" element={<KVTest />} /> */}
 
-        <Route path="/design" element={<Design />} />
-        <Route path="/preview" element={<Preview />} />
+        <Route exact path="/" element={<Page title="Home"><Home /></Page>} />
 
-        <Route path="/about" element={<About />} />
-        <Route path="/callbackdescription" element={<CallbackDescription />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/cooperation" element={<Cooperation />} />
+        <Route path="/demo" element={<Page title="Demo"><DemoHome /></Page>} />
+        <Route path="/demo/:name" element={<Page title="Demo"><Demo /></Page>} />
 
-        <Route path="/public/:id" element={<Public />} />
-        <Route path="/public" element={<Public />} />
-        <Route path="/edit" element={<EditHome />} />
-        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/design" element={<Page title="Design"><Design /></Page>} />
+        <Route path="/preview" element={<Page title="Preview"><Preview /></Page>} />
+
+        <Route path="/about" element={<Page title="About"><About /></Page>} />
+        <Route path="/callbackdescription" element={<Page title="About-CallbackDescription"><CallbackDescription /></Page>} />
+        <Route path="/privacy" element={<Page title="Privacy"><Privacy /></Page>} />
+        <Route path="/contact" element={<Page title="Contact"><Contact /></Page>} />
+        <Route path="/cooperation" element={<Page title="About-Cooperation"><Cooperation /></Page>} />
+
+        <Route path="/public/:id" element={<Page title="Public"><Public /></Page>} />
+        <Route path="/public" element={<Page title="Public"><Public /></Page>} />
+        <Route path="/edit" element={<Page title="Edit"><EditHome /></Page>} />
+        <Route path="/edit/:id" element={<Page title="Edit"><Edit /></Page>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

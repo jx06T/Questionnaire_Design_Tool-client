@@ -32,7 +32,7 @@ function Preview() {
     if (!questionnaireData) return <Loading />;
 
     return (
-        <QuestionnaireRendering data={questionnaireData} />
+        <QuestionnaireRendering source="Preview" data={questionnaireData} />
     );
 }
 

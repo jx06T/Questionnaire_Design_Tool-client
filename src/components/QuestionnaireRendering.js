@@ -96,6 +96,9 @@ function QuestionnaireRendering(props) {
             if (savedReplies) {
                 setReplyContent(JSON.parse(savedReplies));
             }
+            setTimeout(() => {
+                document.title = `${props.source} | ${props.data.setting.title} - JXQDT`
+            }, 100);
         }
         // setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
     }, [props.data]);

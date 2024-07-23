@@ -69,7 +69,7 @@ function Public(props) {
     return (
         <>
             {isLoading && <Loading />}
-            <QuestionnaireRendering data={questionnaireData} />
+            <QuestionnaireRendering source="Public" data={questionnaireData} />
         </>
     );
 }
