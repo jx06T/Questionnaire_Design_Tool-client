@@ -45,7 +45,7 @@ function QuestionnaireRendering(props) {
 
     const [questionnaireData, setQuestionnaireData] = useState(props.data);
 
-    const savedReplies = localStorage.getItem(`questionnaireReplies-${questionnaireData.setting.id}`);
+    const savedReplies = localStorage.getItem(`questionnaireReplies-${questionnaireData.setting[props.isDemo ? "demoId" : "id"]}`);
     const [replyContent, setReplyContent] = useState(
         savedReplies ? JSON.parse(savedReplies) : []
     );
@@ -75,7 +75,7 @@ function QuestionnaireRendering(props) {
     }))
 
     useEffect(() => {
-        localStorage.setItem(`questionnaireReplies-${questionnaireData.setting.id}`, JSON.stringify(replyContent));
+        localStorage.setItem(`questionnaireReplies-${questionnaireData.setting[props.isDemo ? "demoId" : "id"]}`, JSON.stringify(replyContent));
         console.log(replyContent)
     }, [replyContent])
 
@@ -91,7 +91,7 @@ function QuestionnaireRendering(props) {
     useEffect(() => {
         if (props.data) {
             setQuestionnaireData(props.data);
-            const savedReplies = localStorage.getItem(`questionnaireReplies-${questionnaireData.setting.id}`);
+            const savedReplies = localStorage.getItem(`questionnaireReplies-${questionnaireData.setting[props.isDemo ? "demoId" : "id"]}`);
             // console.log(JSON.parse(savedReplies))
             if (savedReplies) {
                 setReplyContent(JSON.parse(savedReplies));

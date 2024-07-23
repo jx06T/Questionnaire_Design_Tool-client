@@ -37,8 +37,14 @@ function HeaderTool({
 
     return (
         <header className="bg-slate-500 p-4 text-white flex justify-between rounded-b-md">
-            <nav className='mt-1 flex w-full'>
-                <ul className="flex text-center text-xl w-full">
+            <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileImport}
+                className="hidden w-0"
+            />
+            <nav className='mt-1 flex-1 w-0'>
+                <ul className="flex text-xl">
                     <li className="relative">
                         <button ref={fileBtnRef} onClick={handleFileClick} className="mx-4 p-1 pr-2 pl-2 rounded-sm border-b border-slate-400 hover:border-slate-600">
                             file
@@ -64,8 +70,8 @@ function HeaderTool({
                             Info
                         </button>
                     </li>}
-                    {!handleInfo && <li className='w-full'>
-                        <span className='scrolling-text block mt-[0.4rem] ml-3 text-base'>這是本地編輯器，不會在雲端建立任何東西，若要建立供其他人填寫的問卷請至
+                    {!handleInfo && <li className="flex-1 w-0">
+                        <span className='scrolling-text text-right block mt-[0.4rem] ml-3 text-base'>這是本地編輯器，不會在雲端建立任何東西，若要建立供其他人填寫的問卷請至
                             <a href='/edit' className=" ml-[2px] text-base mr-2 mt-[0.34rem] underline">
                                 此
                             </a>
@@ -73,12 +79,6 @@ function HeaderTool({
                     </li>}
                 </ul>
             </nav>
-            <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileImport}
-                className="hidden"
-            />
         </header>
     );
 }

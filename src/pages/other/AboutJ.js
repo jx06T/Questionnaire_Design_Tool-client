@@ -1,7 +1,7 @@
 import React from 'react';
 import MB from '../../components/MethodBank';
 
-const myUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://questionnaire-design-tool-client.vercel.app"
+const myUrl = process.env.NODE_ENV === "development" ? "http://192.168.0.156:3001" : "https://questionnaire-design-tool-client.vercel.app"
 const description =
     `
 # 功能介紹

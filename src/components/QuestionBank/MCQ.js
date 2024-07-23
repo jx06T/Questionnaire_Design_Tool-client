@@ -79,23 +79,24 @@ function MCQ({ id, ...props }) {
                 value={option.id}
                 checked={selectedOptions.includes(option.id)}
                 onChange={() => handleOptionChange(option.id)}
-                className="mr-2 w-[0.95rem] h-[0.95rem]"
+                className=" accent-slate-500 mr-2 w-[0.95rem] h-[0.95rem]"
               />
               {option.text}
             </label>
           </div>
         ))}
         {props.else &&
-          <div key={"ELSE"} className="mb-2">
+          <div key={"ELSE"} className="mb-2 flex">
             <label className="flex items-center">
               <input
                 type="checkbox"
                 name={`mcq-option-${"ELSE"}`}
                 checked={selectedOptions.includes("ELSE")}
                 onChange={() => handleOptionChange("ELSE")}
-                className="mr-2 w-[1.17rem] h-[1.17rem]"
+                className=" accent-slate-500 mr-2 w-[0.95rem] h-[0.95rem]"
               />
               ELSE：
+            </label>
               <input
                 type="text"
                 name={`mcq-option-${"ELSE"}`}
@@ -103,7 +104,6 @@ function MCQ({ id, ...props }) {
                 onChange={handleElseValueChange}
                 className="myjx-input mx-2 w-full "
               />
-            </label>
           </div>}
       </div>
     </EveryPiece>

@@ -64,31 +64,31 @@ function MCQ({ id, ...props }) {
                 value={option.id}
                 checked={selectedOption === option.id}
                 onChange={() => handleOptionChange(option.id)}
-                className="mr-2 w-[0.95rem] h-[0.95rem] "
+                className=" accent-slate-500 mr-2 w-[0.95rem] h-[0.95rem] "
               />
               {option.text}
             </label>
           </div>
         ))}
         {props.else &&
-          <div key={"ELSE"} className="mb-2">
+          <div key={"ELSE"} className="mb-2 flex">
             <label className="flex items-center">
               <input
                 type="radio"
                 name={`mcq-option-${"ELSE"}`}
                 checked={selectedOption === "ELSE"}
                 onChange={() => handleOptionChange("ELSE")}
-                className="mr-2 w-[1.17rem] h-[1.17rem] "
+                className=" accent-slate-500 mr-2 w-[0.95rem] h-[0.95rem] "
               />
               ELSE：
-              <input
-                type="text"
-                name={`mcq-option-${"ELSE"}`}
-                value={elseValue}
-                onChange={handleElseValueChange}
-                className="myjx-input mx-2 w-full "
-              />
             </label>
+            <input
+              type="text"
+              name={`mcq-option-${"ELSE"}`}
+              value={elseValue}
+              onChange={handleElseValueChange}
+              className="myjx-input mx-2 w-full "
+            />
           </div>}
       </div>
     </EveryPiece>

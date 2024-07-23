@@ -33,7 +33,7 @@ function Header() {
                     <ul className="flex space-x-4 text-right ">
                         <li><a href="/" className="p-1 pr-2 pl-2 rounded-md  hover:bg-slate-600">Home</a></li>
                         <li><a href="/about" className="p-1 pr-2 pl-2 rounded-md  hover:bg-slate-600">About</a></li>
-                        <li><a href="/edit" className="p-1 pr-2 pl-2 rounded-md  hover:bg-slate-600">Design</a></li>
+                        <li><a href="/edit" className="p-1 pr-2 pl-2 rounded-md  hover:bg-slate-600">Create</a></li>
                     </ul>
                 </nav>
                 <button ref={buttonRef} onClick={toggleOther} className='w-9 h-8 rounded-md sm:hidden mr-2 hover:bg-slate-600'><p style={{ fontSize: "2em", lineHeight: "0px", marginBottom: "0.2em" }}>≡</p></button>

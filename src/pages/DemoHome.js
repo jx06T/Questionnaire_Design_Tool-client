@@ -1,4 +1,4 @@
-import React, { useEffect, useState, startTransition, useCallback } from 'react';
+import React, { useEffect, useState, startTransition, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MB from '../components/MethodBank';
 import { listAllDemoQuestionnaires } from '../services/MGDB';
@@ -6,6 +6,7 @@ import { listAllDemoQuestionnaires } from '../services/MGDB';
 
 function DemoHome(props) {
     const navigate = useNavigate();
+    const isLoaded = useRef(false)
     const localDemos = [
         {
             title: "【新北市立文山國民中學112學年度畢業學生升學就業動向調查】仿造版",
@@ -30,12 +31,14 @@ function DemoHome(props) {
     const loadDemoQuestionnaires = async () => {
         try {
             const getResult = await listAllDemoQuestionnaires();
+            console.log(getResult)
             if (!getResult.success) {
+                alert(JSON.stringify(getResult))
                 throw new Error(getResult.error);
             }
             setAllQestionnaires([...localDemos, ...getResult.data])
         } catch (error) {
-            console.warn(`Failed to load json, falling back to test.json`);
+            console.warn(`Failed to load json`);
         }
     };
 
@@ -46,8 +49,11 @@ function DemoHome(props) {
     }, [navigate]);
 
     useEffect(() => {
-        loadDemoQuestionnaires()
-    })
+        if (!isLoaded.current) {
+            isLoaded.current = true
+            loadDemoQuestionnaires()
+        }
+    },[])
 
     return (
         <div className='Demo flex bg-slate-50 flex-col items-center justify-center'>
