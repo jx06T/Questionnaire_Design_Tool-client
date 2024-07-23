@@ -27,7 +27,7 @@ const description =
 6. 點擊 **file** ⇒ **Download** 或 **Import** 匯出成本地檔案或由本地檔案匯入
 
 - ## 接收回應
-可以利用 **google 試算表** 接收回應 *[**[回調連結]**]()
+可以利用 **google 試算表** 接收回應 *[**[回調連結]**](${myUrl + "/callbackdescription"})
 
 - ## 填寫問卷
 擁有公開連結的使用者能填寫問卷
