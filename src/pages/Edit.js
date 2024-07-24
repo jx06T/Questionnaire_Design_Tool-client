@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import DB from '../components/DesignBank'
 import HeaderTool from '../components/HeaderTool'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { saveQuestionnaire, getQuestionnaireById } from '../services/MGDB';
+import { saveQuestionnaire, getQuestionnaireByToken } from '../services/MGDB';
 import InfoBlock from '../components/InfoBlock';
 import CopyableText from '../components/CopyableText';
 import Loading from '../components/Loading';
@@ -54,7 +54,7 @@ function Edit() {
 
     async function fetchData() {
         try {
-            const getResult = await getQuestionnaireById(id);
+            const getResult = await getQuestionnaireByToken(id,searchParams.get('t'));
             // const getResult = id == "seca4xhmeo9s" ? {
             //     success: true,
             //     data: {

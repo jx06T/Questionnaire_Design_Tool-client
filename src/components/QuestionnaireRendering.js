@@ -57,14 +57,15 @@ function QuestionnaireRendering(props) {
     );
 
     const questionnairesListME = questionnairesList.filter(e => e.id == props.data.setting.id)
-    let isDone0 = "undone"
+    let state0 = "undone"
     if (questionnairesListME.length > 0) {
-        isDone0 = questionnairesListME[0].state === "done"
+        state0 = questionnairesListME[0].state 
     } else {
         setQuestionnairesList((p) => changeArray(p, { id: props.data.setting.id, state: "undone", time: Date.now() }))
     }
+    // console.log(state0)
 
-    const [state, setState] = useState(isDone0);
+    const [state, setState] = useState(state0);
 
     const previousPage = useRef(null)
     const finishPage = useRef(null)
@@ -112,7 +113,7 @@ function QuestionnaireRendering(props) {
             }
             return false;
         });
-        console.log(replyContent)
+        // console.log(replyContent)
         if (unfilledI.length > 0) {
             const allQ = editRef.current.querySelectorAll(".every-piece")
             for (let i = allQ.length - 1; i > 0; i--) {
@@ -304,7 +305,7 @@ function QuestionnaireRendering(props) {
             </EveryPiece>
         </>
 
-    } else if (state === "demo" || state) {
+    } else if (state === "demo" || state === "done") {
         finishPage.current = questionnaireData.questionnaire.map(((question, i) => (
             question.type === "finish" ? <MB.Description {...question.params} key={question.id} id={question.id}></MB.Description> : null
         )))

@@ -49,6 +49,29 @@ export async function getQuestionnaireById(id) {
     }
 }
 
+export async function getQuestionnaireByToken(id, token) {
+    try {
+        const data = JSON.stringify({ id: id, token: token });
+
+        const config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: SERVER_URL + "getQuestionnaireByToken",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: data
+        };
+
+        const response = await axios.request(config);
+        return { ...response.data };
+
+    } catch (error) {
+        console.error(`查詢問卷(${id})時發生錯誤:`, error);
+        return { success: false, error: error.message };
+    }
+}
+
 export async function listAllQuestionnaires() {
     try {
         const config = {
