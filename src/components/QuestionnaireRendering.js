@@ -107,7 +107,7 @@ function QuestionnaireRendering(props) {
     const confirmRequired = () => {
         const unfilledI = []
         const unfilled = questionnaireData.questionnaire.filter((element, i) => {
-            if (rangeList[i] === currentPage && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer.toString().trim() !== '')).length === 0)) {
+            if (rangeList[i] === currentPage && element.type !== "description" && element.type !== "finish" && element.params.required === true && (replyContent.filter(e => (e.id === element.id && e.answer.toString().trim() !== '')).length === 0)) {
                 unfilledI.push(i)
                 return true;
             }
